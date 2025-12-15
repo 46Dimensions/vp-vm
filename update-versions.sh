@@ -73,3 +73,4 @@ if [ -n "$UPDATABLE_PACKAGES" ]; then
     exit 0
 else
     echo "${yellow}${UPDATABLE_PACKAGES} package(s) can be updated.${reset}"
+    echo "${yellow}Run 'vp-vm list-upgradable' to see them.${reset}"
