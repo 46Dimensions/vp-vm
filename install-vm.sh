@@ -82,5 +82,4 @@ echo ""
 
 # Final instructions
 echo "${green}Vocabulary Plus Verson Manager 0.1.0 installed successfully${reset}"
-echo ""
 echo "For instructions on how to use the version manager, please visit: https://github.com/46Dimensions/vp-vm/blob/main/README.md"
