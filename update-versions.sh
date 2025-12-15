@@ -8,9 +8,9 @@ yellow="\033[33m"
 reset="\033[0m"
 
 # Header
-echo "${green}=====================================================${reset}"
-echo "${green}Vocabulary Plus Version Manager Version Updater 1.0.0${reset}"
-echo "${green}=====================================================${reset}"
+echo "${green}========================================================${reset}"
+echo "${green}Vocabulary Plus Version Manager: Version Updater (1.0.0)${reset}"
+echo "${green}========================================================${reset}"
 
 # Function to get the contents of a version file
 extract_version() {
