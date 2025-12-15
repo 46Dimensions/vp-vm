@@ -6,7 +6,7 @@ It is not intended to be used on its own.
 > It must only be used as part of Vocabulary Plus.
 
 ## Installation
-There is currently no code in this repository.   
+The code in this repository is **not** complete and therefore not ready for installation.   
 `vp-vm` will, in future, be available through installing Vocabulary Plus through its installation scripts.
 
 ## Issues
