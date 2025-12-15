@@ -29,18 +29,18 @@ extract_version() {
 # Save them to $INSTALL_DIR/versions
 VP_URL=https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/version.txt
 echo "${yellow}GET: ${VP_URL} ${reset}"
-curl -fsSL $VP_URL -o $INSTALL_DIR/versions/vp.txt
+curl -fsSL $VP_URL -o $INSTALL_DIR/vp/most_recent.txt
 VP_VM_URL=https://raw.githubusercontent.com/46Dimensions/vp-vm/main/version.txt
 echo "${yellow}GET: ${VP-VM_URL} ${reset}"
-curl -fsSL $VP_VM_URL -o $INSTALL_DIR/versions/vp.txt
+curl -fsSL $VP_VM_URL -o $INSTALL_DIR/versions/vp-vm/most_recent.txt
 
 # Extract versions from downloaded files
-VP_VERSION=$(extract_version "$INSTALL_DIR/versions/vp.txt")
-VP_VM_VERSION=$(extract_version "$INSTALL_DIR/versions/vp-vm.txt")
+VP_VERSION=$(extract_version "$INSTALL_DIR/versions/vp/most_recent.txt")
+VP_VM_VERSION=$(extract_version "$INSTALL_DIR/versions/vp-vm/most_recent.txt")
 
 # Get currently installed versions
-CURRENT_VP_VERSION=$(extract_version "$INSTALL_DIR/versions/current-vp.txt")
-CURRENT_VP_VM_VERSION=$(extract_version "$INSTALL_DIR/versions/current-vp-vm.txt")
+CURRENT_VP_VERSION=$(extract_version "$INSTALL_DIR/versions/vp/cur.txt")
+CURRENT_VP_VM_VERSION=$(extract_version "$INSTALL_DIR/versions/vp-vm/cur.txt")
 
 if [ "$VP_VERSION" != "$CURRENT_VP_VERSION" ]; then
     VP_NEEDS_UPDATE=true

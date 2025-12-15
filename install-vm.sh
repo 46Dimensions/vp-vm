@@ -31,9 +31,11 @@ mkdir -p "$INSTALL_DIR"
 echo "${green}Installation directory created.${reset}"
 echo ""
 
-# Create the directory for version files
+# Create the directories for version files
 echo "${yellow}Creating versions directory...${reset}"
 mkdir -p "$INSTALL_DIR/versions"
+mkdir -p "$INSTALL_DIR/versions/vp"
+mkdir -p "$INSTALL_DIR/versions/vp-vm"
 echo "${green}Versions directory created.${reset}"
 echo ""
 
