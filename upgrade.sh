@@ -8,7 +8,7 @@ yellow="\033[33m"
 reset="\033[0m"
 
 echo "${green}=========================================================${reset}"
-echo "${green}Vocabulary Plus Version Manager: Package Upgrader (1.0.0)${reset}"
+echo "${green}Vocabulary Plus Version Manager: Package Upgrader (0.1.0)${reset}"
 echo "${green}=========================================================${reset}"
 
 # Get the Vocabulary Plus version to upgrade to
