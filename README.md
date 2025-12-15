@@ -1,6 +1,6 @@
 # Vocabulary Plus Version Manager (`vp-vm`)
-This is where [46Dimensions](github.com/46Dimensions) develops [Vocabulary Plus](https://github.com/46Dimensions/VocabularyPlus)'s version manager (`vp-vm`).   
-It is not intended to be used on its own.
+This repository is where [46Dimensions](github.com/46Dimensions) develops [Vocabulary Plus](https://github.com/46Dimensions/VocabularyPlus)'s version manager (`vp-vm`).   
+
 > [!NOTE]
 > Vocabulary Plus Version Manager is under development.   
 > It must only be used as part of Vocabulary Plus.
