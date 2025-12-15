@@ -39,6 +39,12 @@ mkdir -p "$INSTALL_DIR/versions/vp-vm"
 echo "${green}Versions directory created.${reset}"
 echo ""
 
+# Write vp-vm current version file
+echo "${yellow}Setting up current version file...${reset}"
+echo "1.0.0" > "$INSTALL_DIR/versions/vp-vm/current"
+echo "${green}Current version file set up.${reset}"
+echo ""
+
 # Function to add $INSTALL_DIR to the 3rd line of the downloaded scripts
 write_script_with_install_dir() {
   local contents="$1"
