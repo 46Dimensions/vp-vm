@@ -16,12 +16,12 @@ case "$1" in
         sh "$INSTALL_DIR/upgrade.sh"
         ;;
     --version)
-        echo "0.1.0"
+        echo "0.2.0"
         ;;
     --help)
         # Header
         echo "${green}=======================================${reset}"
-        echo "${green}Vocabulary Plus Version Manager (0.1.0)${reset}"
+        echo "${green}Vocabulary Plus Version Manager (0.2.0)${reset}"
         echo "${green}=======================================${reset}"
         echo "Usage: $0 [command]"
         echo ""
