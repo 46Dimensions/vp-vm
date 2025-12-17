@@ -7,11 +7,6 @@ green="\033[32m"
 yellow="\033[33m"
 reset="\033[0m"
 
-# Header
-echo "${green}=======================================${reset}"
-echo "${green}Vocabulary Plus Version Manager (0.1.0)${reset}"
-echo "${green}=======================================${reset}"
-
 # Check command ($1)
 case "$1" in
     update)
@@ -24,7 +19,11 @@ case "$1" in
         echo "0.1.0"
         ;;
     --help)
-        echo "Usage: vp-vm [command]"
+        # Header
+        echo "${green}=======================================${reset}"
+        echo "${green}Vocabulary Plus Version Manager (0.1.0)${reset}"
+        echo "${green}=======================================${reset}"
+        echo "Usage: $0 [command]"
         echo ""
         echo "Commands:"
         echo "   update      Update the version lists"
@@ -35,13 +34,7 @@ case "$1" in
         ;;
     *)
         echo "${red}Command "$1" not recognised.${reset}"
-        echo "Usage: vp-vm [command]"
-        echo ""
-        echo "Commands:"
-        echo "   update      Update the version lists"
-        echo "   upgrade     Upgrade Vocabulary Plus and vp-vm to the latest version"
-        echo "   --version   Show the installed version of Vocabulary Plus Version Manager"
-        echo "   --help      Show a help message and exit"
+        echo "${yellow}Use '$0 --help' to see commands${reset}"
         exit 1
         ;;
 esac
