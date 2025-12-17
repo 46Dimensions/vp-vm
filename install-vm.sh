@@ -67,9 +67,10 @@ write_script_with_install_dir() {
 
 # Download the scripts
 echo "${yellow}Downloading scripts...${reset}"
-UPDATER_CONTENTS=$(curl -fsSL "https://raw.githubusercontent.com/46Dimensions/vp-vm/main/update-versions.sh" || { echo "${red}Failed to download version updater script.${reset}"; exit 1; })
-UPGRADER_CONTENTS=$(curl -fsSL "https://raw.githubusercontent.com/46Dimensions/vp-vm/main/upgrade.sh" || { echo "${red}Failed to download upgrader script.${reset}"; exit 1; })
-MAIN_CONTENTS=$(curl -fsSL "https://raw.githubusercontent.com/46Dimensions/vp-vm/main/vm.sh" || { echo "${red}Failed to download upgrader script.${reset}"; exit 1; })
+BASE_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/main"
+UPDATER_CONTENTS=$(curl -fsSL "$BASE_URL/update-versions.sh" || { echo "${red}Failed to download version updater script.${reset}"; exit 1; })
+UPGRADER_CONTENTS=$(curl -fsSL "$BASE_URL/upgrade.sh" || { echo "${red}Failed to download upgrader script.${reset}"; exit 1; })
+MAIN_CONTENTS=$(curl -fsSL "$BASE_URL/vp-vm.sh" || { echo "${red}Failed to download upgrader script.${reset}"; exit 1; })
 echo "${green}Scripts downloaded successfully.${reset}"
 
 # Write the scripts with the correct INSTALL_DIR
