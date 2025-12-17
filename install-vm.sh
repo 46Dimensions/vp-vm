@@ -14,9 +14,9 @@ if [ -z "$1" ]; then
 fi
 INSTALL_DIR="$1"
 
-echo "${green}==================================================${reset}"
-echo "${green}Vocabulary Plus Version Manager: Installer (0.1.0)${reset}"
-echo "${green}==================================================${reset}"
+echo "${green}=======================================================${reset}"
+echo "${green}Vocabulary Plus Version Manager: Unix Installer (0.1.0)${reset}"
+echo "${green}=======================================================${reset}"
 echo ""
 
 # Check that curl exists
