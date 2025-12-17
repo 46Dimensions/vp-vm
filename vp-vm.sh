@@ -10,7 +10,7 @@ reset="\033[0m"
 # Check command ($1)
 case "$1" in
     update)
-        sh "$INSTALL_DIR/upgrade.sh"
+        sh "$INSTALL_DIR/update.sh"
         ;;
     upgrade)
         sh "$INSTALL_DIR/upgrade.sh"
