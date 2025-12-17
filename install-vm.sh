@@ -47,10 +47,10 @@ echo ""
 
 # Function to add $INSTALL_DIR to the 3rd line of the downloaded scripts
 write_script_with_install_dir() {
-  local contents="$1"
-  local out="$2"
+  contents=$1
+  out=$2
 
-  awk -v install_dir="$INSTALL_DIR" '
+  printf '%s\n' "$contents" | awk -v install_dir="$INSTALL_DIR" '
     NR == 1 { print; next }
     NR == 2 && $0 ~ /^set -e/ {
       print
@@ -60,7 +60,7 @@ write_script_with_install_dir() {
       next
     }
     { print }
-  ' <<< "$contents" > "$out"
+  ' > "$out"
 
   chmod +x "$out"
 }
