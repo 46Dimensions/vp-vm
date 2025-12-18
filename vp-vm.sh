@@ -23,7 +23,7 @@ case "$1" in
         echo "${green}=======================================${reset}"
         echo "${green}Vocabulary Plus Version Manager (0.3.0)${reset}"
         echo "${green}=======================================${reset}"
-        echo "Usage: $0 [command]"
+        echo "Usage: vp-vm [command]"
         echo ""
         echo "Commands:"
         echo "   update      Update the version lists"
@@ -34,7 +34,7 @@ case "$1" in
         ;;
     *)
         echo "${red}Command '$1' not recognised.${reset}"
-        echo "${yellow}Use '$0 --help' to see commands${reset}"
+        $0 --help
         exit 1
         ;;
 esac
