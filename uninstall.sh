@@ -1,4 +1,4 @@
-#!/usr/bi/env sh
+#!/usr/bin/env sh
 set -e
 
 # ANSI colours
