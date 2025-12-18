@@ -11,7 +11,7 @@ reset="\033[0m"
 
 # Header
 echo "${green}========================================================${reset}"
-echo "${green}Vocabulary Plus Version Manager: Version Updater (0.4.0)${reset}"
+echo "${green}Vocabulary Plus Version Manager: Version Updater (0.4.1)${reset}"
 echo "${green}========================================================${reset}"
 
 # Function to get the contents of a version file
