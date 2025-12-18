@@ -44,7 +44,7 @@ if [ "$UPGRADE_VP" = true ]; then
     cd "$INSTALL_DIR"
     cd .. # Move into VocabularyPlus parent directory
     cd .. # Move into VocabularyPlus's parent directory
-    mkdir VocabularyPlusTemp
+    mkdir -p VocabularyPlusTemp
     mv VocabularyPlus/JSON VocabularyPlusTemp/JSON
     mv VocabularyPlus/vm VocabularyPlusTemp/vm
     # Run the Vocabulary Plus uninstaller
@@ -84,7 +84,7 @@ if [ "$UPGRADE_VM" = true ]; then
     # Move the Vocabulary Plus version files into a temporary location
     cd "$INSTALL_DIR"
     cd .. # Move into VocabularyPlus parent directory
-    mkdir vm-temp
+    mkdir -p vm-temp
     mv "$INSTALL_DIR/versions/vp" "vm-temp/vp"
     # Run the VP VM uninstaller
     sh vm/uninstall.sh -s
