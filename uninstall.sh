@@ -25,15 +25,6 @@ sleep 1
 
 cd $INSTALL_DIR
 
-echo ""
-echo "${yellow}Backing up version files...${reset}"
-cd ..
-mkdir -p vm-temp
-mv $INSTALL_DIR/versions/vp vm-temp/versions/vp
-sleep 0.25
-echo "${green}Version files backed up.${reset}"
-sleep 0.5
-
 # Remove the VocabularyPlus/vm directory ($INSTALL_DIR)
 echo ""
 echo "${yellow}Removing vm directory...${reset}"
