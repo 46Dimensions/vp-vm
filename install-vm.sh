@@ -41,7 +41,7 @@ echo ""
 
 # Write vp-vm current version file
 echo "${yellow}Setting up current version file...${reset}"
-echo "0.3.0" > "$INSTALL_DI/versions/vp-vm/current"
+echo "0.3.0" > "$INSTALL_DIR/versions/vp-vm/current.txt"
 echo "${green}Current version file set up.${reset}"
 echo ""
 
