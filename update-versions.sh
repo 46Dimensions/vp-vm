@@ -17,12 +17,11 @@ extract_version() {
     local file_path="$1"
     echo "${yellow}READ: ${file_path}${reset}"
     if [ -f "$file_path" ]; then
-        CONTENTS=$(cat "$file_path")
+        cat "$file_path"
     else
         echo "${red}Error: File '$file_path' not found.${reset}"
         exit 1
     fi
-    return "$CONTENTS" 
 }
 
 # Get most recent versions of Vocabulary Plus and Vocabulary Plus Version Manager
