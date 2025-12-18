@@ -22,7 +22,7 @@ extract_version() {
         echo "${red}Error: File '$file_path' not found.${reset}"
         exit 1
     fi
-    return $CONTENTS  
+    return "$CONTENTS" 
 }
 
 # Get most recent versions of Vocabulary Plus and Vocabulary Plus Version Manager
