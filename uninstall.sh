@@ -2,9 +2,10 @@
 set -e
 
 # ANSI colours
-red="\033[31m"
-green="\033[32m"
-yellow="\033[33m"
+red="\033[91m"
+green="\033[92m"
+yellow="\033[93m"
+cyan="\033[1;96m"
 reset="\033[0m"
 
 # Abort if $INSTALL_DIR is empty
@@ -24,9 +25,9 @@ if [ "$SILENT" -eq 1 ]; then
 fi
 
 
-echo "${green}====================================================${reset}"
-echo "${green}Vocabulary Plus Version Manager: Uninstaller (0.4.1)${reset}"
-echo "${green}====================================================${reset}"
+echo "${cyan}====================================================${reset}"
+echo "${cyan}Vocabulary Plus Version Manager: Uninstaller (0.4.1)${reset}"
+echo "${cyan}====================================================${reset}"
 sleep 1
 
 cd "$INSTALL_DIR"

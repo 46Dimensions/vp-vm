@@ -2,9 +2,10 @@
 set -e
 
 # ANSI colours
-red="\033[31m"
-green="\033[32m"
-yellow="\033[33m"
+red="\033[91m"
+green="\033[92m"
+yellow="\033[93m"
+cyan="\033[1;96m"
 reset="\033[0m"
 
 # Check command ($1)
@@ -20,9 +21,9 @@ case "$1" in
         ;;
     --help)
         # Header
-        echo "${green}=======================================${reset}"
-        echo "${green}Vocabulary Plus Version Manager (0.4.1)${reset}"
-        echo "${green}=======================================${reset}"
+        echo "${cyan}=======================================${reset}"
+        echo "${cyan}Vocabulary Plus Version Manager (0.4.1)${reset}"
+        echo "${cyan}=======================================${reset}"
         echo "Usage: vp-vm [command]"
         echo ""
         echo "Commands:"

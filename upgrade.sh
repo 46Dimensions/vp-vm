@@ -2,14 +2,16 @@
 set -e
 
 # ANSI colours
-red="\033[31m"
-green="\033[32m"
-yellow="\033[33m"
+red="\033[91m"
+green="\033[92m"
+yellow="\033[93m"
+boldcyan="\033[1;96m"
+cyan="\033[96m"
 reset="\033[0m"
 
-echo "${green}=========================================================${reset}"
-echo "${green}Vocabulary Plus Version Manager: Package Upgrader (0.4.1)${reset}"
-echo "${green}=========================================================${reset}"
+echo "${boldcyan}=========================================================${reset}"
+echo "${boldcyan}Vocabulary Plus Version Manager: Package Upgrader (0.4.1)${reset}"
+echo "${boldcyan}=========================================================${reset}"
 sleep 1
 
 echo "${yellow}Reading package lists...${reset}"
@@ -110,8 +112,8 @@ fi
 sleep 2
 
 echo ""
-echo "${green}Upgrade Summary${reset}"
-echo "${green}---------------${reset}"
+echo "${cyan}Upgrade Summary${reset}"
+echo "${cyan}---------------${reset}"
 sleep 0.25
 if [ "$UPGRADE_VP" = true ]; then
     echo "Vocabulary Plus ${red}$VP_CURRENT${reset} -> ${green}$VP_LATEST${reset}"

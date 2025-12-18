@@ -2,17 +2,18 @@
 set -e
 
 # ANSI colours
-red="\033[31m"
-green="\033[32m"
-yellow="\033[33m"
+red="\033[91m"
+green="\033[92m"
+yellow="\033[93m"
+cyan="\033[1;96m"
 blue="\033[94m"
 purple="\033[35m"
 reset="\033[0m"
 
 # Header
-echo "${green}========================================================${reset}"
-echo "${green}Vocabulary Plus Version Manager: Version Updater (0.4.1)${reset}"
-echo "${green}========================================================${reset}"
+echo "${cyan}========================================================${reset}"
+echo "${cyan}Vocabulary Plus Version Manager: Version Updater (0.4.1)${reset}"
+echo "${cyan}========================================================${reset}"
 
 # Function to get the contents of a version file
 extract_version() {
