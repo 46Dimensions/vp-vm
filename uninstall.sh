@@ -49,4 +49,4 @@ sleep 0.5
 # Final message
 echo ""
 echo "${green}Vocabulary Plus Version Manager 0.3.0 successfully uninstalled.${reset}"
-echo "${yellow}If you found any errors in Vocabulary Plus, please report them at https://github.com/46Dimensions/VocabularyPlus/issues ${reset}"
+echo "${yellow}If you found any errors in Vocabulary Plus Version Manager, please report them at https://github.com/46Dimensions/vp-vm/issues ${reset}"
