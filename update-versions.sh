@@ -29,10 +29,10 @@ extract_version() {
 # Save them to $INSTALL_DIR/versions
 VP_URL=https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/version.txt
 echo "${yellow}GET: ${VP_URL} ${reset}"
-curl -fsSL $VP_URL -o $INSTALL_DIR/vp/latest.txt
+curl -fsSL $VP_URL -o $INSTALL_DIR/versions/vp/latest.txt || { echo "${red} Error getting latest version of Vocabulary Plus.${reset}"; exit 1; }
 VP_VM_URL=https://raw.githubusercontent.com/46Dimensions/vp-vm/main/version.txt
 echo "${yellow}GET: ${VP-VM_URL} ${reset}"
-curl -fsSL $VP_VM_URL -o $INSTALL_DIR/versions/vp-vm/latest.txt
+curl -fsSL $VP_VM_URL -o $INSTALL_DIR/versions/vp-vm/latest.txt || { echo "${red} Error getting latest version of Vocabulary Plus Version Manager.${reset}"; exit 1; }
 
 # Extract versions from downloaded files
 VP_VERSION=$(extract_version "$INSTALL_DIR/versions/vp/latest.txt")
