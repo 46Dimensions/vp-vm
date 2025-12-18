@@ -16,7 +16,7 @@ fi
 INSTALL_DIR="$1"
 
 echo "${cyan}=======================================================${reset}"
-echo "${cyan}Vocabulary Plus Version Manager: Unix Installer (0.4.1)${reset}"
+echo "${cyan}Vocabulary Plus Version Manager: Unix Installer (0.5.0)${reset}"
 echo "${cyan}=======================================================${reset}"
 echo ""
 
@@ -42,7 +42,7 @@ echo ""
 
 # Write vp-vm current version file
 echo "${yellow}Setting up current version file...${reset}"
-echo "0.4.1" > "$INSTALL_DIR/versions/vp-vm/current.txt"
+echo "0.5.0" > "$INSTALL_DIR/versions/vp-vm/current.txt"
 echo "${green}Current version file set up.${reset}"
 echo ""
 
@@ -87,5 +87,5 @@ echo "${green}Scripts configured successfully.${reset}"
 echo ""
 
 # Final instructions
-echo "${green}Vocabulary Plus Version Manager 0.4.1 installed successfully${reset}"
+echo "${green}Vocabulary Plus Version Manager 0.5.0 installed successfully${reset}"
 echo "For instructions on how to use the version manager, please visit: https://github.com/46Dimensions/vp-vm/blob/main/README.md"

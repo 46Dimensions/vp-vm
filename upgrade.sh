@@ -10,7 +10,7 @@ cyan="\033[96m"
 reset="\033[0m"
 
 echo "${boldcyan}=========================================================${reset}"
-echo "${boldcyan}Vocabulary Plus Version Manager: Package Upgrader (0.4.1)${reset}"
+echo "${boldcyan}Vocabulary Plus Version Manager: Package Upgrader (0.5.0)${reset}"
 echo "${boldcyan}=========================================================${reset}"
 sleep 1
 

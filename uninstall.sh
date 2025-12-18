@@ -26,7 +26,7 @@ fi
 
 
 echo "${cyan}====================================================${reset}"
-echo "${cyan}Vocabulary Plus Version Manager: Uninstaller (0.4.1)${reset}"
+echo "${cyan}Vocabulary Plus Version Manager: Uninstaller (0.5.0)${reset}"
 echo "${cyan}====================================================${reset}"
 sleep 1
 
@@ -57,5 +57,5 @@ sleep 0.5
 
 # Final message
 echo ""
-echo "${green}Vocabulary Plus Version Manager 0.4.1 successfully uninstalled.${reset}"
+echo "${green}Vocabulary Plus Version Manager 0.5.0 successfully uninstalled.${reset}"
 echo "${yellow}If you found any errors in Vocabulary Plus Version Manager, please report them at https://github.com/46Dimensions/vp-vm/issues ${reset}"

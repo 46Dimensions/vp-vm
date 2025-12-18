@@ -17,12 +17,12 @@ case "$1" in
         sh "$INSTALL_DIR/upgrade.sh"
         ;;
     --version)
-        echo "0.4.1"
+        echo "0.5.0"
         ;;
     --help)
         # Header
         echo "${cyan}=======================================${reset}"
-        echo "${cyan}Vocabulary Plus Version Manager (0.4.1)${reset}"
+        echo "${cyan}Vocabulary Plus Version Manager (0.5.0)${reset}"
         echo "${cyan}=======================================${reset}"
         echo "Usage: vp-vm [command]"
         echo ""
