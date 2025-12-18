@@ -23,17 +23,17 @@ echo "${green}Vocabulary Plus Version Manager: Uninstaller (0.3.0)${reset}"
 echo "${green}====================================================${reset}"
 sleep 1
 
-cd $INSTALL_DIR
+cd "$INSTALL_DIR"
 
-# Remove the VocabularyPlus/vm directory ($INSTALL_DIR)
+# Remove the VocabularyPlus/vm directory ("$INSTALL_DIR")
 echo ""
 echo "${yellow}Removing vm directory...${reset}"
 # If the working directory is about to be removed, 
 # change to the parent directory (should be 'VocabularyPlus')
-if [ "$PWD" == "$INSTALL_DIR" ]; then
+if [ "$PWD" = ""$INSTALL_DIR"" ]; then
     cd ..
 fi
-rm -rf $INSTALL_DIR
+rm -rf "$INSTALL_DIR"
 sleep 0.25
 echo "${green}Directory removed${reset}"
 sleep 0.5
@@ -41,7 +41,7 @@ sleep 0.5
 # Remove the control script (vp-vm)
 echo ""
 echo "${yellow}Removing control script...${reset}"
-rm $HOME/.local/bin/vp-vm
+rm "$HOME/.local/bin/vp-vm"
 sleep 0.25
 echo "${green}Control script removed.${reset}"
 sleep 0.5

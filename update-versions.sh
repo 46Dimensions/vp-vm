@@ -27,25 +27,25 @@ extract_version() {
 }
 
 # Get most recent versions of Vocabulary Plus and Vocabulary Plus Version Manager
-# Save them to $INSTALL_DIR/versions
+# Save them to "$INSTALL_DIR"/versions
 VP_URL=https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/vp-vm/version.txt
 echo "${blue}GET: ${VP_URL} ${reset}"
-curl -fsSL $VP_URL -o $INSTALL_DIR/versions/vp/latest.txt || { echo "$(curl -fsSL $VP_URL)" > $INSTALL_DIR/versions/vp/latest.txt; } || { echo "${red} Error getting latest version of Vocabulary Plus.${reset}"; exit 1; }
+curl -fsSL $VP_URL -o "$INSTALL_DIR"/versions/vp/latest.txt || { echo "$(curl -fsSL $VP_URL)" > "$INSTALL_DIR"/versions/vp/latest.txt; } || { echo "${red} Error getting latest version of Vocabulary Plus.${reset}"; exit 1; }
 VP_VM_URL=https://raw.githubusercontent.com/46Dimensions/vp-vm/main/version.txt
 echo "${blue}GET: ${VP_VM_URL} ${reset}"
-curl -fsSL $VP_VM_URL -o $INSTALL_DIR/versions/vp-vm/latest.txt || { echo "${red} Error getting latest version of Vocabulary Plus Version Manager.${reset}"; exit 1; }
+curl -fsSL $VP_VM_URL -o "$INSTALL_DIR"/versions/vp-vm/latest.txt || { echo "${red} Error getting latest version of Vocabulary Plus Version Manager.${reset}"; exit 1; }
 sleep 1
 
 # Extract versions from downloaded files
-VP_VERSION=$(extract_version "$INSTALL_DIR/versions/vp/latest.txt")
+VP_VERSION=$(extract_version ""$INSTALL_DIR"/versions/vp/latest.txt")
 sleep 0.25
-VP_VM_VERSION=$(extract_version "$INSTALL_DIR/versions/vp-vm/latest.txt")
+VP_VM_VERSION=$(extract_version ""$INSTALL_DIR"/versions/vp-vm/latest.txt")
 sleep 0.5
 
 # Get currently installed versions
-CURRENT_VP_VERSION=$(extract_version "$INSTALL_DIR/versions/vp/current.txt")
+CURRENT_VP_VERSION=$(extract_version ""$INSTALL_DIR"/versions/vp/current.txt")
 sleep 0.25
-CURRENT_VP_VM_VERSION=$(extract_version "$INSTALL_DIR/versions/vp-vm/current.txt")
+CURRENT_VP_VM_VERSION=$(extract_version ""$INSTALL_DIR"/versions/vp-vm/current.txt")
 sleep 1
 
 echo ""

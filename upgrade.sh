@@ -12,8 +12,8 @@ echo "${green}Vocabulary Plus Version Manager: Package Upgrader (0.3.0)${reset}"
 echo "${green}=========================================================${reset}"
 
 # Get the Vocabulary Plus version to upgrade to
-VP_CURRENT=$(cat $INSTALL_DIR/versions/vp/current.txt)
-VP_LATEST=$(cat $INSTALL_DIR/versions/vp/latest.txt)
+VP_CURRENT=$(cat "$INSTALL_DIR"/versions/vp/current.txt)
+VP_LATEST=$(cat "$INSTALL_DIR"/versions/vp/latest.txt)
 # Set the Vocabulary Plus upgrade flag
 if [ "$VP_CURRENT" != "$VP_LATEST" ]; then
     UPGRADE_VP=true
@@ -22,8 +22,8 @@ else
 fi
 
 # Get the Vocabulary Plus Version Manager version to upgrade to
-VM_CURRENT=$(cat $INSTALL_DIR/versions/vp-vm/current.txt)
-VM_LATEST=$(cat $INSTALL_DIR/versions/vp-vm/latest.txt)
+VM_CURRENT=$(cat "$INSTALL_DIR"/versions/vp-vm/current.txt)
+VM_LATEST=$(cat "$INSTALL_DIR"/versions/vp-vm/latest.txt)
 # Set the Vocabulary Plus Version Manager upgrade flag
 if [ "$VM_CURRENT" != "$VM_LATEST" ]; then
     UPGRADE_VM=true
@@ -35,7 +35,7 @@ fi
 if [ "$UPGRADE_VP" = true ]; then
     echo "${yellow}Uninstalling current Vocabulary Plus version...${reset}"
     # Move the JSON files and VM into a temporary location
-    cd $INSTALL_DIR
+    cd "$INSTALL_DIR"
     cd .. # Move into VocabularyPlus parent directory
     cd .. # Move into VocabularyPlus's parent directory
     mkdir VocabularyPlusTemp
@@ -62,7 +62,7 @@ if [ "$UPGRADE_VP" = true ]; then
     mv VocabularyPlusTemp/vm VocabularyPlus/vm
     rm -rf VocabularyPlusTemp
     # Set the current version to the latest version
-    echo $VP_LATEST > $INSTALL_DIR/versions/vp/current.txt
+    echo $VP_LATEST > "$INSTALL_DIR"/versions/vp/current.txt
     echo "${green}Latest Vocabulary Plus version installed.${reset}"
     echo ""
 fi
@@ -71,10 +71,10 @@ fi
 if [ "$UPGRADE_VM" = true ]; then
     echo "${yellow}Upgrading Vocabulary Plus Version Manager...${reset}"
     # Move the Vocabulary Plus version files into a temporary location
-    cd $INSTALL_DIR
+    cd "$INSTALL_DIR"
     cd .. # Move into VocabularyPlus parent directory
     mkdir vm-temp
-    mv $INSTALL_DIR/versions/vp vm-temp/vp
+    mv "$INSTALL_DIR"/versions/vp vm-temp/vp
     # Run the VP VM uninstaller
     sh vm/uninstall.sh
     echo "${green}Current Vocabulary Plus Version Manager uninstalled.${reset}"
@@ -85,10 +85,10 @@ if [ "$UPGRADE_VM" = true ]; then
     sh install.sh
     rm install.sh
     # Move the Vocabulary Plus version files back into the versions directory
-    mv vm-temp/vp $INSTALL_DIR/versions/vp
+    mv vm-temp/vp "$INSTALL_DIR"/versions/vp
     rm -rf vm-temp
     # Set the current version to the latest version
-    echo $VM_LATEST > $INSTALL_DIR/versions/vp-vm/current.txt
+    echo $VM_LATEST > "$INSTALL_DIR"/versions/vp-vm/current.txt
     echo "${green}Latest Vocabulary Plus Version Manager installed.${reset}"
     echo ""
 fi
