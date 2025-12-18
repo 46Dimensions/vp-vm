@@ -33,7 +33,7 @@ case "$1" in
         exit 0
         ;;
     *)
-        echo "${red}Command "$1" not recognised.${reset}"
+        echo "${red}Command '$1' not recognised.${reset}"
         echo "${yellow}Use '$0 --help' to see commands${reset}"
         exit 1
         ;;
