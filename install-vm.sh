@@ -75,9 +75,11 @@ MAIN_CONTENTS=$(curl -fsSL "$BASE_URL/vp-vm.sh" || { echo "${red}Failed to downl
 echo "${green}Scripts downloaded successfully.${reset}"
 
 # Write the scripts with the correct INSTALL_DIR
+echo ""
 echo "${yellow}Configuring scripts...${reset}"
 write_script_with_install_dir "$UPDATER_CONTENTS" "$INSTALL_DIR/update-versions.sh"
 write_script_with_install_dir "$UPGRADER_CONTENTS" "$INSTALL_DIR/upgrade.sh"
+write_script_with_install_dir "$UNINSTALLER_CONTENTS" "$INSTALL_DIR/uninstall.sh"
 write_script_with_install_dir "$MAIN_CONTENTS" "$HOME/.local/bin/vp-vm"
 chmod +x "$HOME/.local/bin/vp-vm"
 echo "${green}Scripts configured successfully.${reset}"
