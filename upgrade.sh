@@ -10,7 +10,9 @@ reset="\033[0m"
 echo "${green}=========================================================${reset}"
 echo "${green}Vocabulary Plus Version Manager: Package Upgrader (0.3.0)${reset}"
 echo "${green}=========================================================${reset}"
+sleep 1
 
+echo "${yellow}Reading package lists...${reset}"
 # Get the Vocabulary Plus version to upgrade to
 VP_CURRENT=$(cat "$INSTALL_DIR/versions/vp/current.txt")
 VP_LATEST=$(cat "$INSTALL_DIR/versions/vp/latest.txt")
@@ -30,9 +32,13 @@ if [ "$VM_CURRENT" != "$VM_LATEST" ]; then
 else
     UPGRADE_VM=false
 fi
+sleep 0.5
+echo "${yellow}Calculating upgrade...${reset}"
 
 # Upgrade current Vocabulary Plus if needed
 if [ "$UPGRADE_VP" = true ]; then
+    echo "${yellow}Upgrading Vocabulary Plus...${reset}"
+    sleep 1
     echo "${yellow}Uninstalling current Vocabulary Plus version...${reset}"
     # Move the JSON files and VM into a temporary location
     cd "$INSTALL_DIR"
@@ -42,7 +48,7 @@ if [ "$UPGRADE_VP" = true ]; then
     mv VocabularyPlus/JSON VocabularyPlusTemp/JSON
     mv VocabularyPlus/vm VocabularyPlusTemp/vm
     # Run the Vocabulary Plus uninstaller
-    sh VocabularyPlus/uninstall
+    sh VocabularyPlus/uninstall -s
     # Abort if uninstallation fails
     if [ "$?" != 0 ]; then
         exit 1
@@ -74,13 +80,15 @@ fi
 # Upgrade Vocabulary Plus Version Manager if needed
 if [ "$UPGRADE_VM" = true ]; then
     echo "${yellow}Upgrading Vocabulary Plus Version Manager...${reset}"
+    sleep 1
+    echo "${yellow}Upgrading Vocabulary Plus Version Manager...${reset}"
     # Move the Vocabulary Plus version files into a temporary location
     cd "$INSTALL_DIR"
     cd .. # Move into VocabularyPlus parent directory
     mkdir vm-temp
     mv "$INSTALL_DIR/versions/vp vm-temp/vp"
     # Run the VP VM uninstaller
-    sh vm/uninstall.sh
+    sh vm/uninstall.sh -s
     # Abort if uninstallation fails
     if [ "$?" != 0 ]; then
         exit 1
@@ -100,12 +108,16 @@ if [ "$UPGRADE_VM" = true ]; then
     echo "${green}Latest Vocabulary Plus Version Manager installed.${reset}"
     echo ""
 fi
+sleep 2
 
+echo ""
 echo "${green}Upgrade Summary${reset}"
 echo "${green}---------------${reset}"
+sleep 0.25
 if [ "$UPGRADE_VP" = true ]; then
     echo "Vocabulary Plus ${red}$VP_CURRENT${reset} -> ${green}$VP_LATEST${reset}"
 fi
+sleep 0.25
 if [ "$UPGRADE_VM" = true ]; then
     echo "Vocabulary Plus Version Manager ${red}$VM_CURRENT${reset} -> ${green}$VM_LATEST${reset}"
 fi
