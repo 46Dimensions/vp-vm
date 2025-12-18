@@ -46,6 +46,7 @@ if [ "$UPGRADE_VP" = true ]; then
     # Abort if uninstallation fails
     if [ "$?" != 0 ]; then
         exit 1
+    fi
     echo "${green}Current Vocabulary Plus version uninstalled.${reset}"
     echo ""
     # Install the latest version
@@ -83,6 +84,7 @@ if [ "$UPGRADE_VM" = true ]; then
     # Abort if uninstallation fails
     if [ "$?" != 0 ]; then
         exit 1
+    fi
     echo "${green}Current Vocabulary Plus Version Manager uninstalled.${reset}"
     echo ""
     # Install the latest VP VM version
