@@ -7,6 +7,12 @@ green="\033[32m"
 yellow="\033[33m"
 reset="\033[0m"
 
+# Abort if $INSTALL_DIR is empty
+[ -z "$INSTALL_DIR" ] && {
+  echo "${red}ERROR: INSTALL_DIR is not set.${reset}"
+  exit 1
+}
+
 # Disable stdout if $1 is -s or --silent
 SILENT=0
 case "$1" in
@@ -30,9 +36,11 @@ echo ""
 echo "${yellow}Removing vm directory...${reset}"
 # If the working directory is about to be removed, 
 # change to the parent directory (should be 'VocabularyPlus')
-if [ "$PWD" = "$INSTALL_DIR" ]; then
+case "$PWD/" in
+  "$INSTALL_DIR"/*)
     cd ..
-fi
+    ;;
+esac
 rm -rf "$INSTALL_DIR"
 sleep 0.25
 echo "${green}Directory removed${reset}"
