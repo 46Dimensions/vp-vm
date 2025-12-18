@@ -30,7 +30,7 @@ echo ""
 echo "${yellow}Removing vm directory...${reset}"
 # If the working directory is about to be removed, 
 # change to the parent directory (should be 'VocabularyPlus')
-if [ "$PWD" = ""$INSTALL_DIR"" ]; then
+if [ "$PWD" = "$INSTALL_DIR" ]; then
     cd ..
 fi
 rm -rf "$INSTALL_DIR"
