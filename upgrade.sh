@@ -43,6 +43,9 @@ if [ "$UPGRADE_VP" = true ]; then
     mv VocabularyPlus/vm VocabularyPlusTemp/vm
     # Run the Vocabulary Plus uninstaller
     sh VocabularyPlus/uninstall
+    # Abort if uninstallation fails
+    if [ "$?" != 0 ]; then
+        exit 1
     echo "${green}Current Vocabulary Plus version uninstalled.${reset}"
     echo ""
     # Install the latest version
@@ -77,6 +80,9 @@ if [ "$UPGRADE_VM" = true ]; then
     mv "$INSTALL_DIR/versions/vp vm-temp/vp"
     # Run the VP VM uninstaller
     sh vm/uninstall.sh
+    # Abort if uninstallation fails
+    if [ "$?" != 0 ]; then
+        exit 1
     echo "${green}Current Vocabulary Plus Version Manager uninstalled.${reset}"
     echo ""
     # Install the latest VP VM version
