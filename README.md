@@ -27,6 +27,8 @@ Once installed, you can run:
 - `vp-vm --help` to show all available commands
 - `vp-vm update` to update the package lists
 - `vp-vm upgrade` to upgrade Vocabulary Plus and Vocabulary Plus Version Manager if necessary
+- `vp-vm list-upgradable` to see upgradable packages
+- `vp-vm --version` to see the currently installed version of `vp-vm`
 
 ## Issues
 
@@ -34,5 +36,5 @@ Report bugs in this repository's [Issues](https://github.com/46Dimensions/vp-vm/
 
 ## License
 
-This code is licensed under the MIT license.  
+This source code is licensed under the MIT license.  
 See [LICENSE](LICENSE) for details.
