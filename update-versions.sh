@@ -81,5 +81,5 @@ sleep 1
 if [ -z "$UPDATABLE_PACKAGES" ]; then
     echo "${green}All packages are up to date.${reset}"
 else
-    echo "${yellow}${UPDATABLE_PACKAGES} package(s) can be updated.${reset}"
+    echo "${blue}${UPDATABLE_PACKAGES} package(s) can be updated.${reset}"
 fi
