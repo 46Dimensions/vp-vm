@@ -82,5 +82,5 @@ if [ -z "$UPDATABLE_PACKAGES" ]; then
     echo "${green}All packages are up to date.${reset}"
 else
     echo "${blue}${UPDATABLE_PACKAGES} package(s) can be updated.${reset}"
-    echo "${blue}Use 'vp-vm list-upgradable' to see them.${reset}"
+    echo "${purple}Use 'vp-vm list-upgradable' to see them.${reset}"
 fi
