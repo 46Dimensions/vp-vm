@@ -37,6 +37,8 @@ fi
 sleep 0.5
 echo "${yellow}Calculating upgrade...${reset}"
 
+
+
 # Upgrade current Vocabulary Plus if needed
 if [ "$UPGRADE_VP" = true ]; then
     echo ""
@@ -48,15 +50,15 @@ if [ "$UPGRADE_VP" = true ]; then
     cd .. # Move into VocabularyPlus parent directory
     cd .. # Move into VocabularyPlus's parent directory
     mkdir -p VocabularyPlusTemp
-    mv VocabularyPlus/JSON VocabularyPlusTemp/JSON
-    mv VocabularyPlus/vm VocabularyPlusTemp/vm
+    mv VocabularyPlus/JSON VocabularyPlusTemp/JSON || { echo "${yellow}${PWD}/VocabularyPlus/JSON not found so not backed up${reset}"; } # This problem is not critical; VocabularyPlus/JSON is not created until main.py is run
+    mv VocabularyPlus/vm VocabularyPlusTemp/vm || { echo "${yellow}${PWD}/VocabularyPlus/vm not found so not backed up${reset}"; exit 1; }
     echo "${green}Vocabulary files backed up.${reset}"
     sleep 0.5
 
     echo ""
     echo "${yellow}Uninstalling current Vocabulary Plus version...${reset}"
     # Run the Vocabulary Plus uninstaller
-    sh VocabularyPlus/uninstall -s
+    sh VocabularyPlus/uninstall -s --vp-only
     # Abort if uninstallation fails
     if [ "$?" != 0 ]; then
         exit 1
