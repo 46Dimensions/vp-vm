@@ -24,16 +24,17 @@ case "$1" in
         ;;
     --help)
         # Header
-        echo "${cyan}=======================================${reset}"
-        echo "${cyan}Vocabulary Plus Version Manager (0.5.0)${reset}"
-        echo "${cyan}=======================================${reset}"
+        echo "${cyan}=============================================${reset}"
+        echo "${cyan}Vocabulary Plus Version Manager: Help (0.5.0)${reset}"
+        echo "${cyan}=============================================${reset}"
         echo "Usage: vp-vm [command]"
         echo ""
         echo "Commands:"
-        echo "   update      Update the version lists"
-        echo "   upgrade     Upgrade Vocabulary Plus and vp-vm to the latest version"
-        echo "   --version   Show the installed version of Vocabulary Plus Version Manager"
-        echo "   --help      Show this help message and exit"
+        echo "   update            Update the version lists"
+        echo "   upgrade           Upgrade Vocabulary Plus and vp-vm to the latest version"
+        echo "   list-upgradable   Show upgradable packages
+        echo "   --version         Show the installed version of Vocabulary Plus Version Manager"
+        echo "   --help            Show this help message and exit"
         exit 0
         ;;
     *)
