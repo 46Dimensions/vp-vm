@@ -6,6 +6,7 @@ red="\033[91m"
 green="\033[92m"
 yellow="\033[93m"
 blue="\033[94m"
+purple="\033[35m"
 reset="\033[0m"
 
 sleep 0.5
@@ -55,4 +56,6 @@ sleep 0.5
 if [ "$VP_VM_NEEDS_UPDATE" = true ]; then
     echo "${blue}Vocabulary Plus Version Manager${reset} (${red}${CURRENT_VP_VM_VERSION}${reset} -> ${green}${VP_VM_VERSION}${reset})"
 fi
+if [ "$VP_NEEDS_UPDATE" = true ] || [ "$VP_VM_NEEDS_UPDATE" = true ]; then
+    echo "${purple}Run 'vp-vm upgrade' to upgrade all packages.${reset}"
 sleep 0.5
