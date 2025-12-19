@@ -32,7 +32,7 @@ case "$1" in
         echo "Commands:"
         echo "   update            Update the version lists"
         echo "   upgrade           Upgrade Vocabulary Plus and vp-vm to the latest version"
-        echo "   list-upgradable   Show upgradable packages
+        echo "   list-upgradable   Show upgradable packages"
         echo "   --version         Show the installed version of Vocabulary Plus Version Manager"
         echo "   --help            Show this help message and exit"
         exit 0
