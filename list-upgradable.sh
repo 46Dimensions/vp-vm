@@ -27,7 +27,7 @@ extract_version() {
 VP_VERSION=$(extract_version "$INSTALL_DIR/versions/vp/latest.txt")
 sleep 0.25
 VP_VM_VERSION=$(extract_version "$INSTALL_DIR/versions/vp-vm/latest.txt")
-sleep 0.5
+sleep 0.25
 
 # Get currently installed versions
 CURRENT_VP_VERSION=$(extract_version "$INSTALL_DIR/versions/vp/current.txt")
@@ -51,7 +51,8 @@ fi
 if [ "$VP_NEEDS_UPDATE" = true ]; then
     echo "${blue}Vocabulary Plus${reset} (${red}${CURRENT_VP_VERSION}${reset} -> ${green}${VP_VERSION}${reset})"
 fi
-sleep 1
+sleep 0.5
 if [ "$VP_VM_NEEDS_UPDATE" = true ]; then
     echo "${blue}Vocabulary Plus Version Manager${reset} (${red}${CURRENT_VP_VM_VERSION}${reset} -> ${green}${VP_VM_VERSION}${reset})"
 fi
+sleep 0.5
