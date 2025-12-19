@@ -16,6 +16,9 @@ case "$1" in
     upgrade)
         sh "$INSTALL_DIR/upgrade.sh"
         ;;
+    list-upgradable)
+        sh "$INSTALL_DIR/list-upgradable.sh"
+        ;;
     --version)
         echo "0.5.0"
         ;;

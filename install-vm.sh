@@ -72,6 +72,7 @@ BASE_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/main"
 UPDATER_CONTENTS=$(curl -fsSL "$BASE_URL/update-versions.sh" || { echo "${red}Failed to download version updater script.${reset}" >&2; exit 1; })
 UPGRADER_CONTENTS=$(curl -fsSL "$BASE_URL/upgrade.sh" || { echo "${red}Failed to download upgrader script.${reset}" >&2; exit 1; })
 UNINSTALLER_CONTENTS=$(curl -fsSL "$BASE_URL/uninstall.sh" || { echo "${red}Failed to download uninstaller.${reset}" >&2; exit 1; })
+LISTER_CONTENTS=$(curl -fsSL "$BASE_URL/list-upgradable.sh" || { echo "${red}Failed to download upgradable package lister.${reset}" >&2; exit 1; })
 MAIN_CONTENTS=$(curl -fsSL "$BASE_URL/vp-vm.sh" || { echo "${red}Failed to download upgrader script.${reset}" >&2; exit 1; })
 echo "${green}Scripts downloaded successfully.${reset}"
 
@@ -81,6 +82,7 @@ echo "${yellow}Configuring scripts...${reset}"
 write_script_with_install_dir "$UPDATER_CONTENTS" "$INSTALL_DIR/update-versions.sh"
 write_script_with_install_dir "$UPGRADER_CONTENTS" "$INSTALL_DIR/upgrade.sh"
 write_script_with_install_dir "$UNINSTALLER_CONTENTS" "$INSTALL_DIR/uninstall.sh"
+write_script_with_install_dir "$LISTER_CONTENTS" "$INSTALL_DIR/list-upgradable.sh"
 write_script_with_install_dir "$MAIN_CONTENTS" "$HOME/.local/bin/vp-vm"
 chmod +x "$HOME/.local/bin/vp-vm"
 echo "${green}Scripts configured successfully.${reset}"
