@@ -131,7 +131,7 @@ if [ "$UPGRADE_VM" = true ]; then
     sh install-vm.sh $INSTALL_DIR
     rm install-vm.sh
     # Move the Vocabulary Plus version files back into the versions directory
-    mv vm-temp/vp "$INSTALL_DIR/versions/vp"
+    mv vm-temp/vp "$INSTALL_DIR/versions"
     rm -rf vm-temp
     # Set the current version to the latest version
     echo $VM_LATEST > "$INSTALL_DIR/versions/vp-vm/current.txt"
