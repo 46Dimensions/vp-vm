@@ -58,7 +58,7 @@ if [ "$UPGRADE_VP" = true ]; then
     echo ""
     echo "${yellow}Uninstalling current Vocabulary Plus version...${reset}"
     # Run the Vocabulary Plus uninstaller
-    sh VocabularyPlus/uninstall -s --vp-only
+    sh VocabularyPlus/uninstall -s
     # Abort if uninstallation fails
     if [ "$?" != 0 ]; then
         exit 1
