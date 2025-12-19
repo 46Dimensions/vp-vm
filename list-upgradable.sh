@@ -11,7 +11,7 @@ reset="\033[0m"
 
 sleep 0.5
 echo "${yellow}Listing...${reset}"
-sleep 1
+sleep 0.25
 
 # Function to get the contents of a version file
 extract_version() {
@@ -34,7 +34,6 @@ sleep 0.25
 CURRENT_VP_VERSION=$(extract_version "$INSTALL_DIR/versions/vp/current.txt")
 sleep 0.25
 CURRENT_VP_VM_VERSION=$(extract_version "$INSTALL_DIR/versions/vp-vm/current.txt")
-sleep 1
 
 if [ "$VP_VERSION" != "$CURRENT_VP_VERSION" ]; then
     VP_NEEDS_UPDATE=true
@@ -52,7 +51,7 @@ fi
 if [ "$VP_NEEDS_UPDATE" = true ]; then
     echo "${blue}Vocabulary Plus${reset} (${red}${CURRENT_VP_VERSION}${reset} -> ${green}${VP_VERSION}${reset})"
 fi
-sleep 0.5
+sleep 0.125
 if [ "$VP_VM_NEEDS_UPDATE" = true ]; then
     echo "${blue}Vocabulary Plus Version Manager${reset} (${red}${CURRENT_VP_VM_VERSION}${reset} -> ${green}${VP_VM_VERSION}${reset})"
 fi
