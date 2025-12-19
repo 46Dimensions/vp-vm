@@ -50,8 +50,8 @@ if [ "$UPGRADE_VP" = true ]; then
     cd .. # Move into VocabularyPlus parent directory
     cd .. # Move into VocabularyPlus's parent directory
     mkdir -p VocabularyPlusTemp
-    mv VocabularyPlus/JSON VocabularyPlusTemp/JSON || { echo "${red}${PWD}/VocabularyPlus/JSON not found so not backed up${reset}"; } # This problem is not critical; VocabularyPlus/JSON is not created until main.py is run
-    mv VocabularyPlus/vm VocabularyPlusTemp/vm || { echo "${red}${PWD}/VocabularyPlus/vm not found so not backed up${reset}"; exit 1; }
+    mv VocabularyPlus/JSON VocabularyPlusTemp/JSON || { echo "${red}WARNING: ${PWD}/VocabularyPlus/JSON not found so not backed up${reset}"; } # This problem is not critical; VocabularyPlus/JSON is not created until main.py is run
+    mv VocabularyPlus/vm VocabularyPlusTemp/vm || { echo "${red}ERROR: ${PWD}/VocabularyPlus/vm not found so not backed up${reset}"; exit 1; }
     echo "${green}Vocabulary files backed up.${reset}"
     sleep 0.5
 
@@ -89,8 +89,8 @@ if [ "$UPGRADE_VP" = true ]; then
     if [ -d "VocabularyPlus/vm" ]; then
         rm -rf VocabularyPlus/vm
     fi
-    mv "VocabularyPlusTemp/JSON" "VocabularyPlus/JSON" || true
-    mv "VocabularyPlusTemp/vm" "VocabularyPlus/vm" || true
+    mv "VocabularyPlusTemp/JSON" "VocabularyPlus/JSON" || { echo "${red}WARNING: ${PWD}/VocabularyPlusTemp/JSON not found so not backed up${reset}"; } # This problem is not critical; VocabularyPlus/JSON is not created until main.py is run
+    mv "VocabularyPlusTemp/vm" "VocabularyPlus/vm" || { echo "${red}ERROR: ${PWD}/VocabularyPlusTemp/vm not found so not backed up${reset}"; exit 1; }
     rm -rf VocabularyPlusTemp
     # Set the current version to the latest version
     echo $VP_LATEST > "$INSTALL_DIR/versions/vp/current.txt"
