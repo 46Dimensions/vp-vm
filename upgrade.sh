@@ -89,8 +89,8 @@ if [ "$UPGRADE_VP" = true ]; then
     if [ -d "VocabularyPlus/vm" ]; then
         rm -rf VocabularyPlus/vm
     fi
-    mv "VocabularyPlusTemp/JSON" "VocabularyPlus/JSON"
-    mv "VocabularyPlusTemp/vm" "VocabularyPlus/vm"
+    mv "VocabularyPlusTemp/JSON" "VocabularyPlus/JSON" || true
+    mv "VocabularyPlusTemp/vm" "VocabularyPlus/vm" || true
     rm -rf VocabularyPlusTemp
     # Set the current version to the latest version
     echo $VP_LATEST > "$INSTALL_DIR/versions/vp/current.txt"
