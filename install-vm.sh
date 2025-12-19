@@ -10,10 +10,20 @@ reset="\033[0m"
 
 # Set install directory
 if [ -z "$1" ]; then
-    echo "Usage: $0 <install-directory>"
+    echo "Usage: $0 <install-directory> [-s|--silent]"
     exit 1
 fi
 INSTALL_DIR="$1"
+
+# Disable stdout if $2 is -s or --silent
+SILENT=0
+case "$2" in
+  -s|--silent) SILENT=1 ;;
+esac
+
+if [ "$SILENT" -eq 1 ]; then
+  exec >/dev/null
+fi
 
 echo "${cyan}=======================================================${reset}"
 echo "${cyan}Vocabulary Plus Version Manager: Unix Installer (0.5.0)${reset}"

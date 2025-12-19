@@ -70,7 +70,7 @@ if [ "$UPGRADE_VP" = true ]; then
     # Install the latest version
     echo "${yellow}Installing latest Vocabulary Plus version...${reset}"
     curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.sh -o install.sh
-    sh install.sh
+    sh install.sh -s
     # Abort if installation fails
     if [ $? != 0 ]; then
         echo "Installation failed."
@@ -128,7 +128,7 @@ if [ "$UPGRADE_VM" = true ]; then
     # Install the latest VP VM version
     echo "${yellow}Installing latest VP VM...${reset}"
     curl -fsSL https://raw.githubusercontent.com/46Dimensions/vp-vm/main/install-vm.sh -o install-vm.sh
-    sh install-vm.sh $INSTALL_DIR
+    sh install-vm.sh $INSTALL_DIR --silent
     rm install-vm.sh
     # Move the Vocabulary Plus version files back into the versions directory
     mv vm-temp/vp "$INSTALL_DIR/versions"
