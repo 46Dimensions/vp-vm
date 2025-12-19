@@ -58,4 +58,5 @@ if [ "$VP_VM_NEEDS_UPDATE" = true ]; then
 fi
 if [ "$VP_NEEDS_UPDATE" = true ] || [ "$VP_VM_NEEDS_UPDATE" = true ]; then
     echo "${purple}Run 'vp-vm upgrade' to upgrade all packages.${reset}"
+fi
 sleep 0.5
