@@ -1,5 +1,7 @@
 # Vocabulary Plus Version Manager (`vp-vm`)
 
+<img src="/readme_logo.png" alt="The Vocabulary Plus Version Manager Logo" height="600">
+
 This repository is where [46Dimensions](github.com/46Dimensions) develops [Vocabulary Plus](https://github.com/46Dimensions/VocabularyPlus)'s version manager (`vp-vm`).
 
 Vocabulary Plus Version Manager is a program which can be used to upgrade Vocabulary Plus to the latest version without losing your vocabulary files. It will also upgrade itself if necessary.
