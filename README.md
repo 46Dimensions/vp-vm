@@ -13,11 +13,11 @@ Vocabulary Plus Version Manager is a program which can be used to upgrade Vocabu
 
 ## Installation
 
-Vocabulary Plus Version Manager is available on macOS and Linux in the [`vp-vm`](https://github.com/46Dimensions/VocabularyPlus/tree/vp-vm) branch in [Vocabulary Plus](https://github.com/46Dimensions/VocabularyPlus/).  
+Vocabulary Plus Version Manager is available on macOS and Linux in version [`1.3.0-beta`](https://github.com/46Dimensions/VocabularyPlus/tree/v1.3.0-beta) of [Vocabulary Plus](https://github.com/46Dimensions/VocabularyPlus/).  
 You can install it with:
 
 ``` shell
-curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/vp-vm/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/v1.3.0-beta/install.sh | sh
 ```
 
 It is not currently available on Windows.
