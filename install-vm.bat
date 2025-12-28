@@ -30,7 +30,7 @@ exit /b !errorlevel!
 
 :main
 echo %cyan%=======================================================%reset%
-echo %cyan%Vocabulary Plus Version Manager: Windows Installer (0.6.0)%reset%
+echo %cyan%Vocabulary Plus Version Manager: Windows Installer (0.7.0)%reset%
 echo %cyan%=======================================================%reset%
 echo.
 
@@ -57,7 +57,7 @@ echo.
 
 REM Write vp-vm current version file
 echo %yellow%Setting up current version file...%reset%
-echo 0.6.0 > "!INSTALL_DIR!\versions\vp-vm\current.txt"
+echo 0.7.0 > "!INSTALL_DIR!\versions\vp-vm\current.txt"
 echo %green%Current version file set up.%reset%
 echo.
 

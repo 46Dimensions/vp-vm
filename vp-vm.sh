@@ -20,12 +20,12 @@ case "$1" in
         sh "$INSTALL_DIR/list-upgradable.sh"
         ;;
     --version)
-        echo "0.6.0"
+        echo "0.7.0"
         ;;
     --help)
         # Header
         echo "${cyan}=============================================${reset}"
-        echo "${cyan}Vocabulary Plus Version Manager: Help (0.6.0)${reset}"
+        echo "${cyan}Vocabulary Plus Version Manager: Help (0.7.0)${reset}"
         echo "${cyan}=============================================${reset}"
         echo "Usage: vp-vm [command]"
         echo ""
