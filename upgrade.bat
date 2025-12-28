@@ -90,7 +90,7 @@ if "!UPGRADE_VP!"=="true" (
     echo.
     echo %yellow%Installing latest Vocabulary Plus version...%reset%
     
-    curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.sh -o install.sh
+    curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.3.0_stable/install.sh -o install.sh
     if errorlevel 1 (
         echo %red%Failed to download Vocabulary Plus installer%reset%
         exit /b 1

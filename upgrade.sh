@@ -69,7 +69,7 @@ if [ "$UPGRADE_VP" = true ]; then
     echo ""
     # Install the latest version
     echo "${yellow}Installing latest Vocabulary Plus version...${reset}"
-    curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.sh -o install.sh
+    curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.3.0_stable/install.sh -o install.sh
     sh install.sh -s
     # Abort if installation fails
     if [ $? != 0 ]; then

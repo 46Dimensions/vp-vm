@@ -33,7 +33,7 @@ endlocal & exit /b 0
 
 REM Get most recent versions of Vocabulary Plus and Vocabulary Plus Version Manager
 REM Save them to "%INSTALL_DIR%\versions"
-set "VP_URL=https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/vp-vm/VERSION.txt"
+set "VP_URL=https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.3.0_stable/VERSION.txt"
 echo %blue%GET: !VP_URL! %reset%
 curl -fsSL "!VP_URL!" -o "!INSTALL_DIR!\versions\vp\latest.txt"
 if errorlevel 1 (
