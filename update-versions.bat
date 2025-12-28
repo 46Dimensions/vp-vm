@@ -41,7 +41,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
-set "VP_VM_URL=https://raw.githubusercontent.com/46Dimensions/vp-vm/main/version.txt"
+set "VP_VM_URL=https://raw.githubusercontent.com/46Dimensions/vp-vm/main/VERSION.txt"
 echo %blue%GET: !VP_VM_URL! %reset%
 curl -fsSL "!VP_VM_URL!" -o "!INSTALL_DIR!\versions\vp-vm\latest.txt"
 if errorlevel 1 (

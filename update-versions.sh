@@ -32,7 +32,7 @@ extract_version() {
 VP_URL=https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/vp-vm/VERSION.txt
 echo "${blue}GET: ${VP_URL} ${reset}"
 curl -fsSL $VP_URL -o "$INSTALL_DIR/versions/vp/latest.txt" || { echo "$(curl -fsSL $VP_URL)" > "$INSTALL_DIR/versions/vp/latest.txt"; } || { echo "${red} Error getting latest version of Vocabulary Plus.${reset}"; exit 1; }
-VP_VM_URL=https://raw.githubusercontent.com/46Dimensions/vp-vm/main/version.txt
+VP_VM_URL=https://raw.githubusercontent.com/46Dimensions/vp-vm/main/VERSION.txt
 echo "${blue}GET: ${VP_VM_URL} ${reset}"
 curl -fsSL $VP_VM_URL -o "$INSTALL_DIR/versions/vp-vm/latest.txt" || { echo "${red} Error getting latest version of Vocabulary Plus Version Manager.${reset}"; exit 1; }
 sleep 1
