@@ -12,7 +12,7 @@ reset="\033[0m"
 
 # Header
 echo "${cyan}========================================================${reset}"
-echo "${cyan}Vocabulary Plus Version Manager: Version Updater (0.7.0)${reset}"
+echo "${cyan}Vocabulary Plus Version Manager: Version Updater (1.0.0)${reset}"
 echo "${cyan}========================================================${reset}"
 
 # Function to get the contents of a version file

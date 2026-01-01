@@ -34,12 +34,12 @@ call "%INSTALL_DIR%\list-upgradable.bat"
 exit /b !errorlevel!
 
 :version
-echo 0.7.0
+echo 1.0.0
 exit /b 0
 
 :help
 echo %cyan%=============================================%reset%
-echo %cyan%Vocabulary Plus Version Manager: Help (0.7.0)%reset%
+echo %cyan%Vocabulary Plus Version Manager: Help (1.0.0)%reset%
 echo %cyan%=============================================%reset%
 echo Usage: vp-vm [command]
 echo.

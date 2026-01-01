@@ -10,7 +10,7 @@ set "cyan=[96m"
 set "reset=[0m"
 
 echo %boldcyan%=========================================================%reset%
-echo %boldcyan%Vocabulary Plus Version Manager: Package Upgrader (0.7.0)%reset%
+echo %boldcyan%Vocabulary Plus Version Manager: Package Upgrader (1.0.0)%reset%
 echo %boldcyan%=========================================================%reset%
 timeout /t 1 /nobreak
 

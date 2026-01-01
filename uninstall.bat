@@ -31,7 +31,7 @@ exit /b !errorlevel!
 :main
 
 echo %cyan%====================================================%reset%
-echo %cyan%Vocabulary Plus Version Manager: Uninstaller (0.7.0)%reset%
+echo %cyan%Vocabulary Plus Version Manager: Uninstaller (1.0.0)%reset%
 echo %cyan%====================================================%reset%
 timeout /t 1 /nobreak
 
@@ -61,7 +61,7 @@ timeout /t 0 /nobreak
 
 REM Final message
 echo.
-echo %green%Vocabulary Plus Version Manager 0.7.0 successfully uninstalled.%reset%
+echo %green%Vocabulary Plus Version Manager 1.0.0 successfully uninstalled.%reset%
 echo %yellow%If you found any errors in Vocabulary Plus Version Manager, please report them at https://github.com/46Dimensions/vp-vm/issues%reset%
 
 exit /b 0
