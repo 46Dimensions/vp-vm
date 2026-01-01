@@ -1,6 +1,6 @@
 # Vocabulary Plus Version Manager (`vp-vm`)
 
-<img src="/readme_logo.png" alt="The Vocabulary Plus Version Manager Logo" height="600">
+<img src="https://raw.githubusercontent.com/46Dimensions/vp-vm/main/readme_logo.png" alt="The Vocabulary Plus Version Manager Logo" height="600" width="900">
 
 This repository is where [46Dimensions](github.com/46Dimensions) develops [Vocabulary Plus](https://github.com/46Dimensions/VocabularyPlus)'s version manager (`vp-vm`).
 
@@ -13,14 +13,19 @@ Vocabulary Plus Version Manager is a program which can be used to upgrade Vocabu
 
 ## Installation
 
-Vocabulary Plus Version Manager is available on macOS and Linux in version [`1.3.0-beta`](https://github.com/46Dimensions/VocabularyPlus/tree/v1.3.0-beta) of [Vocabulary Plus](https://github.com/46Dimensions/VocabularyPlus/).  
+Vocabulary Plus Version Manager is available on macOS, Linux and Windows in version [`1.3.0`](https://github.com/46Dimensions/VocabularyPlus/tree/main) of [Vocabulary Plus](https://github.com/46Dimensions/VocabularyPlus).  
 You can install it with:
 
 ``` shell
-curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/v1.3.0-beta/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/v1.3.0/install.sh | sh
 ```
 
-It is not currently available on Windows.
+Or on Windows:
+
+``` batch
+curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/v1.3.0/install.bat -o install.bat
+CALL install.bat
+```
 
 ## Running
 
