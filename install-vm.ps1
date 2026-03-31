@@ -12,6 +12,7 @@ if (-not $InstallDir) {
 
 $VM_DIR = Join-Path $InstallDir "vm"
 $BIN = "$env:USERPROFILE\bin"
+Add-ToUserPath $BIN
 
 if (-not $Silent) {
     Write-Host "Installing Vocabulary Plus Version Manager..." -ForegroundColor Cyan
@@ -47,4 +48,28 @@ $launcher = Join-Path $BIN "vp-vm.ps1"
 
 if (-not $Silent) {
     Write-Host "Installation complete." -ForegroundColor Green
+}
+
+function Add-ToUserPath {
+    param([string]$NewPath)
+
+    $current = [Environment]::GetEnvironmentVariable("PATH", "User")
+
+    if (-not $current) { $current = "" }
+
+    $paths = $current -split ";" | Where-Object { $_ -ne "" }
+
+    if ($paths -contains $NewPath) {
+        Write-Host "PATH already contains: $NewPath" -ForegroundColor DarkGray
+        return
+    }
+
+    $newPathValue = ($paths + $NewPath) -join ";"
+
+    [Environment]::SetEnvironmentVariable("PATH", $newPathValue, "User")
+
+    # Also update current session immediately
+    $env:PATH = $newPathValue
+
+    Write-Host "Added to PATH: $NewPath" -ForegroundColor Green
 }
