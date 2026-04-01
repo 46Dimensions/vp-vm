@@ -14,7 +14,7 @@ Invoke-WebRequest $vmUrl -OutFile "$dir\versions\vp-vm\latest.txt"
 
 function Read-Version($path) {
     if (Test-Path $path) {
-        Write-Host "READ: $path" -ForegroundColor DarkMagenta
+        Write-Host "READ: $path" -ForegroundColor Magenta
         return (Get-Content $path).Trim()
     }
     else {

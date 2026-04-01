@@ -9,7 +9,7 @@ function Read-Version($path) {
     return $null
 }
 
-Write-Host "Listing..." -ForegroundColor Yellow
+Write-Host "Listing..." -ForegroundColor Cyan
 
 $vpLatest = Read-Version "$dir\versions\vp\latest.txt"
 $vpVmLatest = Read-Version "$dir\versions\vp-vm\latest.txt"

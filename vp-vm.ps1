@@ -8,8 +8,8 @@ switch ($cmd) {
     "list-upgradable" { & "$env:INSTALL_DIR\list-upgradable.ps1" }
     "--version" { Write-Host "1.0.0" }
     "--help" {
-        Write-Host "Vocabulary Plus Version Manager"
-        Write-Host "   A tool to update Vocabulary Plus"
+        Write-Host "Vocabulary Plus Version Manager" -ForegroundColor Cyan
+        Write-Host "   A tool to update Vocabulary Plus" -ForegroundColor Cyan
         Write-Host ""
         Write-Host "Usage: vp-vm <command>"
         Write-Host "Commands:"
