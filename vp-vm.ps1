@@ -22,12 +22,7 @@ switch ($cmd) {
     default {
         if (-not $cmd) {
             Write-Host "Error: No command specified." -ForegroundColor Red
-            Write-Host "Commands:"
-            Write-Host "  update"
-            Write-Host "  upgrade"
-            Write-Host "  list-upgradable"
-            Write-Host "  --version"
-            Write-Host "  --help"
+            Write-Host "See 'vp-vm --help' for more information."
         }
         else {
             Write-Host "Unknown command $cmd." -ForegroundColor Red
