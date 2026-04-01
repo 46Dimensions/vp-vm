@@ -1,9 +1,9 @@
-$ErrorActionPreference = "Stop"
-
 param(
     [string]$InstallDir,
     [switch]$Silent
 )
+
+$ErrorActionPreference = "Stop"
 
 if (-not $InstallDir) {
     Write-Host "ERROR: Install directory not provided." -ForegroundColor Red
