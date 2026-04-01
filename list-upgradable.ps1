@@ -5,6 +5,8 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+$InstallDir = $env:INSTALL_DIR
+
 if (-not $InstallDir) {
     Write-Host "ERROR: Install directory not provided." -ForegroundColor Red
     exit 1
