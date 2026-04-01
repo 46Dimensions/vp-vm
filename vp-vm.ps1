@@ -9,13 +9,28 @@ switch ($cmd) {
     "--version" { Write-Host "1.0.0" }
     "--help" {
         Write-Host "Vocabulary Plus Version Manager"
+        Write-Host "   A tool to update Vocabulary Plus"
+        Write-Host ""
+        Write-Host "Usage: vp-vm <command>"
         Write-Host "Commands:"
         Write-Host "  update"
         Write-Host "  upgrade"
         Write-Host "  list-upgradable"
         Write-Host "  --version"
+        Write-Host "  --help"
     }
     default {
-        Write-Host "Unknown command." -ForegroundColor Red
+        if (-not $cmd) {
+            Write-Host "Error: No command specified." -ForegroundColor Red
+            Write-Host "Commands:"
+            Write-Host "  update"
+            Write-Host "  upgrade"
+            Write-Host "  list-upgradable"
+            Write-Host "  --version"
+            Write-Host "  --help"
+        }
+        else {
+            Write-Host "Unknown command $cmd." -ForegroundColor Red
+        }
     }
 }
