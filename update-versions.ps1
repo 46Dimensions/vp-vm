@@ -8,7 +8,9 @@ $vpUrl = "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/VER
 $vmUrl = "https://raw.githubusercontent.com/46Dimensions/vp-vm/main/VERSION.txt"
 
 Invoke-WebRequest $vpUrl -OutFile "$dir\versions\vp\latest.txt"
+Write-Host "Saved Vocabulary Plus latest version to $dir\versions\vp\latest.txt" -ForegroundColor Green
 Invoke-WebRequest $vmUrl -OutFile "$dir\versions\vp-vm\latest.txt"
+Write-Host "Saved VP VM latest version to $dir\versions\vp-vm\latest.txt" -ForegroundColor Green
 
 $vpLatest = (Get-Content "$dir\versions\vp\latest.txt").Trim()
 $vpCurrent = (Get-Content "$dir\versions\vp\current.txt").Trim()
