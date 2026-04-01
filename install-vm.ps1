@@ -10,6 +10,12 @@ if (-not $InstallDir) {
     exit 1
 }
 
+Write-Color "==========================================================" -ForegroundColor Cyan
+Write-Color "Vocabulary Plus Version Manager: Windows Installer (1.0.0)" -ForegroundColor Cyan
+Write-Color "==========================================================" -ForegroundColor Cyan
+Write-Host ""
+
+
 $VM_DIR = Join-Path $InstallDir "vm"
 $BIN = "$env:USERPROFILE\bin"
 Add-ToUserPath $BIN
@@ -59,6 +65,11 @@ $launcher = Join-Path $BIN "vp-vm.ps1"
 `$env:INSTALL_DIR = "$VM_DIR"
 & "$VM_DIR\vp-vm.ps1" `$args
 "@ | Set-Content $launcher
+
+if (-not $silent) {
+    Write-Host "Writing current version file..." -ForegroundColor Cyan
+    Set-Content "$VM_DIR\versions\vp-vm\current.txt" "1.0.0"
+}
 
 if (-not $Silent) {
     Write-Host "Installation complete." -ForegroundColor Green
