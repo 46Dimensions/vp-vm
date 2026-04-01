@@ -18,11 +18,18 @@ if (-not $Silent) {
     Write-Host "Installing Vocabulary Plus Version Manager..." -ForegroundColor Cyan
 }
 
+if (-not $Silent) {
+    Write-Host "Creating directories..." -ForegroundColor Cyan
+}
 New-Item -ItemType Directory -Force -Path $VM_DIR | Out-Null
 New-Item -ItemType Directory -Force -Path "$VM_DIR\versions\vp" | Out-Null
 New-Item -ItemType Directory -Force -Path "$VM_DIR\versions\vp-vm" | Out-Null
 
 # Download scripts
+if (-not $silent) {
+    Write-Host "Downloading files..." -ForegroundColor Cyan
+}
+
 $base = "https://raw.githubusercontent.com/46Dimensions/vp-vm/main"
 
 $files = @(
@@ -34,10 +41,17 @@ $files = @(
 )
 
 foreach ($f in $files) {
+    if (-not $silent) {
+        Write-Host "Downloading $f..." -ForegroundColor Cyan
+    }
     Invoke-WebRequest "$base/$f" -OutFile (Join-Path $VM_DIR $f)
 }
 
 # Create launcher
+if (-not $silent) {
+    Write-Host "Creating launcher..." -ForegroundColor Cyan
+}
+
 New-Item -ItemType Directory -Force -Path $BIN | Out-Null
 $launcher = Join-Path $BIN "vp-vm.ps1"
 
