@@ -7,9 +7,9 @@ Write-Host "Updating versions..." -ForegroundColor Cyan
 $vpUrl = "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/VERSION.txt"
 $vmUrl = "https://raw.githubusercontent.com/46Dimensions/vp-vm/main/VERSION.txt"
 
-Write-Host "GET: $vpUrl" -ForegorundColor Blue
+Write-Host "GET: $vpUrl" -ForegroundColor Blue
 Invoke-WebRequest $vpUrl -OutFile "$dir\versions\vp\latest.txt"
-Write-Host "GET: $vmUrl" -ForegorundColor Blue
+Write-Host "GET: $vmUrl" -ForegroundColor Blue
 Invoke-WebRequest $vmUrl -OutFile "$dir\versions\vp-vm\latest.txt"
 
 function Read-Version($path) {
