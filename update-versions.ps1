@@ -7,16 +7,27 @@ Write-Host "Updating versions..." -ForegroundColor Cyan
 $vpUrl = "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/VERSION.txt"
 $vmUrl = "https://raw.githubusercontent.com/46Dimensions/vp-vm/main/VERSION.txt"
 
+Write-Host "GET: $vpUrl" -ForegorundColor Blue
 Invoke-WebRequest $vpUrl -OutFile "$dir\versions\vp\latest.txt"
-Write-Host "Saved Vocabulary Plus latest version to $dir\versions\vp\latest.txt" -ForegroundColor Green
+Write-Host "GET: $vmUrl" -ForegorundColor Blue
 Invoke-WebRequest $vmUrl -OutFile "$dir\versions\vp-vm\latest.txt"
-Write-Host "Saved VP VM latest version to $dir\versions\vp-vm\latest.txt" -ForegroundColor Green
 
-$vpLatest = (Get-Content "$dir\versions\vp\latest.txt").Trim()
-$vpCurrent = (Get-Content "$dir\versions\vp\current.txt").Trim()
+function Read-Version($path) {
+    if (Test-Path $path) {
+        Write-Host "READ: $path" -ForegroundColor DarkMagenta
+        return (Get-Content $path).Trim()
+    }
+    else {
+        Write-Error "Version file $path not found."
+        exit 1
+    }
+}
 
-$vmLatest = (Get-Content "$dir\versions\vp-vm\latest.txt").Trim()
-$vmCurrent = (Get-Content "$dir\versions\vp-vm\current.txt").Trim()
+$vpLatest = (Read-Version "$dir\versions\vp\latest.txt").Trim()
+$vpCurrent = (Read-Version "$dir\versions\vp\current.txt").Trim()
+
+$vmLatest = (Read-Version "$dir\versions\vp-vm\latest.txt").Trim()
+$vmCurrent = (Read-Version "$dir\versions\vp-vm\current.txt").Trim()
 
 $updates = 0
 if ($vpLatest -ne $vpCurrent) { $updates++ }
