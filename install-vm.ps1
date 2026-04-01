@@ -30,7 +30,7 @@ if (-not $silent) {
     Write-Host "Downloading files..." -ForegroundColor Cyan
 }
 
-$base = "https://raw.githubusercontent.com/46Dimensions/vp-vm/main"
+$base = "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.1.0"
 
 $files = @(
     "vp-vm.ps1",
