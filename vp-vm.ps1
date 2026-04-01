@@ -1,21 +1,50 @@
 $ErrorActionPreference = "Stop"
 
-$cmd = $args[0]
+$dir = $env:INSTALL_DIR
 
-switch ($cmd) {
-    "update" { & "$env:INSTALL_DIR\update-versions.ps1" }
-    "upgrade" { & "$env:INSTALL_DIR\upgrade.ps1" }
-    "list-upgradable" { & "$env:INSTALL_DIR\list-upgradable.ps1" }
-    "--version" { Write-Host "1.0.0" }
-    "--help" {
-        Write-Host "Vocabulary Plus Version Manager"
-        Write-Host "Commands:"
-        Write-Host "  update"
-        Write-Host "  upgrade"
-        Write-Host "  list-upgradable"
-        Write-Host "  --version"
-    }
-    default {
-        Write-Host "Unknown command." -ForegroundColor Red
-    }
+function Read($p) { (Get-Content $p).Trim() }
+
+$vpCur = Read "$dir\versions\vp\current.txt"
+$vpLat = Read "$dir\versions\vp\latest.txt"
+
+$vmCur = Read "$dir\versions\vp-vm\current.txt"
+$vmLat = Read "$dir\versions\vp-vm\latest.txt"
+
+$upgradeVP = $vpCur -ne $vpLat
+$upgradeVM = $vmCur -ne $vmLat
+
+if ($upgradeVP) {
+    Write-Host "Upgrading Vocabulary Plus..." -ForegroundColor Yellow
+
+    $temp = "$env:TEMP\vp_backup"
+    Remove-Item $temp -Recurse -Force -ErrorAction SilentlyContinue
+    New-Item -ItemType Directory -Path $temp | Out-Null
+
+    Move-Item "$PWD\VocabularyPlus\JSON" $temp -ErrorAction SilentlyContinue
+    Move-Item "$PWD\VocabularyPlus\vm" $temp -ErrorAction SilentlyContinue
+
+    & "$PWD\VocabularyPlus\uninstall.cmd" -s
+
+    Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.ps1" -OutFile install.ps1
+    powershell -ExecutionPolicy Bypass -File install.ps1
+    Remove-Item install.ps1
+
+    Move-Item "$temp\*" "$PWD\VocabularyPlus\" -Force
+    Remove-Item $temp -Recurse
+
+    $vpLat | Set-Content "$dir\versions\vp\current.txt"
 }
+
+if ($upgradeVM) {
+    Write-Host "Upgrading VP VM..." -ForegroundColor Yellow
+
+    & "$dir\uninstall.ps1" -Silent
+
+    Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/main/install-vm.ps1" -OutFile install-vm.ps1
+    powershell -ExecutionPolicy Bypass -File install-vm.ps1 $dir -Silent
+    Remove-Item install-vm.ps1
+
+    $vmLat | Set-Content "$dir\versions\vp-vm\current.txt"
+}
+
+Write-Host "Upgrade complete." -ForegroundColor Green

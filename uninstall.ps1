@@ -1,52 +1,35 @@
 param(
-    [string]$InstallDir,
     [switch]$Silent
 )
 
-$ErrorActionPreference = "Stop"
+$dir = $env:INSTALL_DIR
 
-$InstallDir = $env:INSTALL_DIR
-
-if (-not $InstallDir) {
-    Write-Host "ERROR: Install directory not provided." -ForegroundColor Red
+if (-not $dir) {
+    Write-Host "ERROR: INSTALL_DIR not set." -ForegroundColor Red
     exit 1
 }
 
-$VM_DIR = Join-Path $InstallDir "vm"
-$BIN = "$env:USERPROFILE\bin"
-
-if (-not $Silent) {
-    Write-Host "Installing Vocabulary Plus Version Manager..." -ForegroundColor Cyan
+function Log($msg, $color = "White") {
+    if (-not $Silent) {
+        Write-Host $msg -ForegroundColor $color
+    }
 }
 
-New-Item -ItemType Directory -Force -Path $VM_DIR | Out-Null
-New-Item -ItemType Directory -Force -Path "$VM_DIR\versions\vp" | Out-Null
-New-Item -ItemType Directory -Force -Path "$VM_DIR\versions\vp-vm" | Out-Null
+Log "Vocabulary Plus Version Manager: Uninstaller (1.0.0)" Cyan
 
-# Download scripts
-$base = "https://raw.githubusercontent.com/46Dimensions/vp-vm/main"
+Log "Removing vm directory..." Yellow
 
-$files = @(
-    "vp-vm.ps1",
-    "update-versions.ps1",
-    "upgrade.ps1",
-    "list-upgradable.ps1",
-    "uninstall.ps1"
-)
-
-foreach ($f in $files) {
-    Invoke-WebRequest "$base/$f" -OutFile (Join-Path $VM_DIR $f)
+if ((Get-Location).Path -eq $dir) {
+    Set-Location ..
 }
 
-# Create launcher
-New-Item -ItemType Directory -Force -Path $BIN | Out-Null
-$launcher = Join-Path $BIN "vp-vm.ps1"
+Remove-Item $dir -Recurse -Force -ErrorAction SilentlyContinue
 
-@"
-`$env:INSTALL_DIR = "$VM_DIR"
-& "$VM_DIR\vp-vm.ps1" `$args
-"@ | Set-Content $launcher
+Log "Directory removed" Green
 
-if (-not $Silent) {
-    Write-Host "Installation complete." -ForegroundColor Green
-}
+Log "Removing control script..." Yellow
+Remove-Item "$env:USERPROFILE\bin\vp-vm.ps1" -Force -ErrorAction SilentlyContinue
+
+Log "Control script removed." Green
+
+Log "Uninstallation complete." Green
