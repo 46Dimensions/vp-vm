@@ -29,6 +29,9 @@ if ($upgradeVP) {
     powershell -ExecutionPolicy Bypass -File install.ps1
     Remove-Item install.ps1
 
+    Remove-Item "$PWD\VocabularyPlus\JSON" -Recurse -Force -ErrorAction SilentlyContinue
+    Remove-Item "$PWD\VocabularyPlus\vm" -Recurse -Force -ErrorAction SilentlyContinue
+
     Move-Item "$temp\*" "$PWD\VocabularyPlus\" -Force
     Remove-Item $temp -Recurse
 
