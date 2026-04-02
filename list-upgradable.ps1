@@ -21,11 +21,19 @@ $vpUpdate = $vpLatest -ne $vpCurrent
 $vmUpdate = $vpVmLatest -ne $vpVmCurrent
 
 if ($vpUpdate) {
-    Write-Host "Vocabulary Plus ($vpCurrent -> $vpLatest)" -ForegroundColor Blue
+    Write-Host "Vocabulary Plus (" -NoNewline
+    Write-Host "$vpCurrent" -NoNewline -ForegroundColor Red
+    Write-Host  " -> " -NoNewline
+    Write-Host "$vpLatest" -NoNewline -ForegroundColor Green
+    Write-Host ")" -NoNewline
 }
 
 if ($vmUpdate) {
-    Write-Host "Vocabulary Plus Version Manager ($vpVmCurrent -> $vpVmLatest)" -ForegroundColor Blue
+    Write-Host "Vocabulary Plus Version Manager (" -NoNewline
+    Write-Host "$vpVmCurrent" -NoNewline -ForegroundColor Red
+    Write-Host  " -> " -NoNewline
+    Write-Host "$vpVmLatest" -NoNewline -ForegroundColor Green
+    Write-Host ")" -NoNewline
 }
 
 if ($vpUpdate -or $vmUpdate) {
