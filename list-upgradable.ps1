@@ -25,7 +25,7 @@ if ($vpUpdate) {
     Write-Host "$vpCurrent" -NoNewline -ForegroundColor Red
     Write-Host  " -> " -NoNewline
     Write-Host "$vpLatest" -NoNewline -ForegroundColor Green
-    Write-Host ")" -NoNewline
+    Write-Host ")"
 }
 
 if ($vmUpdate) {
@@ -33,7 +33,7 @@ if ($vmUpdate) {
     Write-Host "$vpVmCurrent" -NoNewline -ForegroundColor Red
     Write-Host  " -> " -NoNewline
     Write-Host "$vpVmLatest" -NoNewline -ForegroundColor Green
-    Write-Host ")" -NoNewline
+    Write-Host ")"
 }
 
 if ($vpUpdate -or $vmUpdate) {
