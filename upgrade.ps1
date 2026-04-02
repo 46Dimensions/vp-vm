@@ -23,9 +23,9 @@ if ($upgradeVP) {
     Move-Item "$PWD\VocabularyPlus\JSON" $temp -ErrorAction SilentlyContinue
     Move-Item "$PWD\VocabularyPlus\vm" $temp -ErrorAction SilentlyContinue
 
-    & "$PWD\VocabularyPlus\uninstall.cmd" -s
+    & "$PWD\VocabularyPlus\uninstall.cmd" --silent
 
-    Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.ps1" -OutFile install.ps1
+    Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.5.0/install.ps1" -OutFile install.ps1
     powershell -ExecutionPolicy Bypass -File install.ps1
     Remove-Item install.ps1
 
@@ -40,7 +40,7 @@ if ($upgradeVM) {
 
     & "$dir\uninstall.ps1" -Silent
 
-    Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/main/install-vm.ps1" -OutFile install-vm.ps1
+    Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.1.0/install-vm.ps1" -OutFile install-vm.ps1
     powershell -ExecutionPolicy Bypass -File install-vm.ps1 $dir -Silent
     Remove-Item install-vm.ps1
 
