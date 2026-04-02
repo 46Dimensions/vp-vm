@@ -33,7 +33,7 @@ New-Item -ItemType Directory -Force -Path "$VM_DIR\versions\vp-vm" | Out-Null
 
 # Download scripts
 if (-not $silent) {
-    Write-Host "- Downloading files..." -ForegroundColor Cyan
+    Write-Host "Downloading files..." -ForegroundColor Cyan
 }
 
 $base = "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.1.0"
@@ -48,7 +48,7 @@ $files = @(
 
 foreach ($f in $files) {
     if (-not $silent) {
-        Write-Host "Downloading $f..." -ForegroundColor Cyan
+        Write-Host "- Downloading $f..." -ForegroundColor Cyan
     }
     Invoke-WebRequest "$base/$f" -OutFile (Join-Path $VM_DIR $f)
 }
