@@ -24,7 +24,7 @@ Or on Windows:
 
 ``` batch
 curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/v1.3.0/install.bat -o install.bat
-CALL install.bat
+call install.bat
 ```
 
 ## Running
