@@ -10,9 +10,9 @@ if (-not $InstallDir) {
     exit 1
 }
 
-Write-Color "==========================================================" Cyan
-Write-Color "Vocabulary Plus Version Manager: Windows Installer (1.0.0)" Cyan
-Write-Color "==========================================================" Cyan
+Write-Colour "==========================================================" Cyan
+Write-Colour "Vocabulary Plus Version Manager: Windows Installer (1.0.0)" Cyan
+Write-Colour "==========================================================" Cyan
 Write-Host ""
 
 
