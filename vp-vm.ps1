@@ -11,13 +11,12 @@ switch ($cmd) {
         Write-Host "Vocabulary Plus Version Manager" -ForegroundColor Cyan
         Write-Host "   A tool to update Vocabulary Plus" -ForegroundColor Cyan
         Write-Host ""
-        Write-Host "Usage: vp-vm <command>"
         Write-Host "Commands:"
-        Write-Host "  update"
-        Write-Host "  upgrade"
-        Write-Host "  list-upgradable"
-        Write-Host "  --version"
-        Write-Host "  --help"
+        Write-Host "   update            Update the version lists"
+        Write-Host "   upgrade           Upgrade Vocabulary Plus and vp-vm to the latest version"
+        Write-Host "   list-upgradable   Show upgradable packages"
+        Write-Host "   --version         Show the installed version of Vocabulary Plus Version Manager"
+        Write-Host "   --help            Show this help message and exit"
     }
     default {
         if (-not $cmd) {
