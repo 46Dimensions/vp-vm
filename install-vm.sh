@@ -32,7 +32,7 @@ echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
 echo "[38;5;209m  🭖██🭡     [38;5;220m██"
 echo -n "[0m"
 echo "VOCABULARY PLUS"
-echo "Version Manager: macOS & Linux Installer (1.0.0)"
+echo "Version Manager: macOS & Linux Installer (1.1.0)"
 
 # Check that curl exists
 if ! command -v curl >/dev/null 2>&1; then
@@ -56,7 +56,7 @@ echo ""
 
 # Write vp-vm current version file
 echo "${yellow}Setting up current version file...${reset}"
-echo "1.0.0" > "$INSTALL_DIR/versions/vp-vm/current.txt"
+echo "1.1.0" > "$INSTALL_DIR/versions/vp-vm/current.txt"
 echo "${green}Current version file set up.${reset}"
 echo ""
 
@@ -103,5 +103,5 @@ echo "${green}Scripts configured successfully.${reset}"
 echo ""
 
 # Final instructions
-echo "${green}Vocabulary Plus Version Manager 1.0.0 installed successfully${reset}"
+echo "${green}Vocabulary Plus Version Manager 1.1.0 installed successfully${reset}"
 echo "For instructions on how to use the version manager, please visit: https://github.com/46Dimensions/vp-vm/blob/main/README.md"
