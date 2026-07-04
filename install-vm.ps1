@@ -1,4 +1,4 @@
-param(
+﻿param(
     [string]$InstallDir,
     [switch]$Silent
 )
@@ -12,12 +12,11 @@ if (-not $InstallDir) {
 
 function Write-Logo {
     $esc = [char]27
-    Write-Host "$esc[38;5;99m🭖█🭀  🭋█🭡   $esc[38;5;171m██████🭎"
-    Write-Host "$esc[38;5;105m🭦█🭐  🭅█🭛   $esc[38;5;177m██   🭨█🭬"
-    Write-Host "$esc[38;5;141m 🭖█🭀🭋█🭡   $esc[38;5;183m ██████🭡"
-    Write-Host "$esc[38;5;177m 🭦█🭐🭅█🭛   $esc[38;5;209m ██"
-    Write-Host "$esc[38;5;209m  🭖██🭡   $esc[38;5;220m  ██$esc[0m"
-    Write-Host "VOCABULARY PLUS"
+    Write-Host "$esc[38;5;99m🭖█🭀  🭋█🭡   $esc[38;5;171m██████🭏"
+    Write-Host "$esc[38;5;105m🭦█🭐  🭅█🭛   $esc[38;5;177m██   🭨█"
+    Write-Host "$esc[38;5;141m 🭖█🭀🭋█🭡    $esc[38;5;183m██████🭠"
+    Write-Host "$esc[38;5;177m 🭦█🭐🭅█🭛    $esc[38;5;209m██"
+    Write-Host "$esc[38;5;209m  🭖██🭡     $esc[38;5;220m██$esc[0m"
     Write-Host "Version Manager: Windows Installer (1.1.0)"
     Write-Host ""
 }

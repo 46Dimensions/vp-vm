@@ -8,7 +8,7 @@ echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
 echo "[38;5;209m  🭖██🭡     [38;5;220m██"
 echo -n "[0m"
 echo "VOCABULARY PLUS"
-echo "Version Manager: macOS & Linux Installer (1.1.0)"
+echo "Version Manager (1.1.0)"
 
 # ANSI colours
 red="\033[91m"
