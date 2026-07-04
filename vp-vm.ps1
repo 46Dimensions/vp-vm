@@ -9,7 +9,8 @@ function Write-Logo {
     Write-Host "$esc[38;5;141m 🭖█🭀🭋█🭡    $esc[38;5;183m██████🭠"
     Write-Host "$esc[38;5;177m 🭦█🭐🭅█🭛    $esc[38;5;209m██"
     Write-Host "$esc[38;5;209m  🭖██🭡     $esc[38;5;220m██$esc[0m"
-    Write-Host "Version Manager (1.1.0)"
+    Write-Host "VOCABULARY PLUS"
+    Write-Host "Version Manager: Windows Installer (1.1.0)"
     Write-Host ""
 }
 
