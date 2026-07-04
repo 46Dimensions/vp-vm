@@ -10,11 +10,6 @@ blue="\033[94m"
 purple="\033[35m"
 reset="\033[0m"
 
-# Header
-echo "${cyan}========================================================${reset}"
-echo "${cyan}Vocabulary Plus Version Manager: Version Updater (1.0.0)${reset}"
-echo "${cyan}========================================================${reset}"
-
 # Function to get the contents of a version file
 extract_version() {
     file_path="$1"

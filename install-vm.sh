@@ -25,10 +25,14 @@ if [ "$SILENT" -eq 1 ]; then
   exec >/dev/null
 fi
 
-echo "${cyan}=======================================================${reset}"
-echo "${cyan}Vocabulary Plus Version Manager: Unix Installer (1.0.0)${reset}"
-echo "${cyan}=======================================================${reset}"
-echo ""
+echo "[38;5;99m🭖█🭀  🭋█🭡   [38;5;171m██████🭎"
+echo "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   🭨█🭬"
+echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭡"
+echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
+echo "[38;5;209m  🭖██🭡     [38;5;220m██"
+echo -n "[0m"
+echo "VOCABULARY PLUS"
+echo "Version Manager: macOS & Linux Installer (1.0.0)"
 
 # Check that curl exists
 if ! command -v curl >/dev/null 2>&1; then

@@ -15,8 +15,6 @@ function Log($msg, $color = "White") {
     }
 }
 
-Log "Vocabulary Plus Version Manager: Uninstaller (1.0.0)" Cyan
-
 Log "Removing vm directory..." Yellow
 
 if ((Get-Location).Path -eq $dir) {

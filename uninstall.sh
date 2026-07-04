@@ -24,12 +24,6 @@ if [ "$SILENT" -eq 1 ]; then
   exec >/dev/null
 fi
 
-
-echo "${cyan}====================================================${reset}"
-echo "${cyan}Vocabulary Plus Version Manager: Uninstaller (1.0.0)${reset}"
-echo "${cyan}====================================================${reset}"
-sleep 1
-
 cd "$INSTALL_DIR"
 
 # Remove the VocabularyPlus/vm directory ("$INSTALL_DIR")
