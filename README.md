@@ -1,31 +1,16 @@
 # Vocabulary Plus Version Manager (`vp-vm`)
 
-<img src="https://raw.githubusercontent.com/46Dimensions/vp-vm/main/readme_logo.png" alt="The Vocabulary Plus Version Manager Logo" height="600" width="900">
+![The Vocabulary Plus logo with the words 'Vocabulary Plus Version Manager' to the right of it](https://raw.githubusercontent.com/46Dimensions/vp-vm/1.1.0/readme_logo.png)
 
 This repository is where [46Dimensions](github.com/46Dimensions) develops [Vocabulary Plus](https://github.com/46Dimensions/VocabularyPlus)'s version manager (`vp-vm`).
 
 Vocabulary Plus Version Manager is a program which can be used to upgrade Vocabulary Plus to the latest version without losing your vocabulary files. It will also upgrade itself if necessary.
 
-> [!NOTE]  
-> Vocabulary Plus Version Manager is under development.  
-> It must only be used as part of Vocabulary Plus.  
-> The integration with Vocabulary Plus is not yet complete; please report problems on the [Issues](https://github.com/46Dimensions/vp-vm/issues) page.
-
 ## Installation
 
-Vocabulary Plus Version Manager is available on macOS, Linux and Windows in version [`1.3.0`](https://github.com/46Dimensions/VocabularyPlus/tree/main) of [Vocabulary Plus](https://github.com/46Dimensions/VocabularyPlus).  
-You can install it on macOS/Linux with:
+Vocabulary Plus Version Manager is available on macOS, Linux and Windows in version [`1.3.0`](https://github.com/46Dimensions/VocabularyPlus/tree/1.3.0) or later of [Vocabulary Plus](https://github.com/46Dimensions/VocabularyPlus).  
 
-``` shell
-curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/v1.3.0/install.sh | sh
-```
-
-Or on Windows:
-
-``` batch
-curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/v1.3.0/install.bat -o install.bat
-CALL install.bat
-```
+See [VocabularyPlus's README](https://github.com/46Dimensions/VocabularyPlus/blob/main/README.md) for installation instructions.
 
 ## Running
 
@@ -39,9 +24,9 @@ Once installed, you can run:
 
 ## Issues
 
-Report bugs in this repository's [Issues](https://github.com/46Dimensions/vp-vm/issues), **not in VocabularyPlus.**
+Report bugs in [this repository's Issues](https://github.com/46Dimensions/vp-vm/issues), **not in VocabularyPlus.**
 
 ## License
 
-This source code is licensed under the MIT license.  
+The source code is licensed under the MIT license.  
 See [LICENSE](LICENSE) for details.

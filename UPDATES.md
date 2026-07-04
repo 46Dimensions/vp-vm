@@ -1,10 +1,15 @@
 # Vocabulary Plus Version Manager - Updates
 
+## Depracation
+
+Starting with version 1.1.0, UPDATES.md will no longer be updated with new release information.  
+Instead, see the [releases page](https://github.com/46Dimensions/vp-vm/releases) on GitHub.
+
 Vocabulary Plus Version Manager is updated regularly. Below is a list of recent updates (v0.1.0 to v1.0.0).
 
 ## v0.1.0 - v0.7.0
 
-Released between 15th Dcember and 28th December 2025.
+Released between 15th December and 28th December 2025.
 
 These releases were all about rapid development, and included the core functions of Vocabulary Plus Version Manager.
 Integration with Vocabulary Plus was developed step-by-step in the `vp-vm` branch of [Vocabulary Plus](github.com/46Dimensions/VocabularyPlus); Windows support was added rapidly in `1.3.0_stable`.

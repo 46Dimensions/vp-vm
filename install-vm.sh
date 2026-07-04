@@ -25,10 +25,13 @@ if [ "$SILENT" -eq 1 ]; then
   exec >/dev/null
 fi
 
-echo "${cyan}=======================================================${reset}"
-echo "${cyan}Vocabulary Plus Version Manager: Unix Installer (1.0.0)${reset}"
-echo "${cyan}=======================================================${reset}"
-echo ""
+echo "[38;5;99m🭖█🭀  🭋█🭡   [38;5;171m██████🭏"
+echo "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   🭨█"
+echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭠"
+echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
+echo "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
+echo "VOCABULARY PLUS"
+echo "Version Manager: macOS & Linux Installer (1.1.0)"
 
 # Check that curl exists
 if ! command -v curl >/dev/null 2>&1; then
@@ -52,7 +55,7 @@ echo ""
 
 # Write vp-vm current version file
 echo "${yellow}Setting up current version file...${reset}"
-echo "1.0.0" > "$INSTALL_DIR/versions/vp-vm/current.txt"
+echo "1.1.0" > "$INSTALL_DIR/versions/vp-vm/current.txt"
 echo "${green}Current version file set up.${reset}"
 echo ""
 
@@ -83,7 +86,8 @@ UPDATER_CONTENTS=$(curl -fsSL "$BASE_URL/update-versions.sh" || { echo "${red}Fa
 UPGRADER_CONTENTS=$(curl -fsSL "$BASE_URL/upgrade.sh" || { echo "${red}Failed to download upgrader script.${reset}" >&2; exit 1; })
 UNINSTALLER_CONTENTS=$(curl -fsSL "$BASE_URL/uninstall.sh" || { echo "${red}Failed to download uninstaller.${reset}" >&2; exit 1; })
 LISTER_CONTENTS=$(curl -fsSL "$BASE_URL/list-upgradable.sh" || { echo "${red}Failed to download upgradable package lister.${reset}" >&2; exit 1; })
-MAIN_CONTENTS=$(curl -fsSL "$BASE_URL/vp-vm.sh" || { echo "${red}Failed to download upgrader script.${reset}" >&2; exit 1; })
+MAIN_CONTENTS=$(curl -fsSL "$BASE_URL/LICENSE" -o "$INSTALL_DIR/LICENSE" || { echo "${red}Failed to download upgrader script.${reset}" >&2; exit 1; })
+curl -fsSL "$BASE_URL/vp-vm.sh" -o "" || { echo "${red}Failed to download LICENSE.${reset}" >&2; exit 1; } # Download LICENSE
 echo "${green}Scripts downloaded successfully.${reset}"
 
 # Write the scripts with the correct INSTALL_DIR
@@ -99,5 +103,5 @@ echo "${green}Scripts configured successfully.${reset}"
 echo ""
 
 # Final instructions
-echo "${green}Vocabulary Plus Version Manager 1.0.0 installed successfully${reset}"
+echo "${green}Vocabulary Plus Version Manager 1.1.0 installed successfully${reset}"
 echo "For instructions on how to use the version manager, please visit: https://github.com/46Dimensions/vp-vm/blob/main/README.md"

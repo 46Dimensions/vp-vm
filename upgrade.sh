@@ -9,11 +9,6 @@ boldcyan="\033[1;96m"
 cyan="\033[96m"
 reset="\033[0m"
 
-echo "${boldcyan}=========================================================${reset}"
-echo "${boldcyan}Vocabulary Plus Version Manager: Package Upgrader (1.0.0)${reset}"
-echo "${boldcyan}=========================================================${reset}"
-sleep 1
-
 echo "${yellow}Reading package lists...${reset}"
 # Get the Vocabulary Plus version to upgrade to
 VP_CURRENT=$(cat "$INSTALL_DIR/versions/vp/current.txt")

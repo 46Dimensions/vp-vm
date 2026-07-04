@@ -24,12 +24,6 @@ if [ "$SILENT" -eq 1 ]; then
   exec >/dev/null
 fi
 
-
-echo "${cyan}====================================================${reset}"
-echo "${cyan}Vocabulary Plus Version Manager: Uninstaller (1.0.0)${reset}"
-echo "${cyan}====================================================${reset}"
-sleep 1
-
 cd "$INSTALL_DIR"
 
 # Remove the VocabularyPlus/vm directory ("$INSTALL_DIR")
@@ -57,5 +51,5 @@ sleep 0.5
 
 # Final message
 echo ""
-echo "${green}Vocabulary Plus Version Manager 1.0.0 successfully uninstalled.${reset}"
+echo "${green}Vocabulary Plus Version Manager 1.1.0 successfully uninstalled.${reset}"
 echo "${yellow}If you found any errors in Vocabulary Plus Version Manager, please report them at https://github.com/46Dimensions/vp-vm/issues ${reset}"
