@@ -52,6 +52,7 @@ $files = @(
     "upgrade.ps1",
     "list-upgradable.ps1",
     "uninstall.ps1"
+    "LICENSE"
 )
 
 foreach ($f in $files) {
