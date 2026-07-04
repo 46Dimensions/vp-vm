@@ -9,18 +9,8 @@ Vocabulary Plus Version Manager is a program which can be used to upgrade Vocabu
 ## Installation
 
 Vocabulary Plus Version Manager is available on macOS, Linux and Windows in version [`1.3.0`](https://github.com/46Dimensions/VocabularyPlus/tree/1.3.0) or later of [Vocabulary Plus](https://github.com/46Dimensions/VocabularyPlus).  
-You can install it on macOS/Linux with:
 
-``` shell
-curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/v1.3.0/install.sh | sh
-```
-
-Or on Windows:
-
-``` batch
-curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/v1.3.0/install.bat -o install.bat
-call install.bat
-```
+See [VocabularyPlus's README](https://github.com/46Dimensions/VocabularyPlus/blob/main/README.md) for installation instructions.
 
 ## Running
 
