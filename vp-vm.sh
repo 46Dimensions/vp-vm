@@ -7,7 +7,7 @@ echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭠"
 echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
 echo "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
 echo "VOCABULARY PLUS"
-echo "Version Manager (1.1.0)"
+echo "Version Manager (1.2.0)"
 
 # ANSI colours
 red="\033[91m"
@@ -28,7 +28,7 @@ case "$1" in
         sh "$INSTALL_DIR/list-upgradable.sh"
         ;;
     --version)
-        echo "1.1.0"
+        echo "1.2.0"
         ;;
     --help)
         echo "Usage: vp-vm [command]"

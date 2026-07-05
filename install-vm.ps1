@@ -18,7 +18,7 @@ function Write-Logo {
     Write-Host "$esc[38;5;177m 🭦█🭐🭅█🭛    $esc[38;5;209m██"
     Write-Host "$esc[38;5;209m  🭖██🭡     $esc[38;5;220m██$esc[0m"
     Write-Host "VOCABULARY PLUS"
-    Write-Host "Version Manager: Windows Installer (1.1.0)"
+    Write-Host "Version Manager: Windows Installer (1.2.0)"
     Write-Host ""
 }
 
@@ -44,7 +44,7 @@ if (-not $silent) {
     Write-Host "Downloading files..." -ForegroundColor Cyan
 }
 
-$base = "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.1.0"
+$base = "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.2.0"
 
 $files = @(
     "vp-vm.ps1",
@@ -77,7 +77,7 @@ $launcher = Join-Path $BIN "vp-vm.ps1"
 
 if (-not $silent) {
     Write-Host "Writing current version file..." -ForegroundColor Cyan
-    Set-Content "$VM_DIR\versions\vp-vm\current.txt" "1.1.0"
+    Set-Content "$VM_DIR\versions\vp-vm\current.txt" "1.2.0"
 }
 
 if (-not $Silent) {
