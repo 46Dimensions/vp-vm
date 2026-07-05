@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
 set -e
 
+INSTALL_DIR="/home/dmcbbjt/dev/vp-test/VocabularyPlus/vm"
+
+
 # ANSI colours
 red="\033[91m"
 green="\033[92m"
@@ -9,8 +12,8 @@ boldcyan="\033[1;96m"
 cyan="\033[96m"
 reset="\033[0m"
 
-$VERSION = $1
-if [ "$VERSION" = "" ]; then
+VERSION="$1"
+if [ -z "$VERSION" ]; then
     echo "${red}ERROR: No version specified. Please specify a version to install.${reset}"
     exit 1
 fi
@@ -26,7 +29,7 @@ if [ "$VERSION" = "v*" ]; then
     VERSION="${VERSION:1}"
 fi
 
-echo "${yellow}Dwonloading Vocabulary Plus version ${VERSION}...${reset}"
+echo "${yellow}Downloading Vocabulary Plus version ${VERSION}...${reset}"
 URL="https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/v${VERSION}/install.sh"
 curl -fsSL "$URL" -o install.sh || { echo "${red}Version ${VERSION} does not exist${reset}"; exit 1; }
 
