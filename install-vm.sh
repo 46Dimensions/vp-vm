@@ -97,7 +97,10 @@ write_script_with_install_dir "$UPDATER_CONTENTS" "$INSTALL_DIR/update-versions.
 write_script_with_install_dir "$UPGRADER_CONTENTS" "$INSTALL_DIR/upgrade.sh"
 write_script_with_install_dir "$UNINSTALLER_CONTENTS" "$INSTALL_DIR/uninstall.sh"
 write_script_with_install_dir "$LISTER_CONTENTS" "$INSTALL_DIR/list-upgradable.sh"
-write_script_with_install_dir "$MAIN_CONTENTS" "$HOME/.local/bin/vp-vm"
+write_script_with_install_dir "$MAIN_CONTENTS" "$INSTALL_DIR/vp-vm"
+
+mkdir -p "$HOME/.local/bin" || { echo "${red}Failed to create $HOME/.local/bin directory.${reset}" >&2; exit 1; }
+ln -sv "$INSTALL_DIR/vp-vm" "$HOME/.local/bin/vp-vm" || { echo "${red}Failed to create symlink for vp-vm.${reset}" >&2; exit 1; }
 chmod +x "$HOME/.local/bin/vp-vm"
 echo "${green}Scripts configured successfully.${reset}"
 echo ""
