@@ -5,8 +5,13 @@
 
 $ErrorActionPreference = "Stop"
 
+function Write-Colour($text, $colour) {
+    if ($Silent) { return }
+    Write-Host $text -ForegroundColor $colour
+}
+
 if (-not $InstallDir) {
-    Write-Host "ERROR: Install directory not provided." -ForegroundColor Red
+    Write-Colour "ERROR: Install directory not provided." Red
     exit 1
 }
 
@@ -22,7 +27,9 @@ function Write-Logo {
     Write-Host ""
 }
 
-Write-Logo
+if (-not $Silent) {
+    Write-Logo
+}
 
 function Add-ToUserPath {
     param([string]$NewPath)
@@ -34,7 +41,7 @@ function Add-ToUserPath {
     $paths = $current -split ";" | Where-Object { $_ -ne "" }
 
     if ($paths -contains $NewPath) {
-        Write-Host "PATH already contains: $NewPath" -ForegroundColor DarkGray
+        Write-Colour "PATH already contains: $NewPath" DarkGray
         return
     }
 
@@ -45,28 +52,22 @@ function Add-ToUserPath {
     # Also update current session immediately
     $env:PATH = $newPathValue
 
-    Write-Host "Added to PATH: $NewPath" -ForegroundColor Green
+    Write-Colour "Added to PATH: $NewPath" Green
 }
 
 $VM_DIR = Join-Path $InstallDir "vm"
 $BIN = "$env:USERPROFILE\bin"
 Add-ToUserPath $BIN
 
-if (-not $Silent) {
-    Write-Host "Installing Vocabulary Plus Version Manager..." -ForegroundColor Cyan
-}
+Write-Colour "Installing Vocabulary Plus Version Manager..." Cyan
 
-if (-not $Silent) {
-    Write-Host "Creating directories..." -ForegroundColor Cyan
-}
+Write-Colour "Creating directories..." Cyan
 New-Item -ItemType Directory -Force -Path $VM_DIR | Out-Null
 New-Item -ItemType Directory -Force -Path "$VM_DIR\versions\vp" | Out-Null
 New-Item -ItemType Directory -Force -Path "$VM_DIR\versions\vp-vm" | Out-Null
 
 # Download scripts
-if (-not $silent) {
-    Write-Host "Downloading files..." -ForegroundColor Cyan
-}
+Write-Colour "Downloading files..." Cyan
 
 $base = "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.2.0"
 
@@ -80,16 +81,12 @@ $files = @(
 )
 
 foreach ($f in $files) {
-    if (-not $silent) {
-        Write-Host "- Downloading $f..." -ForegroundColor Cyan
-    }
+    Write-Colour "- Downloading $f..." Cyan
     Invoke-WebRequest "$base/$f" -OutFile (Join-Path $VM_DIR $f)
 }
 
 # Create launcher
-if (-not $silent) {
-    Write-Host "Creating launcher..." -ForegroundColor Cyan
-}
+Write-Colour "Creating launcher..." Cyan
 
 New-Item -ItemType Directory -Force -Path $BIN | Out-Null
 $launcher = Join-Path $BIN "vp-vm.ps1"
@@ -99,11 +96,7 @@ $launcher = Join-Path $BIN "vp-vm.ps1"
 & "$VM_DIR\vp-vm.ps1" `$args
 "@ | Set-Content $launcher
 
-if (-not $silent) {
-    Write-Host "Writing current version file..." -ForegroundColor Cyan
-    Set-Content "$VM_DIR\versions\vp-vm\current.txt" "1.2.0"
-}
+Write-Colour "Writing current version file..." Cyan
+Set-Content "$VM_DIR\versions\vp-vm\current.txt" "1.2.0"
 
-if (-not $Silent) {
-    Write-Host "Installation complete." -ForegroundColor Green
-}
+Write-Colour "Installation complete." Green
