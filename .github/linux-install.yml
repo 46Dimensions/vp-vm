@@ -1,0 +1,26 @@
+name: Run Bash Installer on Linux
+
+on:
+  push:
+    paths:
+      - '**/*.sh'
+  pull_request:
+    paths:
+      - '**/*.sh'
+
+jobs:
+  run-installer:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make VM directory
+      - run: mkdir -p ./VocabularyPlus/vm      
+
+      - name: Make script executable
+        run: chmod +x install-vm.sh
+
+      - name: Run install-vm.sh
+      - run: ./install-vm.sh ./VocabularyPlus/vm

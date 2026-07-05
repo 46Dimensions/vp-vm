@@ -1,0 +1,27 @@
+name: Run PowerShell Installer
+
+on:
+  push:
+    paths:
+      - '**/*.ps1'
+  pull_request:
+    paths:
+      - '**/*.ps1'
+
+jobs:
+  run-install:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make VM directory
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path .\VocabularyPlus\vm -Force
+      - name: Run install-vm.ps1
+        shell: pwsh
+        run: |
+          pwsh -ExecutionPolicy Bypass -File .\install-vm.ps1
+          .\install-vm.ps1 .\VocabularyPlus\vm
