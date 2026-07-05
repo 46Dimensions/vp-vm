@@ -86,8 +86,8 @@ UPDATER_CONTENTS=$(curl -fsSL "$BASE_URL/update-versions.sh" || { echo "${red}Fa
 UPGRADER_CONTENTS=$(curl -fsSL "$BASE_URL/upgrade.sh" || { echo "${red}Failed to download upgrader script.${reset}" >&2; exit 1; })
 UNINSTALLER_CONTENTS=$(curl -fsSL "$BASE_URL/uninstall.sh" || { echo "${red}Failed to download uninstaller.${reset}" >&2; exit 1; })
 LISTER_CONTENTS=$(curl -fsSL "$BASE_URL/list-upgradable.sh" || { echo "${red}Failed to download upgradable package lister.${reset}" >&2; exit 1; })
-MAIN_CONTENTS=$(curl -fsSL "$BASE_URL/LICENSE" -o "$INSTALL_DIR/LICENSE" || { echo "${red}Failed to download upgrader script.${reset}" >&2; exit 1; })
-curl -fsSL "$BASE_URL/vp-vm.sh" -o "" || { echo "${red}Failed to download LICENSE.${reset}" >&2; exit 1; } # Download LICENSE
+MAIN_CONTENTS=$(curl -fsSL "$BASE_URL/vp-vm.sh" || { echo "${red}Failed to download main script.${reset}" >&2; exit 1; })
+curl -fsSL "$BASE_URL/LICENSE" -o "$INSTALL_DIR/LICENSE" || { echo "${red}Failed to download LICENSE.${reset}" >&2; exit 1; } # Download LICENSE
 echo "${green}Scripts downloaded successfully.${reset}"
 
 # Write the scripts with the correct INSTALL_DIR
