@@ -17,10 +17,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Make VM directory
-      - run: mkdir -p ./VocabularyPlus/vm
+        run: mkdir -p ./VocabularyPlus/vm
 
       - name: Make script executable
         run: chmod +x install-vm.sh
 
       - name: Run install-vm.sh
-      - run: ./install-vm.sh ./VocabularyPlus/vm
+        run: ./install-vm.sh ./VocabularyPlus/vm
