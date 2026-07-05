@@ -100,8 +100,15 @@ write_script_with_install_dir "$LISTER_CONTENTS" "$INSTALL_DIR/list-upgradable.s
 write_script_with_install_dir "$MAIN_CONTENTS" "$INSTALL_DIR/vp-vm"
 
 mkdir -p "$HOME/.local/bin" || { echo "${red}Failed to create $HOME/.local/bin directory.${reset}" >&2; exit 1; }
-ln -sv "$INSTALL_DIR/vp-vm" "$HOME/.local/bin/vp-vm" || { echo "${red}Failed to create symlink for vp-vm.${reset}" >&2; exit 1; }
-chmod +x "$HOME/.local/bin/vp-vm"
+
+if [ ! -f "$INSTALL_DIR/vp-vm" ]; then
+    echo "${red}Installed script not found at $INSTALL_DIR/vp-vm.${reset}" >&2
+    exit 1
+fi
+
+chmod +x "$INSTALL_DIR/vp-vm" || { echo "${red}Failed to make vp-vm executable.${reset}" >&2; exit 1; }
+ln -sfn "$INSTALL_DIR/vp-vm" "$HOME/.local/bin/vp-vm" || { echo "${red}Failed to create symlink for vp-vm.${reset}" >&2; exit 1; }
+
 echo "${green}Scripts configured successfully.${reset}"
 echo ""
 
