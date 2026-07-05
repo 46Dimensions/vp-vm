@@ -81,11 +81,12 @@ write_script_with_install_dir() {
 
 # Download the scripts
 echo "${yellow}Downloading scripts...${reset}"
-BASE_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/main"
+BASE_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/1.2.0"
 UPDATER_CONTENTS=$(curl -fsSL "$BASE_URL/update-versions.sh" || { echo "${red}Failed to download version updater script.${reset}" >&2; exit 1; })
 UPGRADER_CONTENTS=$(curl -fsSL "$BASE_URL/upgrade.sh" || { echo "${red}Failed to download upgrader script.${reset}" >&2; exit 1; })
 UNINSTALLER_CONTENTS=$(curl -fsSL "$BASE_URL/uninstall.sh" || { echo "${red}Failed to download uninstaller.${reset}" >&2; exit 1; })
 LISTER_CONTENTS=$(curl -fsSL "$BASE_URL/list-upgradable.sh" || { echo "${red}Failed to download upgradable package lister.${reset}" >&2; exit 1; })
+INSTALL_SPECIFIC_CONTENTS=$(curl -fsSL "$BASE_URL/install-specific.sh" || { echo "${red}Failed to download specific version installer.${reset}" >&2; exit 1; })
 MAIN_CONTENTS=$(curl -fsSL "$BASE_URL/vp-vm.sh" || { echo "${red}Failed to download main script.${reset}" >&2; exit 1; })
 curl -fsSL "$BASE_URL/LICENSE" -o "$INSTALL_DIR/LICENSE" || { echo "${red}Failed to download LICENSE.${reset}" >&2; exit 1; } # Download LICENSE
 echo "${green}Scripts downloaded successfully.${reset}"
@@ -97,6 +98,7 @@ write_script_with_install_dir "$UPDATER_CONTENTS" "$INSTALL_DIR/update-versions.
 write_script_with_install_dir "$UPGRADER_CONTENTS" "$INSTALL_DIR/upgrade.sh"
 write_script_with_install_dir "$UNINSTALLER_CONTENTS" "$INSTALL_DIR/uninstall.sh"
 write_script_with_install_dir "$LISTER_CONTENTS" "$INSTALL_DIR/list-upgradable.sh"
+write_script_with_install_dir "$INSTALL_SPECIFIC_CONTENTS" "$INSTALL_DIR/install-specific.sh"
 write_script_with_install_dir "$MAIN_CONTENTS" "$INSTALL_DIR/vp-vm"
 
 mkdir -p "$HOME/.local/bin" || { echo "${red}Failed to create $HOME/.local/bin directory.${reset}" >&2; exit 1; }
