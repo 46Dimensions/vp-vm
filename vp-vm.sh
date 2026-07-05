@@ -1,13 +1,15 @@
 #!/usr/bin/env sh
 set -e
 
-echo "[38;5;99m🭖█🭀  🭋█🭡   [38;5;171m██████🭏"
-echo "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   🭨█"
-echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭠"
-echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
-echo "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
-echo "VOCABULARY PLUS"
-echo "Version Manager (1.2.0)"
+if [ ! "$2" = "--no-logo" ]; then
+    echo "[38;5;99m🭖█🭀  🭋█🭡   [38;5;171m██████🭏"
+    echo "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   🭨█"
+    echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭠"
+    echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
+    echo "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
+    echo "VOCABULARY PLUS"
+    echo "Version Manager (1.2.0)"
+fi
 
 # ANSI colours
 red="\033[91m"
@@ -47,7 +49,7 @@ case "$1" in
         ;;
     *)
         echo "${red}Command '$1' not recognised.${reset}"
-        $0 --help
+        $0 --help --no-logo
         exit 1
         ;;
 esac
