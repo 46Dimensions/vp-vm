@@ -24,4 +24,4 @@ jobs:
         shell: pwsh
         run: |
           pwsh -ExecutionPolicy Bypass -File .\install-vm.ps1
-          .\install-vm.ps1 .\VocabularyPlus\vm
+          .\install-vm.ps1 -InstallDir .\VocabularyPlus\vm
