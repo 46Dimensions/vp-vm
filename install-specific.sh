@@ -10,7 +10,7 @@ cyan="\033[96m"
 reset="\033[0m"
 
 $VERSION = $1
-if "$VERSION" = "" ]; then
+if [ "$VERSION" = "" ]; then
     echo "${red}ERROR: No version specified. Please specify a version to install.${reset}"
     exit 1
 fi
