@@ -115,3 +115,4 @@ echo ""
 # Final instructions
 echo "${green}Vocabulary Plus Version Manager 1.2.0 installed successfully${reset}"
 echo "For instructions on how to use the version manager, please visit: https://github.com/46Dimensions/vp-vm/blob/main/README.md"
+exit 0

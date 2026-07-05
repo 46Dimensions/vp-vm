@@ -100,3 +100,4 @@ Write-Colour "Writing current version file..." Cyan
 Set-Content "$VM_DIR\versions\vp-vm\current.txt" "1.2.0"
 
 Write-Colour "Installation complete." Green
+exit 0
