@@ -27,6 +27,9 @@ case "$1" in
     list-upgradable)
         sh "$INSTALL_DIR/list-upgradable.sh"
         ;;
+    install-version)
+        sh "$INSTALL_DIR/install-specific.sh" "$2"
+        ;;
     --version)
         echo "1.2.0"
         ;;
@@ -34,11 +37,12 @@ case "$1" in
         echo "Usage: vp-vm [command]"
         echo ""
         echo "Commands:"
-        echo "   update            Update the version lists"
-        echo "   upgrade           Upgrade Vocabulary Plus and vp-vm to the latest version"
-        echo "   list-upgradable   Show upgradable packages"
-        echo "   --version         Show the installed version of Vocabulary Plus Version Manager"
-        echo "   --help            Show this help message and exit"
+        echo "   update                     Update the version lists"
+        echo "   upgrade                    Upgrade Vocabulary Plus and vp-vm to the latest version"
+        echo "   list-upgradable            Show upgradable packages"
+        echo "   install-version [version]  Install a specific version of Vocabulary Plus"
+        echo "   --version                  Show the installed version of Vocabulary Plus Version Manager"
+        echo "   --help                     Show this help message and exit"
         exit 0
         ;;
     *)
