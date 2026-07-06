@@ -25,13 +25,29 @@ if [ "$VERSION" = "latest" ]; then
     VERSION=$VP_LATEST
 fi
 
-if [ "$VERSION" = "v*" ]; then
-    VERSION="${VERSION:1}"
+# Remove trailing 'v' from version if present
+case "$VERSION" in
+    v*)
+        VERSION="${VERSION#v}"
+        ;;
+esac
+
+if [ "$VERSION" = "1.1.0" ]; then
+    VERSION="1.1"
 fi
+
+INVALID_VERSIONS="1.2.0 1.3.0-beta 1.3.0 1.4.0"
+
+for invalid in $INVALID_VERSIONS; do
+    if [ "$VERSION" = "$invalid" ]; then
+        echo "${red}Version ${VERSION} cannot be installed.${reset}"
+        exit 1
+    fi
+done
 
 echo "${yellow}Downloading Vocabulary Plus version ${VERSION}...${reset}"
 URL="https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/v${VERSION}/install.sh"
-curl -fsSL "$URL" -o install.sh || { echo "${red}Version ${VERSION} does not exist${reset}"; exit 1; }
+curl -fsSL "$URL" -o install.sh || { echo "${red}Version ${VERSION} cannot be installed.${reset}"; exit 1; }
 
 echo "${yellow}Installing Vocabulary Plus version ${VERSION}...${reset}"
 sh ./install.sh || { echo "${red}Failed to install VocabularyPlus.${reset}"; exit 1; }
