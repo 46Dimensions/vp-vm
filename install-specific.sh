@@ -93,6 +93,7 @@ if [ -d "VocabularyPlusTemp" ]; then
         rm -rf VocabularyPlus/vm
     fi
     mv "VocabularyPlusTemp/JSON" "VocabularyPlus/JSON" || { echo "${red}WARNING: ${PWD}/VocabularyPlusTemp/JSON not found so not backed up${reset}"; } # This problem is not critical; VocabularyPlus/JSON is not created until main.py is run
+    mkdir -p "VocabularyPlus/vm" || { echo "${red}ERROR: Failed to create ${PWD}/VocabularyPlus/vm directory${reset}"; exit 1; }
     mv "VocabularyPlusTemp/vm" "VocabularyPlus/vm" || { echo "${red}ERROR: ${PWD}/VocabularyPlusTemp/vm not found so not backed up${reset}"; exit 1; }
     rm -rf VocabularyPlusTemp
 fi
