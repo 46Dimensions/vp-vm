@@ -36,7 +36,7 @@ if [ "$VERSION" = "1.1.0" ]; then
     VERSION="1.1"
 fi
 
-INVALID_VERSIONS="1.2.0 1.3.0-beta 1.3.0 1.4.0"
+INVALID_VERSIONS="1.1 1.2.0 1.3.0-beta 1.3.0 1.4.0"
 
 for invalid in $INVALID_VERSIONS; do
     if [ "$VERSION" = "$invalid" ]; then
