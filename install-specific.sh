@@ -45,11 +45,56 @@ for invalid in $INVALID_VERSIONS; do
     fi
 done
 
-echo "${yellow}Downloading Vocabulary Plus version ${VERSION}...${reset}"
-URL="https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/v${VERSION}/install.sh"
-curl -fsSL "$URL" -o install.sh || { echo "${red}Version ${VERSION} cannot be installed.${reset}"; exit 1; }
+echo "${yellow}Backing up vocabulary files...${reset}"
 
+# Move the JSON files and VM into a temporary location
+if [ -d "$INSTALL_DIR" ]; then
+    cd "$INSTALL_DIR"
+    cd .. # Move into VocabularyPlus directory
+    cd .. # Move into VocabularyPlus's parent directory
+    mkdir -p VocabularyPlusTemp
+    mv VocabularyPlus/JSON VocabularyPlusTemp/JSON || { echo "${red}WARNING: ${PWD}/VocabularyPlus/JSON not found so not backed up${reset}"; } # This problem is not critical; VocabularyPlus/JSON is not created until main.py is run
+    mv VocabularyPlus/vm VocabularyPlusTemp/vm || { echo "${red}ERROR: ${PWD}/VocabularyPlus/vm not found so not backed up${reset}"; exit 1; }
+    echo "${green}Vocabulary files backed up.${reset}"
+    sleep 0.5
+
+    echo ""
+    echo "${yellow}Uninstalling current Vocabulary Plus version...${reset}"
+    # Run the Vocabulary Plus uninstaller
+    $HOME/.local/bin/vp uninstall -s
+    # Abort if uninstallation fails
+    echo "${green}Current Vocabulary Plus version uninstalled.${reset}"
+    sleep 0.5
+fi
+
+echo ""
+
+# Install the latest version
 echo "${yellow}Installing Vocabulary Plus version ${VERSION}...${reset}"
-sh ./install.sh || { echo "${red}Failed to install VocabularyPlus.${reset}"; exit 1; }
+curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/v${VERSION}/install.sh -o install.sh
+sh install.sh -s
+# Abort if installation fails
+if [ $? != 0 ]; then
+    echo "Installation failed."
+    rm install.sh
+    exit 1
+fi
+rm install.sh
+sleep 0.5
+
+if [ -d "VocabularyPlusTemp" ]; then
+    echo ""
+    # Move the JSON files and VM back into VocabularyPlus directory
+    if [ -d "VocabularyPlus/JSON" ]; then
+        rm -rf VocabularyPlus/JSON
+    fi
+
+    if [ -d "VocabularyPlus/vm" ]; then
+        rm -rf VocabularyPlus/vm
+    fi
+    mv "VocabularyPlusTemp/JSON" "VocabularyPlus/JSON" || { echo "${red}WARNING: ${PWD}/VocabularyPlusTemp/JSON not found so not backed up${reset}"; } # This problem is not critical; VocabularyPlus/JSON is not created until main.py is run
+    mv "VocabularyPlusTemp/vm" "VocabularyPlus/vm" || { echo "${red}ERROR: ${PWD}/VocabularyPlusTemp/vm not found so not backed up${reset}"; exit 1; }
+    rm -rf VocabularyPlusTemp
+fi
 
 echo "${green}Vocabulary Plus version ${VERSION} installed successfully.${reset}"
