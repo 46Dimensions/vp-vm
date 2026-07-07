@@ -70,7 +70,7 @@ echo ""
 
 # Install the latest version
 echo "${yellow}Installing Vocabulary Plus version ${VERSION}...${reset}"
-curl -fsSL "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/v${VERSION}/install.sh" -o install.sh
+curl -fsSL "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/v${VERSION}/install.sh" -o install.sh || { echo "${red}Failed to download install.sh for version ${VERSION}. Check that the version exists.${reset}"; exit 1; }
 sh install.sh -s
 # Abort if installation fails
 if [ $? != 0 ]; then
