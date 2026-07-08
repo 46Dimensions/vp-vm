@@ -20,7 +20,6 @@ Once installed, you can run:
 - `vp-vm update` to update the package lists
 - `vp-vm upgrade` to upgrade Vocabulary Plus and Vocabulary Plus Version Manager if necessary
 - `vp-vm list-upgradable` to see upgradable packages
-- `vp-vm install-version [version]` to install a specific version of Vocabulary Plus. See "The `install-version` command" below
 - `vp-vm --version` to see the currently installed version of `vp-vm`
 
 ## Issues
