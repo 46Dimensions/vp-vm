@@ -48,7 +48,7 @@ if ($upgradeVM) {
 
     & "$dir\uninstall.ps1" -Silent true
 
-    Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.2.2/install-vm.ps1" -OutFile install-vm.ps1
+    Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.2.4/install-vm.ps1" -OutFile install-vm.ps1
     powershell -ExecutionPolicy Bypass -File install-vm.ps1 $dir -Silent
     Remove-Item install-vm.ps1
 

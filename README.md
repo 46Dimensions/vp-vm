@@ -1,6 +1,6 @@
 # Vocabulary Plus Version Manager (`vp-vm`)
 
-![The Vocabulary Plus logo with the words 'Vocabulary Plus Version Manager' to the right of it](https://raw.githubusercontent.com/46Dimensions/vp-vm/v1.2.2/readme_logo.png)
+![The Vocabulary Plus logo with the words 'Vocabulary Plus Version Manager' to the right of it](https://raw.githubusercontent.com/46Dimensions/vp-vm/v1.2.4/readme_logo.png)
 
 This repository is where [46Dimensions](https://github.com/46Dimensions) develops [Vocabulary Plus](https://github.com/46Dimensions/VocabularyPlus)'s version manager (`vp-vm`).
 

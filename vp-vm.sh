@@ -8,7 +8,7 @@ if [ ! "$2" = "--no-logo" ]; then
     echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
     echo "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
     echo "VOCABULARY PLUS"
-    echo "Version Manager (1.2.2)"
+    echo "Version Manager (1.2.4)"
 fi
 
 # ANSI colours
@@ -30,7 +30,7 @@ case "$1" in
         sh "$INSTALL_DIR/list-upgradable.sh"
         ;;
     --version)
-        echo "1.2.2"
+        echo "1.2.4"
         ;;
     --help)
         echo "Usage: vp-vm [command]"
