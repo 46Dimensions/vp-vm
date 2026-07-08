@@ -25,7 +25,7 @@ if ($upgradeVP) {
 
     & "$PWD\VocabularyPlus\uninstall.cmd" --silent
 
-    Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.5.0/install.ps1" -OutFile install.ps1
+    Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.ps1" -OutFile install.ps1
     powershell -ExecutionPolicy Bypass -File install.ps1
     Remove-Item install.ps1
 
