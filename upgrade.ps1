@@ -23,7 +23,7 @@ if ($upgradeVP) {
     Move-Item "$PWD\VocabularyPlus\JSON" $temp -ErrorAction SilentlyContinue
     Move-Item "$PWD\VocabularyPlus\vm" $temp -ErrorAction SilentlyContinue
 
-    vocabularyplus uninstall -Silent
+    vocabularyplus uninstall -Silent true
 
     Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.ps1" -OutFile install.ps1
     powershell -ExecutionPolicy Bypass -File install.ps1
@@ -41,7 +41,7 @@ if ($upgradeVP) {
 if ($upgradeVM) {
     Write-Host "Upgrading VP VM..." -ForegroundColor Yellow
 
-    & "$dir\uninstall.ps1" -Silent
+    & "$dir\uninstall.ps1" -Silent true
 
     Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.2.2/install-vm.ps1" -OutFile install-vm.ps1
     powershell -ExecutionPolicy Bypass -File install-vm.ps1 $dir -Silent
