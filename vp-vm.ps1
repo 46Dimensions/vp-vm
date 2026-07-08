@@ -10,7 +10,7 @@ function Write-Logo {
     Write-Host "$esc[38;5;177m 🭦█🭐🭅█🭛    $esc[38;5;209m██"
     Write-Host "$esc[38;5;209m  🭖██🭡     $esc[38;5;220m██$esc[0m"
     Write-Host "VOCABULARY PLUS"
-    Write-Host "Version Manager (1.2.0)"
+    Write-Host "Version Manager (1.2.2)"
     Write-Host ""
 }
 
@@ -20,7 +20,7 @@ switch ($cmd) {
     "update" { & "$env:INSTALL_DIR\update-versions.ps1" }
     "upgrade" { & "$env:INSTALL_DIR\upgrade.ps1" }
     "list-upgradable" { & "$env:INSTALL_DIR\list-upgradable.ps1" }
-    "--version" { Write-Host "1.2.0" }
+    "--version" { Write-Host "1.2.2" }
     "--help" {
         Write-Host "Vocabulary Plus Version Manager" -ForegroundColor Cyan
         Write-Host "   A tool to update Vocabulary Plus" -ForegroundColor Cyan
