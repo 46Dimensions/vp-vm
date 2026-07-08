@@ -81,7 +81,7 @@ write_script_with_install_dir() {
 
 # Download the scripts
 echo "${yellow}Downloading scripts...${reset}"
-BASE_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/1.2.0"
+BASE_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/v1.2.0"
 UPDATER_CONTENTS=$(curl -fsSL "$BASE_URL/update-versions.sh" || { echo "${red}Failed to download version updater script.${reset}" >&2; exit 1; })
 UPGRADER_CONTENTS=$(curl -fsSL "$BASE_URL/upgrade.sh" || { echo "${red}Failed to download upgrader script.${reset}" >&2; exit 1; })
 UNINSTALLER_CONTENTS=$(curl -fsSL "$BASE_URL/uninstall.sh" || { echo "${red}Failed to download uninstaller.${reset}" >&2; exit 1; })

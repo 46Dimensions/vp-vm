@@ -69,7 +69,7 @@ New-Item -ItemType Directory -Force -Path "$VM_DIR\versions\vp-vm" | Out-Null
 # Download scripts
 Write-Colour "Downloading files..." Cyan
 
-$base = "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.2.0"
+$base = "https://raw.githubusercontent.com/46Dimensions/vp-vm/v1.2.0"
 
 $files = @(
     "vp-vm.ps1",
