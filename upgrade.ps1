@@ -23,7 +23,7 @@ if ($upgradeVP) {
     Move-Item "$PWD\VocabularyPlus\JSON" $temp -ErrorAction SilentlyContinue
     Move-Item "$PWD\VocabularyPlus\vm" $temp -ErrorAction SilentlyContinue
 
-    & "$PWD\VocabularyPlus\uninstall.cmd" --silent
+    vocabularyplus uninstall -Silent
 
     Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.ps1" -OutFile install.ps1
     powershell -ExecutionPolicy Bypass -File install.ps1
