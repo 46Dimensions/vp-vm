@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 
 $dir = $env:INSTALL_DIR
 
@@ -43,7 +43,7 @@ if ($upgradeVM) {
 
     & "$dir\uninstall.ps1" -Silent
 
-    Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.1.0/install-vm.ps1" -OutFile install-vm.ps1
+    Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.2.0/install-vm.ps1" -OutFile install-vm.ps1
     powershell -ExecutionPolicy Bypass -File install-vm.ps1 $dir -Silent
     Remove-Item install-vm.ps1
 

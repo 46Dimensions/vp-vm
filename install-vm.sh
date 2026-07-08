@@ -31,7 +31,7 @@ echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭠"
 echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
 echo "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
 echo "VOCABULARY PLUS"
-echo "Version Manager: macOS & Linux Installer (1.1.0)"
+echo "Version Manager: macOS & Linux Installer (1.2.0)"
 
 # Check that curl exists
 if ! command -v curl >/dev/null 2>&1; then
@@ -55,7 +55,7 @@ echo ""
 
 # Write vp-vm current version file
 echo "${yellow}Setting up current version file...${reset}"
-echo "1.1.0" > "$INSTALL_DIR/versions/vp-vm/current.txt"
+echo "1.2.0" > "$INSTALL_DIR/versions/vp-vm/current.txt"
 echo "${green}Current version file set up.${reset}"
 echo ""
 
@@ -81,13 +81,14 @@ write_script_with_install_dir() {
 
 # Download the scripts
 echo "${yellow}Downloading scripts...${reset}"
-BASE_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/main"
+BASE_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/v1.2.0"
 UPDATER_CONTENTS=$(curl -fsSL "$BASE_URL/update-versions.sh" || { echo "${red}Failed to download version updater script.${reset}" >&2; exit 1; })
 UPGRADER_CONTENTS=$(curl -fsSL "$BASE_URL/upgrade.sh" || { echo "${red}Failed to download upgrader script.${reset}" >&2; exit 1; })
 UNINSTALLER_CONTENTS=$(curl -fsSL "$BASE_URL/uninstall.sh" || { echo "${red}Failed to download uninstaller.${reset}" >&2; exit 1; })
 LISTER_CONTENTS=$(curl -fsSL "$BASE_URL/list-upgradable.sh" || { echo "${red}Failed to download upgradable package lister.${reset}" >&2; exit 1; })
-MAIN_CONTENTS=$(curl -fsSL "$BASE_URL/LICENSE" -o "$INSTALL_DIR/LICENSE" || { echo "${red}Failed to download upgrader script.${reset}" >&2; exit 1; })
-curl -fsSL "$BASE_URL/vp-vm.sh" -o "" || { echo "${red}Failed to download LICENSE.${reset}" >&2; exit 1; } # Download LICENSE
+INSTALL_SPECIFIC_CONTENTS=$(curl -fsSL "$BASE_URL/install-specific.sh" || { echo "${red}Failed to download specific version installer.${reset}" >&2; exit 1; })
+MAIN_CONTENTS=$(curl -fsSL "$BASE_URL/vp-vm.sh" || { echo "${red}Failed to download main script.${reset}" >&2; exit 1; })
+curl -fsSL "$BASE_URL/LICENSE" -o "$INSTALL_DIR/LICENSE" || { echo "${red}Failed to download LICENSE.${reset}" >&2; exit 1; } # Download LICENSE
 echo "${green}Scripts downloaded successfully.${reset}"
 
 # Write the scripts with the correct INSTALL_DIR
@@ -97,11 +98,23 @@ write_script_with_install_dir "$UPDATER_CONTENTS" "$INSTALL_DIR/update-versions.
 write_script_with_install_dir "$UPGRADER_CONTENTS" "$INSTALL_DIR/upgrade.sh"
 write_script_with_install_dir "$UNINSTALLER_CONTENTS" "$INSTALL_DIR/uninstall.sh"
 write_script_with_install_dir "$LISTER_CONTENTS" "$INSTALL_DIR/list-upgradable.sh"
-write_script_with_install_dir "$MAIN_CONTENTS" "$HOME/.local/bin/vp-vm"
-chmod +x "$HOME/.local/bin/vp-vm"
+write_script_with_install_dir "$INSTALL_SPECIFIC_CONTENTS" "$INSTALL_DIR/install-specific.sh"
+write_script_with_install_dir "$MAIN_CONTENTS" "$INSTALL_DIR/vp-vm"
+
+mkdir -p "$HOME/.local/bin" || { echo "${red}Failed to create $HOME/.local/bin directory.${reset}" >&2; exit 1; }
+
+if [ ! -f "$INSTALL_DIR/vp-vm" ]; then
+    echo "${red}Installed script not found at $INSTALL_DIR/vp-vm.${reset}" >&2
+    exit 1
+fi
+
+chmod +x "$INSTALL_DIR/vp-vm" || { echo "${red}Failed to make vp-vm executable.${reset}" >&2; exit 1; }
+ln -sfn "$INSTALL_DIR/vp-vm" "$HOME/.local/bin/vp-vm" || { echo "${red}Failed to create symlink for vp-vm.${reset}" >&2; exit 1; }
+
 echo "${green}Scripts configured successfully.${reset}"
 echo ""
 
 # Final instructions
-echo "${green}Vocabulary Plus Version Manager 1.1.0 installed successfully${reset}"
+echo "${green}Vocabulary Plus Version Manager 1.2.0 installed successfully${reset}"
 echo "For instructions on how to use the version manager, please visit: https://github.com/46Dimensions/vp-vm/blob/main/README.md"
+exit 0

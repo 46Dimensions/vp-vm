@@ -5,8 +5,13 @@
 
 $ErrorActionPreference = "Stop"
 
+function Write-Colour($text, $colour) {
+    if ($Silent) { return }
+    Write-Host $text -ForegroundColor $colour
+}
+
 if (-not $InstallDir) {
-    Write-Host "ERROR: Install directory not provided." -ForegroundColor Red
+    Write-Colour "ERROR: Install directory not provided." Red
     exit 1
 }
 
@@ -18,70 +23,12 @@ function Write-Logo {
     Write-Host "$esc[38;5;177m 🭦█🭐🭅█🭛    $esc[38;5;209m██"
     Write-Host "$esc[38;5;209m  🭖██🭡     $esc[38;5;220m██$esc[0m"
     Write-Host "VOCABULARY PLUS"
-    Write-Host "Version Manager: Windows Installer (1.1.0)"
+    Write-Host "Version Manager: Windows Installer (1.2.0)"
     Write-Host ""
 }
 
-Write-Logo
-
-$VM_DIR = Join-Path $InstallDir "vm"
-$BIN = "$env:USERPROFILE\bin"
-Add-ToUserPath $BIN
-
 if (-not $Silent) {
-    Write-Host "Installing Vocabulary Plus Version Manager..." -ForegroundColor Cyan
-}
-
-if (-not $Silent) {
-    Write-Host "Creating directories..." -ForegroundColor Cyan
-}
-New-Item -ItemType Directory -Force -Path $VM_DIR | Out-Null
-New-Item -ItemType Directory -Force -Path "$VM_DIR\versions\vp" | Out-Null
-New-Item -ItemType Directory -Force -Path "$VM_DIR\versions\vp-vm" | Out-Null
-
-# Download scripts
-if (-not $silent) {
-    Write-Host "Downloading files..." -ForegroundColor Cyan
-}
-
-$base = "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.1.0"
-
-$files = @(
-    "vp-vm.ps1",
-    "update-versions.ps1",
-    "upgrade.ps1",
-    "list-upgradable.ps1",
-    "uninstall.ps1"
-    "LICENSE"
-)
-
-foreach ($f in $files) {
-    if (-not $silent) {
-        Write-Host "- Downloading $f..." -ForegroundColor Cyan
-    }
-    Invoke-WebRequest "$base/$f" -OutFile (Join-Path $VM_DIR $f)
-}
-
-# Create launcher
-if (-not $silent) {
-    Write-Host "Creating launcher..." -ForegroundColor Cyan
-}
-
-New-Item -ItemType Directory -Force -Path $BIN | Out-Null
-$launcher = Join-Path $BIN "vp-vm.ps1"
-
-@"
-`$env:INSTALL_DIR = "$VM_DIR"
-& "$VM_DIR\vp-vm.ps1" `$args
-"@ | Set-Content $launcher
-
-if (-not $silent) {
-    Write-Host "Writing current version file..." -ForegroundColor Cyan
-    Set-Content "$VM_DIR\versions\vp-vm\current.txt" "1.1.0"
-}
-
-if (-not $Silent) {
-    Write-Host "Installation complete." -ForegroundColor Green
+    Write-Logo
 }
 
 function Add-ToUserPath {
@@ -94,7 +41,7 @@ function Add-ToUserPath {
     $paths = $current -split ";" | Where-Object { $_ -ne "" }
 
     if ($paths -contains $NewPath) {
-        Write-Host "PATH already contains: $NewPath" -ForegroundColor DarkGray
+        Write-Colour "PATH already contains: $NewPath" DarkGray
         return
     }
 
@@ -105,5 +52,52 @@ function Add-ToUserPath {
     # Also update current session immediately
     $env:PATH = $newPathValue
 
-    Write-Host "Added to PATH: $NewPath" -ForegroundColor Green
+    Write-Colour "Added to PATH: $NewPath" Green
 }
+
+$VM_DIR = Join-Path $InstallDir "vm"
+$BIN = "$env:USERPROFILE\bin"
+Add-ToUserPath $BIN
+
+Write-Colour "Installing Vocabulary Plus Version Manager..." Cyan
+
+Write-Colour "Creating directories..." Cyan
+New-Item -ItemType Directory -Force -Path $VM_DIR | Out-Null
+New-Item -ItemType Directory -Force -Path "$VM_DIR\versions\vp" | Out-Null
+New-Item -ItemType Directory -Force -Path "$VM_DIR\versions\vp-vm" | Out-Null
+
+# Download scripts
+Write-Colour "Downloading files..." Cyan
+
+$base = "https://raw.githubusercontent.com/46Dimensions/vp-vm/v1.2.0"
+
+$files = @(
+    "vp-vm.ps1",
+    "update-versions.ps1",
+    "upgrade.ps1",
+    "list-upgradable.ps1",
+    "uninstall.ps1"
+    "LICENSE"
+)
+
+foreach ($f in $files) {
+    Write-Colour "- Downloading $f..." Cyan
+    Invoke-WebRequest "$base/$f" -OutFile (Join-Path $VM_DIR $f)
+}
+
+# Create launcher
+Write-Colour "Creating launcher..." Cyan
+
+New-Item -ItemType Directory -Force -Path $BIN | Out-Null
+$launcher = Join-Path $BIN "vp-vm.ps1"
+
+@"
+`$env:INSTALL_DIR = "$VM_DIR"
+& "$VM_DIR\vp-vm.ps1" `$args
+"@ | Set-Content $launcher
+
+Write-Colour "Writing current version file..." Cyan
+Set-Content "$VM_DIR\versions\vp-vm\current.txt" "1.2.0"
+
+Write-Colour "Installation complete." Green
+exit 0
