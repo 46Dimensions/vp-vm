@@ -9,7 +9,7 @@ boldcyan="\033[1;96m"
 cyan="\033[96m"
 reset="\033[0m"
 
-if [ ! -f "$dir/versions/vp/latest.txt" ] || [ ! -f "$dir/versions/vp/latest.txt" ]; then
+if [ ! -f "$dir/versions/vp/latest.txt" ] || [ ! -f "$dir/versions/vp-vm/latest.txt" ]; then
     echo -e "${red}No version information found. Please run 'vp-vm update' first.${reset}"
     exit 1
 fi
