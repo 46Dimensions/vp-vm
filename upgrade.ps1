@@ -2,6 +2,11 @@
 
 $dir = $env:INSTALL_DIR
 
+if ((-not (Test-Path "$dir\versions\vp\latest.txt")) -or (-not (Test-Path "$dir\versions\vp-vm\latest.txt"))) {
+    Write-Host "No version information found. Please run 'vp-vm update' first." -ForegroundColor Red
+    exit 1
+}
+
 function Read($p) { (Get-Content $p).Trim() }
 
 $vpCur = Read "$dir\versions\vp\current.txt"

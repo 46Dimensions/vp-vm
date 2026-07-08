@@ -9,6 +9,11 @@ boldcyan="\033[1;96m"
 cyan="\033[96m"
 reset="\033[0m"
 
+if [ ! -f "$dir/versions/vp/latest.txt" ] || [ ! -f "$dir/versions/vp/latest.txt" ]; then
+    echo -e "${red}No version information found. Please run 'vp-vm update' first.${reset}"
+    exit 1
+fi
+
 echo "${yellow}Reading package lists...${reset}"
 # Get the Vocabulary Plus version to upgrade to
 VP_CURRENT=$(cat "$INSTALL_DIR/versions/vp/current.txt")
