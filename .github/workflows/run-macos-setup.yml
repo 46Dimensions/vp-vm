@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - '**/*.sh'
-      - '**/macos-setup.yml'
+      - '**/run-macos-setup.yml'
   pull_request:
     paths:
       - '**/*.sh'
