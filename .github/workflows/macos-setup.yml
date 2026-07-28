@@ -1,4 +1,4 @@
-name: Linux setup script
+name: MacOS setup script
 
 on:
   push:
