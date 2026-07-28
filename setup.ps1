@@ -1,4 +1,6 @@
-﻿param(
+﻿# Setup script: configures 
+
+param(
     [switch]$Silent
 )
 
@@ -52,35 +54,13 @@ function Add-ToUserPath {
     Write-Host "Added to PATH: $NewPath" -ForegroundColor Green
 }
 
-$VM_DIR = Join-Path $InstallDir "vm"
-$BIN = "$env:USERPROFILE\bin"
+$VM_DIR = $PSScriptRoot
+$BIN = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
+
+# Add $BIN to PATH
 Add-ToUserPath $BIN
 
-Write-Colour "Installing Vocabulary Plus Version Manager..." Cyan
-
-Write-Colour "Creating directories..." Cyan
-New-Item -ItemType Directory -Force -Path $VM_DIR | Out-Null
-New-Item -ItemType Directory -Force -Path "$VM_DIR\versions\vp" | Out-Null
-New-Item -ItemType Directory -Force -Path "$VM_DIR\versions\vp-vm" | Out-Null
-
-# Download scripts
-Write-Colour "Downloading files..." Cyan
-
-$base = "https://raw.githubusercontent.com/46Dimensions/vp-vm/v1.2.4"
-
-$files = @(
-    "vp-vm.ps1",
-    "update-versions.ps1",
-    "upgrade.ps1",
-    "list-upgradable.ps1",
-    "uninstall.ps1"
-    "LICENSE"
-)
-
-foreach ($f in $files) {
-    Write-Colour "- Downloading $f..." Cyan
-    Invoke-WebRequest "$base/$f" -OutFile (Join-Path $VM_DIR $f)
-}
+Write-Colour "Setting up Vocabulary Plus Version Manager..." Cyan
 
 # Create launcher
 Write-Colour "Creating launcher..." Cyan
@@ -92,9 +72,6 @@ $launcher = Join-Path $BIN "vp-vm.ps1"
 `$env:INSTALL_DIR = "$VM_DIR"
 & "$VM_DIR\vp-vm.ps1" `$args
 "@ | Set-Content $launcher
-
-Write-Colour "Writing current version file..." Cyan
-Set-Content "$VM_DIR\versions\vp-vm\current.txt" "1.2.4"
 
 Write-Colour "Installation complete." Green
 exit 0
