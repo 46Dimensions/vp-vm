@@ -7,13 +7,6 @@ green="\033[92m"
 yellow="\033[93m"
 reset="\033[0m"
 
-# Set install directory
-if [ -z "$1" ]; then
-    echo "Usage: $0 <install-directory> [-s|--silent]"
-    exit 1
-fi
-INSTALL_DIR="$1"
-
 # Disable stdout if $2 is -s or --silent
 SILENT=0
 case "$2" in
@@ -30,75 +23,39 @@ echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭠"
 echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
 echo "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
 echo "VOCABULARY PLUS"
-echo "Version Manager: macOS & Linux Installer (1.2.4)"
-
-# Check that curl exists
-if ! command -v curl >/dev/null 2>&1; then
-    echo "${red}Error: curl is not installed. Please install curl and try again.${reset}"
-    exit 1
-fi
-
-# Create installation directory if it doesn't exist
-echo "${yellow}Creating installation directory (${INSTALL_DIR})...${reset}"
-mkdir -p "$INSTALL_DIR"
-echo "${green}Installation directory created.${reset}"
+echo "Version Manager: macOS & Linux Setup (2.0.0)"
 echo ""
 
-# Create the directories for version files
-echo "${yellow}Creating versions directory...${reset}"
-mkdir -p "$INSTALL_DIR/versions"
-mkdir -p "$INSTALL_DIR/versions/vp"
-mkdir -p "$INSTALL_DIR/versions/vp-vm"
-echo "${green}Versions directory created.${reset}"
-echo ""
-
-# Write vp-vm current version file
-echo "${yellow}Setting up current version file...${reset}"
-echo "1.2.4" > "$INSTALL_DIR/versions/vp-vm/current.txt"
-echo "${green}Current version file set up.${reset}"
-echo ""
-
-# Function to add "$INSTALL_DIR" to the 3rd line of the downloaded scripts
-write_script_with_install_dir() {
-  contents=$1
-  out=$2
-
-  printf '%s\n' "$contents" | awk -v install_dir="$INSTALL_DIR" '
-    NR == 1 { print; next }
-    NR == 2 && $0 ~ /^set -e/ {
-      print
-      print ""
-      print "INSTALL_DIR=\"" install_dir "\""
-      print ""
-      next
-    }
-    { print }
-  ' > "$out"
-
-  chmod +x "$out"
+# Function to get the directory of this script
+get_script_dir() {
+    script_dir=$(dirname -- "$0")
+    case $script_dir in
+        /*) printf '%s\n' "$script_dir" ;;
+        *) printf '%s\n' "$PWD/$script_dir" ;;
+    esac
 }
 
-# Download the scripts
-echo "${yellow}Downloading scripts...${reset}"
-BASE_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/v1.2.4"
-UPDATER_CONTENTS=$(curl -fsSL "$BASE_URL/update-versions.sh" || { echo "${red}Failed to download version updater script.${reset}" >&2; exit 1; })
-UPGRADER_CONTENTS=$(curl -fsSL "$BASE_URL/upgrade.sh" || { echo "${red}Failed to download upgrader script.${reset}" >&2; exit 1; })
-UNINSTALLER_CONTENTS=$(curl -fsSL "$BASE_URL/uninstall.sh" || { echo "${red}Failed to download uninstaller.${reset}" >&2; exit 1; })
-LISTER_CONTENTS=$(curl -fsSL "$BASE_URL/list-upgradable.sh" || { echo "${red}Failed to download upgradable package lister.${reset}" >&2; exit 1; })
-MAIN_CONTENTS=$(curl -fsSL "$BASE_URL/vp-vm.sh" || { echo "${red}Failed to download main script.${reset}" >&2; exit 1; })
-curl -fsSL "$BASE_URL/LICENSE" -o "$INSTALL_DIR/LICENSE" || { echo "${red}Failed to download LICENSE.${reset}" >&2; exit 1; } # Download LICENSE
-echo "${green}Scripts downloaded successfully.${reset}"
+add_to_path() {
+	directory=$1
 
-# Write the scripts with the correct INSTALL_DIR
-echo ""
-echo "${yellow}Configuring scripts...${reset}"
-write_script_with_install_dir "$UPDATER_CONTENTS" "$INSTALL_DIR/update-versions.sh"
-write_script_with_install_dir "$UPGRADER_CONTENTS" "$INSTALL_DIR/upgrade.sh"
-write_script_with_install_dir "$UNINSTALLER_CONTENTS" "$INSTALL_DIR/uninstall.sh"
-write_script_with_install_dir "$LISTER_CONTENTS" "$INSTALL_DIR/list-upgradable.sh"
-write_script_with_install_dir "$MAIN_CONTENTS" "$INSTALL_DIR/vp-vm"
+	case ":$PATH:" in
+		*":$directory:"*)
+		    return 0
+		    ;;
+	esac
 
-mkdir -p "$HOME/.local/bin" || { echo "${red}Failed to create $HOME/.local/bin directory.${reset}" >&2; exit 1; }
+	printf '\n# Added by Vocabulary Plus\nexport PATH="%s:$PATH"\n' "$directory" \
+		>> "$HOME/.profile"
+
+	export PATH="$directory:$PATH"
+}
+
+file_dir=$(get_script_dir)
+INSTALL_DIR="$(dirname "$(dirname "$(dirname "$file_dir")")")"
+BIN_DIR="$HOME/.local/bin"
+
+mkdir -p "$BIN_DIR"
+add_to_path "$BIN_DIR"
 
 if [ ! -f "$INSTALL_DIR/vp-vm" ]; then
     echo "${red}Installed script not found at $INSTALL_DIR/vp-vm.${reset}" >&2
@@ -113,5 +70,5 @@ echo ""
 
 # Final instructions
 echo "${green}Vocabulary Plus Version Manager 1.2.4 installed successfully${reset}"
-echo "For instructions on how to use the version manager, please visit: https://github.com/46Dimensions/vp-vm/blob/main/README.md"
+echo "For instructions on how to use the version manager, please visit: https://github.com/46Dimensions/vp-vm"
 exit 0
