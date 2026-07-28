@@ -1,10 +1,10 @@
-name: Run PowerShell Installer
+name: Windows Setup Script
 
 on:
   push:
     paths:
       - '**/*.ps1'
-      - '**/windows-setup.yml'
+      - '**/run-windows-setup.yml'
   pull_request:
     paths:
       - '**/*.ps1'
