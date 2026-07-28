@@ -14,18 +14,27 @@ function Write-Colour($text, $colour) {
 
 function Write-Logo {
     $esc = [char]27
-    Write-Host "$esc[38;5;99m🭖█🭀  🭋█🭡   $esc[38;5;171m██████🭏"
-    Write-Host "$esc[38;5;105m🭦█🭐  🭅█🭛   $esc[38;5;177m██   🭨█"
-    Write-Host "$esc[38;5;141m 🭖█🭀🭋█🭡    $esc[38;5;183m██████🭠"
-    Write-Host "$esc[38;5;177m 🭦█🭐🭅█🭛    $esc[38;5;209m██"
-    Write-Host "$esc[38;5;209m  🭖██🭡     $esc[38;5;220m██$esc[0m"
+    $purple = "$esc[38;5;93m"
+    $orange = "$esc[38;5;208m"
+
+    Write-Host "${purple}🭖█🭀  🭋█🭡   ${orange}██████🭏"
+    Write-Host "${purple}🭦█🭐  🭅█🭛   ${orange}██   🭨█"
+    Write-Host "${purple} 🭖█🭀🭋█🭡    ${orange}██████🭠"
+    Write-Host "${purple} 🭦█🭐🭅█🭛    ${orange}██"
+    Write-Host "${purple}  🭖██🭡     ${orange}██${reset}"
     Write-Host "VOCABULARY PLUS"
-    Write-Host "Version Manager: Windows Setup (2.0.0)"
+    Write-Host "Version Manager: Windows (2.0.0)"
     Write-Host ""
 }
 
 if (-not $Silent) {
     Write-Logo
+}
+
+# Check if running on Windows
+if (-not $env:OS -eq 'Windows_NT') {
+    Write-Colour "Not running on Windows." Red
+    exit 1
 }
 
 function Add-ToUserPath {
