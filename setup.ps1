@@ -1,18 +1,13 @@
 ﻿param(
-    [string]$InstallDir,
     [switch]$Silent
 )
 
 $ErrorActionPreference = "Stop"
 
+# --- Colours ---
 function Write-Colour($text, $colour) {
     if ($Silent) { return }
     Write-Host $text -ForegroundColor $colour
-}
-
-if (-not $InstallDir) {
-    Write-Colour "ERROR: Install directory not provided." Red
-    exit 1
 }
 
 function Write-Logo {
@@ -23,7 +18,7 @@ function Write-Logo {
     Write-Host "$esc[38;5;177m 🭦█🭐🭅█🭛    $esc[38;5;209m██"
     Write-Host "$esc[38;5;209m  🭖██🭡     $esc[38;5;220m██$esc[0m"
     Write-Host "VOCABULARY PLUS"
-    Write-Host "Version Manager: Windows Installer (1.2.4)"
+    Write-Host "Version Manager: Windows Setup (2.0.0)"
     Write-Host ""
 }
 
@@ -41,7 +36,7 @@ function Add-ToUserPath {
     $paths = $current -split ";" | Where-Object { $_ -ne "" }
 
     if ($paths -contains $NewPath) {
-        Write-Colour "PATH already contains: $NewPath" DarkGray
+        Write-Host "PATH already contains: $NewPath" -ForegroundColor DarkGray
         return
     }
 
@@ -49,10 +44,12 @@ function Add-ToUserPath {
 
     [Environment]::SetEnvironmentVariable("PATH", $newPathValue, "User")
 
-    # Also update current session immediately
-    $env:PATH = $newPathValue
+    # Update current session
+    if ($env:PATH -notlike "*$NewPath*") {
+        $env:PATH += ";$NewPath"
+    }
 
-    Write-Colour "Added to PATH: $NewPath" Green
+    Write-Host "Added to PATH: $NewPath" -ForegroundColor Green
 }
 
 $VM_DIR = Join-Path $InstallDir "vm"
