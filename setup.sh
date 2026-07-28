@@ -56,14 +56,12 @@ add_to_path() {
 file_dir=$(get_script_dir)
 INSTALL_DIR="$file_dir"
 BIN_DIR="$HOME/.local/bin"
-echo "INSTALL_DIR: $INSTALL_DIR"
-echo "BIN_DIR: $BIN_DIR"
 
 mkdir -p "$BIN_DIR"
 add_to_path "$BIN_DIR"
 
 echo "${yellow}Setting up launcher...${reset}"
-launcher="$BIN/vp-vm"
+launcher="$BIN_DIR/vp-vm"
 
 cat > "$launcher" << EOF
 $INSTALL_DIR/vp-vm.sh
