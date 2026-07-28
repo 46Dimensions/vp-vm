@@ -2,9 +2,10 @@
 set -e
 
 # ANSI colours
-red="\033[91m"
 green="\033[92m"
 yellow="\033[93m"
+purple="\033[38;5;93m"
+orange="\033[38;5;208m"
 reset="\033[0m"
 
 # Disable stdout if $2 is -s or --silent
@@ -17,11 +18,11 @@ if [ "$SILENT" -eq 1 ]; then
   exec >/dev/null
 fi
 
-echo "[38;5;99m🭖█🭀  🭋█🭡   [38;5;171m██████🭏"
-echo "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   🭨█"
-echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭠"
-echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
-echo "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
+echo "${purple}🭖█🭀  🭋█🭡   ${orange}██████🭏"
+echo "${purple}🭦█🭐  🭅█🭛   ${orange}██   🭨█"
+echo "${purple} 🭖█🭀🭋█🭡    ${orange}██████🭠"
+echo "${purple} 🭦█🭐🭅█🭛    ${orange}██"
+echo "${purple}  🭖██🭡     ${orange}██${reset}"
 echo "VOCABULARY PLUS"
 echo "Version Manager: macOS & Linux Setup (2.0.0)"
 echo ""
