@@ -84,5 +84,5 @@ $launcher = Join-Path $BIN "vp-vm.ps1"
 "@ | Set-Content $launcher
 
 Write-Colour "Setup complete." Green
-Write-Colour "For instructions on how to use the Version Manager, please see https://github.com/46Dimensions/vp-vm"
+Write-Colour "For instructions on how to use the Version Manager, please see https://github.com/46Dimensions/vp-vm" White
 exit 0
