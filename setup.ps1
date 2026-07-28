@@ -38,7 +38,7 @@ function Add-ToUserPath {
     $paths = $current -split ";" | Where-Object { $_ -ne "" }
 
     if ($paths -contains $NewPath) {
-        Write-Host "PATH already contains: $NewPath" -ForegroundColor DarkGray
+        Write-Colour "PATH already contains: $NewPath" DarkGray
         return
     }
 
@@ -51,16 +51,17 @@ function Add-ToUserPath {
         $env:PATH += ";$NewPath"
     }
 
-    Write-Host "Added to PATH: $NewPath" -ForegroundColor Green
+    Write-Colour "Added to PATH: $NewPath" Green
 }
 
 $VM_DIR = $PSScriptRoot
 $BIN = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
 
+Write-Colour "Setting up Vocabulary Plus Version Manager..." Cyan
+
+Write-Colour "Modifying PATH..." Cyan
 # Add $BIN to PATH
 Add-ToUserPath $BIN
-
-Write-Colour "Setting up Vocabulary Plus Version Manager..." Cyan
 
 # Create launcher
 Write-Colour "Creating launcher..." Cyan
@@ -74,4 +75,5 @@ $launcher = Join-Path $BIN "vp-vm.ps1"
 "@ | Set-Content $launcher
 
 Write-Colour "Installation complete." Green
+Write-Colour "For instructions on how to use the Version Manager, please see https://github.com/46Dimensions/vp-vm"
 exit 0
