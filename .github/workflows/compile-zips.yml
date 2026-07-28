@@ -1,0 +1,37 @@
+name: Compile and upload ZIP files
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  create-zip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Create ZIP
+        run: |
+          FILES="
+          vp-vm.sh
+          vp-vm.ps1
+          setup.sh
+          setup.ps1
+          LICENSE
+          README.md
+          readme_logo.png
+          "
+
+          zip -r "vp-vm.zip" $FILES
+
+      - name: Upload assets to existing release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: vp-vm.zip
+          tag_name: ${{ github.event.release.tag_name }}
+          append_body: false
