@@ -38,6 +38,8 @@ get_script_dir() {
 add_to_path() {
 	directory=$1
 
+  echo "${yellow}Adding $directory to PATH${reset}"
+
 	case ":$PATH:" in
 		*":$directory:"*)
 		    return 0
@@ -57,18 +59,14 @@ BIN_DIR="$HOME/.local/bin"
 mkdir -p "$BIN_DIR"
 add_to_path "$BIN_DIR"
 
-if [ ! -f "$INSTALL_DIR/vp-vm" ]; then
-    echo "${red}Installed script not found at $INSTALL_DIR/vp-vm.${reset}" >&2
-    exit 1
-fi
+echo "${yellow}Setting up launcher...${reset}"
+launcher="$BIN/vp-vm"
 
-chmod +x "$INSTALL_DIR/vp-vm" || { echo "${red}Failed to make vp-vm executable.${reset}" >&2; exit 1; }
-ln -sfn "$INSTALL_DIR/vp-vm" "$HOME/.local/bin/vp-vm" || { echo "${red}Failed to create symlink for vp-vm.${reset}" >&2; exit 1; }
-
-echo "${green}Scripts configured successfully.${reset}"
-echo ""
+cat > "$launcher" << EOF
+$INSTALL_DIR/vp-vm.sh
+EOF
 
 # Final instructions
-echo "${green}Vocabulary Plus Version Manager 1.2.4 installed successfully${reset}"
+echo "${green}Vocabulary Plus Version Manager 2.0.0 set up successfully${reset}"
 echo "For instructions on how to use the version manager, please visit: https://github.com/46Dimensions/vp-vm"
 exit 0
