@@ -17,12 +17,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Make VM directory
+      - name: Run setup.ps1
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Path .\VocabularyPlus\vm -Force
-      - name: Run install-vm.ps1
-        shell: pwsh
-        run: |
-          pwsh -ExecutionPolicy Bypass -File .\install-vm.ps1
-          .\install-vm.ps1 -InstallDir .\VocabularyPlus\vm
+          & .\setup.ps1
