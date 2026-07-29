@@ -10,7 +10,7 @@ to the latest version without losing your vocabulary files. It will also upgrade
 
 ## Installation
 
-Vocabulary Plus Version Manager is available on macOS, Linux and Windows 
+Vocabulary Plus Version Manager is available on macOS, Linux and Windows
 in version [`1.3.0`](https://github.com/46Dimensions/VocabularyPlus/tree/v1.3.0)
 or later of [Vocabulary Plus](https://github.com/46Dimensions/VocabularyPlus).
 
