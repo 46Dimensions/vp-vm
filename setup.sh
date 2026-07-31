@@ -64,22 +64,51 @@ add_to_path() {
 }
 
 file_dir=$(get_script_dir)
-INSTALL_DIR="$file_dir/scripts"
+INSTALL_DIR="$HOME/.vp-vm/scripts"
 BIN_DIR="$HOME/.local/bin"
 
 mkdir -p "$INSTALL_DIR"
 mkdir -p "$BIN_DIR"
 add_to_path "$BIN_DIR"
 
-write_progress "Moving files to $INSTALL_DIR"
-mv "$file_dir/*" "$INSTALL_DIR" 2>/dev/null
 
-write_progress "Setting up launcher..."
-launcher="$BIN_DIR/vp-vm"
+if [ ! "$(realpath "$file_dir")" = "$(realpath "$INSTALL_DIR")" ]; then
+	write_progress "Moving files to $INSTALL_DIR"
+	mv "$file_dir/*" "$INSTALL_DIR" 2>/dev/null
+fi
 
-cat > "$launcher" << EOF
-$INSTALL_DIR/vp-vm.sh
+write_progress "Setting up launchers..."
+
+write_progress "- VP VM launcher"
+vm_launcher="$BIN_DIR/vp-vm"
+cat > "$vm_launcher" << EOF
+#!/usr/bin/env sh
+sh "$INSTALL_DIR/vp-vm.sh"
 EOF
+
+write_progress "- Vocabulary Plus launcher"
+vp_launcher="$BIN_DIR/vocabularyplus"
+cat > "$vp_launcher" << EOF
+#!/usr/bin/env sh
+VP_VM_DIR="$HOME/.vp-vm"
+
+CURRENT_VER=$(cat "\$VP_VM_DIR/current.txt")
+
+if [ "\$CURRENT_VER" != "" ]; then
+	sh "\$VP_VM_DIR/versions/\$CURRENT_VER"
+else
+	echo "No Vocabulary Plus version installed."
+	echo "Run 'vp-vm install latest' to install the latest version."
+	exit 1
+fi
+EOF
+
+write_progress "Removing unused Windows files..."
+rm -f "$INSTALL_DIR"/*.ps1
+
+# Set data file which tells vp-vm whether or not
+# the program has been set up properly
+echo "$INSTALL_DIR" > "$INSTALL_DIR/.setup_path"
 
 # Final instructions
 write_success "Vocabulary Plus Version Manager 2.0.0 set up successfully"
