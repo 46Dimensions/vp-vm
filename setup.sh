@@ -102,13 +102,14 @@ else
 	exit 1
 fi
 EOF
+write_success "Set up launchers."
 
 write_progress "Removing unused Windows files..."
 rm -f "$INSTALL_DIR"/*.ps1
 
-# Set data file which tells vp-vm whether or not
-# the program has been set up properly
-echo "$INSTALL_DIR" > "$INSTALL_DIR/.setup_path"
+write_progress "Setting up files..."
+touch "$INSTALL_DIR/current.txt"
+mkdir -p "$INSTALL_DIR/versions"
 
 # Final instructions
 write_success "Vocabulary Plus Version Manager 2.0.0 set up successfully"
