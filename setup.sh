@@ -107,9 +107,10 @@ write_success "Set up launchers."
 write_progress "Removing unused Windows files..."
 rm -f "$INSTALL_DIR"/*.ps1
 
-write_progress "Setting up files..."
+write_progress "Setting up files and directories..."
 touch "$INSTALL_DIR/current.txt"
 mkdir -p "$INSTALL_DIR/versions"
+mkdir -p "$INSTALL_DIR/download"
 
 # Final instructions
 write_success "Vocabulary Plus Version Manager 2.0.0 set up successfully"
