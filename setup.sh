@@ -34,17 +34,8 @@ echo "${purple} 🭖█🭀🭋█🭡    ${orange}██████🭠"
 echo "${purple} 🭦█🭐🭅█🭛    ${orange}██"
 echo "${purple}  🭖██🭡     ${orange}██${reset}"
 echo "VOCABULARY PLUS"
-echo "Version Manager: macOS & Linux Setup (2.0.0)"
+echo "Version Manager: macOS & Linux Installation (2.0.0)"
 echo ""
-
-# Function to get the directory of this script
-get_script_dir() {
-    script_dir=$(dirname -- "$0")
-    case $script_dir in
-        /*) printf '%s\n' "$script_dir" ;;
-        *) printf '%s\n' "$PWD/$script_dir" ;;
-    esac
-}
 
 add_to_path() {
 	directory=$1
@@ -63,56 +54,56 @@ add_to_path() {
 	export PATH="$directory:$PATH"
 }
 
-file_dir=$(get_script_dir)
-INSTALL_DIR="$HOME/.vp-vm/scripts"
+download_file() {
+	filename=$1
+
+	write_progress "- Downloading $filename..."
+
+	url="$BASE_URL/$filename"
+	curl -fsSL "$url" -o "$INSTALL_DIR/$filename" || { write_error "Unable to download $filename"; exit 1; }
+}
+
+VM_DIR="$HOME/.vp-vm"
+INSTALL_DIR="$VM_DIR/scripts"
 BIN_DIR="$HOME/.local/bin"
 
 mkdir -p "$INSTALL_DIR"
 mkdir -p "$BIN_DIR"
 add_to_path "$BIN_DIR"
 
-
-if [ ! "$(realpath "$file_dir")" = "$(realpath "$INSTALL_DIR")" ]; then
-	write_progress "Moving files to $INSTALL_DIR"
-	mv "$file_dir/*" "$INSTALL_DIR" 2>/dev/null
-fi
+write_progress "Downloading files..."
+BASE_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/2.0.0"
+download_file vp-vm.sh
+download_file LICENSE
+download_file README.md
+write_success "Downloaded files."
 
 write_progress "Setting up launchers..."
 
 write_progress "- VP VM launcher"
-vm_launcher="$BIN_DIR/vp-vm"
-cat > "$vm_launcher" << EOF
+vm_launcher_path="$BIN_DIR/vp-vm"
+cat > "$vm_launcher_path" <<EOF
 #!/usr/bin/env sh
-sh "$INSTALL_DIR/vp-vm.sh"
+$INSTALL_DIR/vp-vm.sh \$@
+exit \$?
 EOF
 
 write_progress "- Vocabulary Plus launcher"
-vp_launcher="$BIN_DIR/vocabularyplus"
-cat > "$vp_launcher" << EOF
+vocabularyplus_launcher_path="$BIN_DIR/vocabularyplus"
+cat > "$vocabularyplus_launcher_path" <<EOF
 #!/usr/bin/env sh
-VP_VM_DIR="$HOME/.vp-vm"
-
-CURRENT_VER=$(cat "\$VP_VM_DIR/current.txt")
-
-if [ "\$CURRENT_VER" != "" ]; then
-	sh "\$VP_VM_DIR/versions/\$CURRENT_VER"
-else
-	echo "No Vocabulary Plus version installed."
-	echo "Run 'vp-vm install latest' to install the latest version."
-	exit 1
-fi
+$VM_DIR/versions/$(cat "$VM_DIR/current.txt")/vp-vm.sh \$@
+exit \$?
 EOF
-write_success "Set up launchers."
 
-write_progress "Removing unused Windows files..."
-rm -f "$INSTALL_DIR"/*.ps1
+write_progress "- Vocabulary Plus launcher alias"
+vp_launcher_path="$BIN_DIR/vp"
+cp -vf "$vocabularyplus_launcher_path" "$vp_launcher_path"
 
-write_progress "Setting up files and directories..."
-touch "$INSTALL_DIR/current.txt"
-mkdir -p "$INSTALL_DIR/versions"
-mkdir -p "$INSTALL_DIR/download"
+write_success "Launchers set up."
 
-# Final instructions
-write_success "Vocabulary Plus Version Manager 2.0.0 set up successfully"
-echo "For instructions on how to use the version manager, please visit: https://github.com/46Dimensions/vp-vm"
-exit 0
+write_progress "Creating required files..."
+echo "2.0.0" > "$VM_DIR/version.txt"
+
+write_success "Successfully installed Vocabulary Plus Version Manager v2.0.0."
+write_info "See $INSTALL_DIR/README.md or https://github.com/46Dimensions/vp-vm/blob/2.0.0/README.md for instructions."
