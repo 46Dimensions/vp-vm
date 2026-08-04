@@ -229,7 +229,7 @@ get_latest_version() {
         a=${version#v}
         b=${latest#v}
 
-        # Extract prerelease
+        # Extract prerelease suffix
         a_pre=
         b_pre=
         case "$a" in
@@ -242,9 +242,11 @@ get_latest_version() {
         # Split x.y.z
         oldifs=$IFS
         IFS=.
-        set -- "$a"
+        # shellcheck disable=SC2086
+        set -- $a
         a1=$1 a2=$2 a3=$3
-        set -- "$b"
+        # shellcheck disable=SC2086
+        set -- $b
         b1=$1 b2=$2 b3=$3
         IFS=$oldifs
 
@@ -260,14 +262,23 @@ get_latest_version() {
                     newer=true
                 elif [ "$a3" -eq "$b3" ]; then
                     case "$a_pre" in
-                        "")      a_rank=2 a_num=0 ;;
-                        alpha*)  a_rank=0 a_num=${a_pre#alpha} ;;
-                        beta*)   a_rank=1 a_num=${a_pre#beta} ;;
+                        "")      a_rank=3 a_num=0 ;;
+                        alpha*)  a_rank=1 a_num=${a_pre#alpha} ;;
+                        beta*)   a_rank=2 a_num=${a_pre#beta} ;;
+                        *)        a_rank=0 a_num=0 ;;
                     esac
                     case "$b_pre" in
-                        "")      b_rank=2 b_num=0 ;;
-                        alpha*)  b_rank=0 b_num=${b_pre#alpha} ;;
-                        beta*)   b_rank=1 b_num=${b_pre#beta} ;;
+                        "")      b_rank=3 b_num=0 ;;
+                        alpha*)  b_rank=1 b_num=${b_pre#alpha} ;;
+                        beta*)   b_rank=2 b_num=${b_pre#beta} ;;
+                        *)        b_rank=0 b_num=0 ;;
+                    esac
+
+                    case "$a_num" in
+                        ''|*[!0-9]*) a_num=0 ;;
+                    esac
+                    case "$b_num" in
+                        ''|*[!0-9]*) b_num=0 ;;
                     esac
 
                     if [ "$a_rank" -gt "$b_rank" ]; then
