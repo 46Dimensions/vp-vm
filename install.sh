@@ -102,21 +102,24 @@ write_progress "- VP VM launcher"
 vm_launcher_path="$BIN_DIR/vp-vm"
 cat > "$vm_launcher_path" <<EOF
 #!/usr/bin/env sh
-$INSTALL_DIR/vp-vm.sh \$@
+sh $INSTALL_DIR/vp-vm.sh \$@
 exit \$?
 EOF
+chmod +x "$vm_launcher_path"
 
 write_progress "- Vocabulary Plus launcher"
 vocabularyplus_launcher_path="$BIN_DIR/vocabularyplus"
 cat > "$vocabularyplus_launcher_path" <<EOF
 #!/usr/bin/env sh
-$VM_DIR/versions/$(cat "$VM_DIR/current.txt")/vp-vm.sh \$@
+sh $VM_DIR/versions/$(cat "$VM_DIR/current.txt")/vp-vm.sh \$@
 exit \$?
 EOF
+chmod +x "$vocabularyplus_launcher_path"
 
 write_progress "- Vocabulary Plus launcher alias"
 vp_launcher_path="$BIN_DIR/vp"
 cp -vf "$vocabularyplus_launcher_path" "$vp_launcher_path"
+chmod +x "$vp_launcher_path"
 
 write_success "Launchers set up."
 
