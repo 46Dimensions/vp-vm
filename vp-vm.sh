@@ -457,11 +457,7 @@ show_info() {
         current_version=$(cat "$MAIN_DIR/current.txt")
 
         remote_versions=$(list_remote_versions)
-        echo "DEBUG: remote_versions = '$remote_versions'"
-        latest_version=$(printf '%s' "$remote_versions" | get_latest_version)
-        echo "DEBUG: latest_version (method 1) = '$latest_version'"
-        latest_version_method_2=$(list_remote_versions | get_latest_version)
-        echo "DEBUG latest_Version (method 2) = '$latest_version_method_2'"
+        latest_version=$(list_remote_versions | get_latest_version)
 
         count=$(list_installed_versions | grep -c '.')
 
