@@ -1,10 +1,10 @@
-name: Windows Setup Script
+name: Test Windows installation script
 
 on:
   push:
     paths:
       - '**/*.ps1'
-      - '**/run-windows-setup.yml'
+      - '**/test-windows-install.yml'
   pull_request:
     paths:
       - '**/*.ps1'
@@ -18,7 +18,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run setup.ps1
+      - name: Run install.ps1 and test
         shell: pwsh
         run: |
-          & .\setup.ps1
+          & .\install.ps1
+          vp-vm info
