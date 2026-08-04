@@ -300,8 +300,6 @@ get_latest_version() {
 }
 
 list_remote_versions() {
-    write_info "Available versions:"
-
     curl -fsSL "https://api.github.com/repos/46Dimensions/VocabularyPlus/tags?per_page=100" |
         jq -r '.[].name' |
         while IFS= read -r tag; do
@@ -612,6 +610,7 @@ case "$1" in
         list_installed_versions
         ;;
     list-remote|ls-remote)
+        write_info "Available versions:"
         list_remote_versions
         ;;
     info)
