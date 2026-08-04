@@ -454,9 +454,14 @@ show_info() {
     version=$1
 
     if [ "$version" = "" ]; then
-        current_version=$(cat "$MAIN_DIR/current.txt")
-
-        remote_versions=$(list_remote_versions)
+        if [ -s "$MAIN_DIR/current.txt" ]; then
+            current_version=$(cat "$MAIN_DIR/current.txt")
+            active_executable="$VERSIONS_DIR/$current_version/vocabularyplus"
+        else
+            current_version="---"
+            active_executable="---"
+        fi
+        
         latest_version=$(list_remote_versions | get_latest_version)
 
         count=$(list_installed_versions | grep -c '.')
@@ -469,7 +474,7 @@ show_info() {
         echo ""
         echo "VP VM directory:    $MAIN_DIR"
         echo "Versions directory: $VERSIONS_DIR"
-        echo "Active executable:  $VERSIONS_DIR/$current_version/vocabularyplus"
+        echo "Active executable:  $active_executable"
         echo ""
         echo "Platform:           $PLATFORM ($(uname -m))"
         echo "Shell:              sh"
