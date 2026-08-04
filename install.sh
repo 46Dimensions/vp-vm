@@ -118,7 +118,7 @@ chmod +x "$vocabularyplus_launcher_path"
 
 write_progress "- Vocabulary Plus launcher alias"
 vp_launcher_path="$BIN_DIR/vp"
-cp -vf "$vocabularyplus_launcher_path" "$vp_launcher_path"
+cp -f "$vocabularyplus_launcher_path" "$vp_launcher_path"
 chmod +x "$vp_launcher_path"
 
 write_success "Launchers set up."
