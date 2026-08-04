@@ -28,7 +28,7 @@ fi
 
 VP_VM_VERSION=$(cat "$MAIN_DIR/version.txt")
 
-mkdir -p "$APP_DIR" "$MAIN_DIR" "$DOWNLOAD_DIR" "$VERSIONS_DIR"
+mkdir -p "$SCRIPTS_DIR" "$MAIN_DIR" "$DOWNLOAD_DIR" "$VERSIONS_DIR"
 
 write_logo() {
     echo "${purple}🭖█🭀  🭋█🭡   ${orange}██████🭏"
@@ -216,7 +216,9 @@ get_latest_version() {
     latest=
 
     while IFS= read -r version; do
-        [ -z "$version" ] && continue
+        if [ -z "$version" ]; then
+            continue
+        fi
 
         if [ -z "$latest" ]; then
             latest=$version
