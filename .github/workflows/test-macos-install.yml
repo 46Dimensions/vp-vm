@@ -1,10 +1,10 @@
-name: MacOS setup script
+name: Test MacOS installation script
 
 on:
   push:
     paths:
       - '**/*.sh'
-      - '**/run-macos-setup.yml'
+      - '**/test-macos-install.yml'
   pull_request:
     paths:
       - '**/*.sh'
@@ -18,5 +18,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run setup.sh
-        run: sh setup.sh
+      - name: Run install.sh and test
+        run: |
+          sh install.sh
+          vp-vm info
