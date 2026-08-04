@@ -309,6 +309,10 @@ list_remote_versions() {
     return 0
 }
 
+list_installed_versions() {
+    ls "$VERSIONS_DIR"
+}
+
 download_version() {
     version="$1"
 
@@ -341,10 +345,6 @@ run_script() {
     script_path=$1
 
     sh "$script_path"
-}
-
-list_installed_versions() {
-    ls "$VERSIONS_DIR"
 }
 
 install_version() {
