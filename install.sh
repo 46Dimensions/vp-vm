@@ -2,8 +2,11 @@
 set -e
 
 # ANSI colours
+red="\033[91m"
 green="\033[92m"
+yellow="\033[93m"
 cyan="\033[96m"
+blue="\033[38;5;33m"
 purple="\033[38;5;93m"
 orange="\033[38;5;208m"
 reset="\033[0m"
@@ -23,9 +26,24 @@ write_progress() {
     echo "${cyan}${message}${reset}"
 }
 
+write_info() {
+    message=$1
+    echo "${blue}${message}${reset}"
+}
+
 write_success() {
     message=$1
     echo "${green}${message}${reset}"
+}
+
+write_warning() {
+    message=$1
+    echo "${yellow}${message}${reset}"
+}
+
+write_error() {
+    message=$1
+    echo "${red}${message}${reset}"
 }
 
 echo "${purple}🭖█🭀  🭋█🭡   ${orange}██████🭏"
