@@ -111,7 +111,7 @@ write_progress "- Vocabulary Plus launcher"
 vocabularyplus_launcher_path="$BIN_DIR/vocabularyplus"
 cat > "$vocabularyplus_launcher_path" <<EOF
 #!/usr/bin/env sh
-sh $VM_DIR/versions/$(cat "$VM_DIR/current.txt")/vp-vm.sh \$@
+sh $VM_DIR/versions/\$(cat "$VM_DIR/current.txt")/vp-vm.sh \$@
 exit \$?
 EOF
 chmod +x "$vocabularyplus_launcher_path"
