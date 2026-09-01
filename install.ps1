@@ -54,7 +54,7 @@ function Add-ToUserPath {
         $env:PATH += ";$NewPath"
     }
 
-    Write-Success "Added to PATH: $NewPath"
+    Write-Colour "Added to PATH: $NewPath" Green
 }
 
 # Set global variables
