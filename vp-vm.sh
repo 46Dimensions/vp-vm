@@ -68,70 +68,21 @@ write_error() {
 
 normalise_version() {
     version=$1
+    [ "$version" = latest ] && version=$(list_remote_versions | get_latest_version)
+    case $version in v*) version=${version#v};; esac
 
-    if [ "$version" = "latest" ]; then
-        list_remote_versions | get_latest_version
-    fi
+    IFS=. read -r major minor rest <<EOF
+$version
+EOF
 
-    # Remove leading "v"
-    case "$version" in
-        v*) version=${version#v} ;;
-    esac
-
-    # Extract the major version
-    major=${version%%.*}
-    rest=${version#"$major"}
-
-    case "$rest" in
-        .*) rest=${rest#.} ;;
-        *)  rest= ;;
-    esac
-
-    # Extract the minor version
-    minor=${rest%%.*}
-
-    if [ "$minor" = "$rest" ]; then
-        rest=
-    else
-        rest=${rest#"$minor."}
-    fi
-
-    # Validate minor
-    case "$minor" in
-        ''|*[!0-9]*) minor=0 ;;
-    esac
-
-    # Extract patch
+    case $minor in ''|*[!0-9]*) minor=0;; esac
     patch=${rest%%-*}
+    case $rest in *-*) suffix=${rest#"$patch"};; *) suffix=;; esac
+    case $patch in ''|*[!0-9]*) patch=0;; esac
 
-    # Extract optional suffix
-    case "$rest" in
-        *-*) suffix=${rest#"$patch"} ;;
-        *)   suffix= ;;
-    esac
-
-    # Validate patch
-    case "$patch" in
-        ''|*[!0-9]*) patch=0 ;;
-    esac
-
-    # Validate major
-    case "$major" in
-        ''|*[!0-9]*)
-            return 1
-            ;;
-    esac
-
-    # Only allow versions >= 2.0.0
-    if [ "$major" -lt 2 ]; then
-        return 1
-    fi
-
-    # Only allow a -alpha or -beta suffix
-    case "$suffix" in
-        ''|-alpha*|-beta*) ;;
-        *) return 1 ;;
-    esac
+    case $major in ''|*[!0-9]*) return 1;; esac
+    [ "$major" -ge 2 ] || return 1
+    case $suffix in ''|-alpha*|-beta*) ;; *) return 1;; esac
 
     printf 'v%s.%s.%s%s\n' "$major" "$minor" "$patch" "$suffix"
 }
