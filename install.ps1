@@ -94,14 +94,14 @@ Write-Colour "Setting up launchers..." Cyan
 Write-Colour "- VP VM launcher" Cyan
 $vm_launcher_path = "$BIN_DIR\vp-vm.ps1"
 @"
-& "$INSTALL_DIR\vp-vm.ps1 @args
+& "$INSTALL_DIR\vp-vm.ps1" @args
 exit `$LASTEXITCODE
 "@ | Set-Content $vm_launcher_path
 
 Write-Colour "- Vocabulary Plus launcher" Cyan
 $vocabularyplus_launcher_path = "$BIN_DIR\vocabularyplus.ps1"
 @"
-& "$VM_DIR\versions\`$(Get-Content "$VM_DIR\current.txt")"
+& "$VM_DIR\versions\`$(Get-Content "$VM_DIR\current.txt")\vocabularyplus"
 exit `$LASTEXITCODE
 "@ | Set-Content $vocabularyplus_launcher_path
 
