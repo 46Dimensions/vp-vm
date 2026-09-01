@@ -75,7 +75,7 @@ function Get-File {
     param(
         [string]$RemotePath
     )
-    Write-Colour "- Downloading $RemotePath..."
+    Write-Colour "- Downloading $RemotePath..." Cyan
 
     $Url = "$BASE_URL/$RemotePath"
     $OutPath = "$INSTALL_DIR/$RemotePath"
