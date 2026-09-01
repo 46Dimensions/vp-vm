@@ -119,7 +119,7 @@ BASE_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/2.0.0"
 download_file vp-vm.sh
 download_file LICENSE
 download_file README.md
-write_success "Downloaded files."
+write_success "Downloaded files successfully."
 
 write_progress "Setting up launchers..."
 
@@ -151,5 +151,9 @@ write_success "Launchers set up."
 write_progress "Creating required files..."
 echo "2.0.0" > "$VM_DIR/version.txt"
 
-write_success "Successfully installed Vocabulary Plus Version Manager v2.0.0."
-write_info "See $INSTALL_DIR/README.md or https://github.com/46Dimensions/vp-vm/blob/2.0.0/README.md for instructions."
+write_success "Successfully installed Vocabulary Plus Version Manager 2.0.0."
+echo ""
+write_info "Instructions and Help:"
+write_info "$BIN_DIR/vp-vm --help"
+write_info "$INSTALL_DIR/README.md"
+write_info "https://github.com/46Dimensions/vp-vm/blob/2.0.0/README.md"
