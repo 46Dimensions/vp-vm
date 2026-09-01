@@ -1,15 +1,19 @@
-﻿# Setup script: configures 
-
-param(
+﻿param(
     [switch]$Silent
 )
 
 $ErrorActionPreference = "Stop"
 
 # --- Colours ---
-function Write-Colour($text, $colour) {
-    if ($Silent) { return }
-    Write-Host $text -ForegroundColor $colour
+function Write-Colour {
+    param(
+        [string]$Text,
+        [System.ConsoleColor]$Colour
+    )
+
+    if (-not $Silent) {
+        Write-Host $text -ForegroundColor $colour
+    }
 }
 
 function Write-Logo {
@@ -23,18 +27,8 @@ function Write-Logo {
     Write-Host "${purple} 🭦█🭐🭅█🭛    ${orange}██"
     Write-Host "${purple}  🭖██🭡     ${orange}██${reset}"
     Write-Host "VOCABULARY PLUS"
-    Write-Host "Version Manager: Windows (2.0.0)"
+    Write-Host "Version Manager: Windows Installation (2.0.0)"
     Write-Host ""
-}
-
-if (-not $Silent) {
-    Write-Logo
-}
-
-# Check if running on Windows
-if (-not $env:OS -eq 'Windows_NT') {
-    Write-Colour "Not running on Windows." Red
-    exit 1
 }
 
 function Add-ToUserPath {
@@ -60,29 +54,69 @@ function Add-ToUserPath {
         $env:PATH += ";$NewPath"
     }
 
-    Write-Colour "Added to PATH: $NewPath" Green
+    Write-Success "Added to PATH: $NewPath"
 }
 
-$VM_DIR = $PSScriptRoot
-$BIN = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
+# Set global variables
+$BASE_URL = "https://raw.githubusercontent.com/46Dimensions/vp-vm/2.0.0"
+$VM_DIR = Join-Path $HOME ".vp-vm"
+$INSTALL_DIR = Join-Path $VM_DIR "scripts"
+$BIN_DIR = Join-Path $env:USERPROFILE "AppData" "Local" "Programs" "VocabularyPlus"
 
-Write-Colour "Setting up Vocabulary Plus Version Manager..." Cyan
+# Create directories
+New-Item -ItemType Directory -Path "$VM_DIR" -Force | Out-Null
+New-Item -ItemType Directory -Path "$INSTALL_DIR" -Force | Out-Null
+New-Item -ItemType Directory -Path "$BIN_DIR" -Force | Out-Null
 
-Write-Colour "Modifying PATH..." Cyan
-# Add $BIN to PATH
-Add-ToUserPath $BIN
+# Add bin directory to user's PATH
+Add-ToUserPath -NewPath "$BIN_DIR"
 
-# Create launcher
-Write-Colour "Creating launcher..." Cyan
+function Get-File {
+    param(
+        [string]$RemotePath
+    )
+    Write-Colour "- Downloading $RemotePath..."
 
-New-Item -ItemType Directory -Force -Path $BIN | Out-Null
-$launcher = Join-Path $BIN "vp-vm.ps1"
+    $Url = "$BASE_URL/$RemotePath"
+    $OutPath = "$INSTALL_DIR/$RemotePath"
 
+    Invoke-WebRequest -Uri $Url -OutFile $OutPath || { Write-Error "Unable to download $RemotePath"; exit 1; }
+}
+
+Write-Colour "Downloading files..." Cyan
+Get-File -RemotePath "vp-vm.ps1"
+Get-File -RemotePath "LICENSE"
+Get-File -RemotePath "README.md"
+Write-Colour "Downloaded files successfully." Green
+
+Write-Colour "Setting up launchers..." Cyan
+
+Write-Colour "- VP VM launcher" Cyan
+$vm_launcher_path = "$BIN_DIR\vp-vm.ps1"
 @"
-`$env:INSTALL_DIR = "$VM_DIR"
-& "$VM_DIR\vp-vm.ps1" `$args
-"@ | Set-Content $launcher
+& "$INSTALL_DIR\vp-vm.ps1 @args
+exit `$LASTEXITCODE
+"@ | Set-Content $vm_launcher_path
 
-Write-Colour "Setup complete." Green
-Write-Colour "For instructions on how to use the Version Manager, please see https://github.com/46Dimensions/vp-vm" White
-exit 0
+Write-Colour "- Vocabulary Plus launcher" Cyan
+$vocabularyplus_launcher_path = "$BIN_DIR\vocabularyplus.ps1"
+@"
+& "$VM_DIR\versions\`$(Get-Content "$VM_DIR\current.txt")"
+exit `$LASTEXITCODE
+"@ | Set-Content $vocabularyplus_launcher_path
+
+Write-Colour "- Vocabulary Plus launcher alias" Cyan
+$vp_launcher_path = "$BIN_DIR\vp.ps1"
+Copy-File $vocabularyplus_launcher_path $vp_launcher_path
+
+Write-Colour "Launchers set up." Green
+
+Write-Colour "Creating required files..." Cyan
+Set-Content -Path "$VM_DIR\version.txt" -Value "2.0.0"
+
+Write-Colour "Successfully installed Vocabulary Plus Version Manager 2.0.0"
+Write-Host ""
+Write-Colour "Instructions and Help:" Blue
+Write-Colour "$BIN_DIR/vp-vm --help" Blue
+Write-Colour "$INSTALL_DIR/README.md" Blue
+Write-Colour "https://github.com/46Dimensions/vp-vm/blob/2.0.0/README.md" Blue
