@@ -66,69 +66,6 @@ write_error() {
     echo "${red}${message}${reset}"
 }
 
-# For stable
-: <<'END'
-normalise_version() {
-    version=$1
-
-    # Remove leading "v"
-    case "$version" in
-        v*) version=${version#v} ;;
-    esac
-
-    # Reject anything that isn't numeric version components
-    # and reject anything after the third component.
-
-    case "$version" in
-        *[!0-9.]*|*.*.*.*)
-            printf ""
-            return 1
-            ;;
-    esac
-
-    major=${version%%.*}
-    rest=${version#"$major"}
-
-    case "$rest" in
-        .*) rest=${rest#.} ;;
-        *)  rest= ;;
-    esac
-
-    minor=${rest%%.*}
-
-    if [ "$minor" = "$rest" ]; then
-        rest=
-    else
-        rest=${rest#"$minor."}
-    fi
-
-    case "$minor" in
-        ''|*[!0-9]*) minor=0 ;;
-    esac
-
-    patch=${rest%%.*}
-
-    case "$patch" in
-        ''|*[!0-9]*) patch=0 ;;
-    esac
-
-    # Validate major
-    case "$major" in
-        ''|*[!0-9]*)
-            return 1
-            ;;
-    esac
-
-    # Only allow versions >= 2.0.0
-    if [ "$major" -lt 2 ]; then
-        return 1
-    fi
-
-    printf 'v%s.%s.%s\n' "$major" "$minor" "$patch"
-}
-END
-
-# For testing
 normalise_version() {
     version=$1
 
