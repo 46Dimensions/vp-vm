@@ -107,7 +107,7 @@ exit `$LASTEXITCODE
 
 Write-Colour "- Vocabulary Plus launcher alias" Cyan
 $vp_launcher_path = "$BIN_DIR\vp.ps1"
-Copy-File $vocabularyplus_launcher_path $vp_launcher_path
+Copy-Item $vocabularyplus_launcher_path $vp_launcher_path
 
 Write-Colour "Launchers set up." Green
 
