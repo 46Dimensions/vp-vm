@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  run-setup:
+  run-installer:
     runs-on: macos-latest
 
     steps:
