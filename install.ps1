@@ -114,7 +114,7 @@ Write-Colour "Launchers set up." Green
 Write-Colour "Creating required files..." Cyan
 Set-Content -Path "$VM_DIR\version.txt" -Value "2.0.0"
 
-Write-Colour "Successfully installed Vocabulary Plus Version Manager 2.0.0"
+Write-Colour "Successfully installed Vocabulary Plus Version Manager 2.0.0" Green
 Write-Host ""
 Write-Colour "Instructions and Help:" Blue
 Write-Colour "$BIN_DIR/vp-vm --help" Blue
