@@ -66,19 +66,6 @@ write_error() {
     echo "${red}${message}${reset}"
 }
 
-show_help() {
-    echo "Vocabulary Plus Version Manager"
-    echo "Usage: $0 [option] [ARGS]"
-    echo "Options:"
-    echo "  -h --help           show this help message and exit"
-    echo "  install VERSION     install a specific version of Vocabulary Plus"
-    echo "  list-versions TYPE  list available, installed or current versions."
-    echo "                          see '$0 list-versions --help' for help"
-    echo "  use VERSION         make VERSION usable"
-
-    exit 0
-}
-
 # For stable
 : <<'END'
 normalise_version() {
