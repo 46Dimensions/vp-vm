@@ -154,7 +154,10 @@ list_remote_versions() {
 }
 
 list_installed_versions() {
-    ls "$VERSIONS_DIR"
+    for version in "$VERSIONS_DIR"/*; do
+        [ -e "$version" ] || continue
+        printf '%s\n' "${version##*/}"
+    done
 }
 
 download_version() {
