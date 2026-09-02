@@ -87,91 +87,62 @@ EOF
     printf 'v%s.%s.%s%s\n' "$major" "$minor" "$patch" "$suffix"
 }
 
+
 get_latest_version() {
-    latest=
+    awk '
+    function rank(pre) {
+        if (pre == "") return 3
+        if (pre ~ /^alpha[0-9]*$/) return 1
+        if (pre ~ /^beta[0-9]*$/) return 2
+        return -1
+    }
 
-    while IFS= read -r version; do
-        if [ -z "$version" ]; then
-            continue
-        fi
+    function number(pre) {
+        sub(/^[a-z]+/, "", pre)
+        return pre == "" ? 0 : pre + 0
+    }
 
-        if [ -z "$latest" ]; then
-            latest=$version
-            continue
-        fi
+    function newer(version, latest,    v, l, vr, lr, i) {
+        sub(/^v/, "", version)
+        sub(/^v/, "", latest)
 
-        # Strip leading v
-        a=${version#v}
-        b=${latest#v}
+        split(version, v, "-")
+        split(latest, l, "-")
 
-        # Extract prerelease suffix
-        a_pre=
-        b_pre=
-        case "$a" in
-            *-*) a_pre=${a#*-}; a=${a%%-*} ;;
-        esac
-        case "$b" in
-            *-*) b_pre=${b#*-}; b=${b%%-*} ;;
-        esac
+        split(v[1], v, ".")
+        split(l[1], l, ".")
 
-        # Split x.y.z
-        oldifs=$IFS
-        IFS=.
-        # shellcheck disable=SC2086
-        set -- $a
-        a1=$1 a2=$2 a3=$3
-        # shellcheck disable=SC2086
-        set -- $b
-        b1=$1 b2=$2 b3=$3
-        IFS=$oldifs
+        for (i = 1; i <= 3; i++)
+            if (v[i] != l[i])
+                return (v[i] + 0) > (l[i] + 0)
 
-        newer=false
+        vr = rank(v[2])
+        lr = rank(l[2])
 
-        if [ "$a1" -gt "$b1" ]; then
-            newer=true
-        elif [ "$a1" -eq "$b1" ]; then
-            if [ "$a2" -gt "$b2" ]; then
-                newer=true
-            elif [ "$a2" -eq "$b2" ]; then
-                if [ "$a3" -gt "$b3" ]; then
-                    newer=true
-                elif [ "$a3" -eq "$b3" ]; then
-                    case "$a_pre" in
-                        "")      a_rank=3 a_num=0 ;;
-                        alpha*)  a_rank=1 a_num=${a_pre#alpha} ;;
-                        beta*)   a_rank=2 a_num=${a_pre#beta} ;;
-                        *)        a_rank=0 a_num=0 ;;
-                    esac
-                    case "$b_pre" in
-                        "")      b_rank=3 b_num=0 ;;
-                        alpha*)  b_rank=1 b_num=${b_pre#alpha} ;;
-                        beta*)   b_rank=2 b_num=${b_pre#beta} ;;
-                        *)        b_rank=0 b_num=0 ;;
-                    esac
+        if (vr < 0 || lr < 0) {
+            exit 1
+        }
 
-                    case "$a_num" in
-                        ''|*[!0-9]*) a_num=0 ;;
-                    esac
-                    case "$b_num" in
-                        ''|*[!0-9]*) b_num=0 ;;
-                    esac
+        return vr != lr ? vr > lr : number(v[2]) > number(l[2])
+    }
 
-                    if [ "$a_rank" -gt "$b_rank" ]; then
-                        newer=true
-                    elif [ "$a_rank" -eq "$b_rank" ] &&
-                         [ "$a_num" -gt "$b_num" ]; then
-                        newer=true
-                    fi
-                fi
-            fi
-        fi
+    /^[[:space:]]*$/ { next }
 
-        if $newer; then
-            latest=$version
-        fi
-    done
+    {
+        if (!latest) {
+            latest = $0
+            next
+        }
 
-    printf '%s\n' "$latest"
+        if (newer($0, latest))
+            latest = $0
+    }
+
+    END {
+        if (latest)
+            print latest
+    }
+    '
 }
 
 list_remote_versions() {
@@ -180,8 +151,6 @@ list_remote_versions() {
         while IFS= read -r tag; do
             normalise_version "$tag"
         done
-
-    return 0
 }
 
 list_installed_versions() {
