@@ -103,13 +103,13 @@ function Select-LatestVersion {
     process {
         if (!$Version) { return }
 
-        $v = $Version.TrimStart('v')
-        $l = $latest.TrimStart('v')
-
         if (!$latest) {
             $latest = $Version
             return
         }
+
+        $v = $Version.TrimStart('v')
+        $l = $latest.TrimStart('v')
 
         $vp, $vpre = $v -split '-', 2
         $lp, $lpre = $l -split '-', 2
