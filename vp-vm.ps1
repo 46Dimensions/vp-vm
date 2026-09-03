@@ -26,7 +26,7 @@ $MAIN_DIR = Join-Path $HOME ".vp-vm"
 $DOWNLOAD_DIR = Join-Path "$MAIN_DIR" "download"
 $VERSIONS_DIR = Join-Path "$MAIN_DIR" "versions"
 
-$VP_VM_VERSION = Get-Content Join-Path $MAIN_DIR "version.txt"
+$VP_VM_VERSION = Get-Content (Join-Path $MAIN_DIR "version.txt")
 $WINDOWS_VERSION = (Get-ComputerInfo -Property WindowsDisplayVersion).WindowsDisplayVersion
 
 New-Item -ItemType Directory -Path $MAIN_DIR
