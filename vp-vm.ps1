@@ -22,7 +22,6 @@ function Test-FileNotEmpty {
 }
 
 # Global variables
-SCRIPTS_DIR="$HOME\.vp-vm\scripts"
 $MAIN_DIR = Join-Path $HOME ".vp-vm"
 $DOWNLOAD_DIR = Join-Path "$MAIN_DIR" "download"
 $VERSIONS_DIR = Join-Path "$MAIN_DIR" "versions"
@@ -459,10 +458,10 @@ Maintenance:
 
 # Handle arguments
 switch ($args[0]) {
-    {$_ -in '-h', '--help' } {
+    { $_ -in '-h', '--help' } {
         Write-Host $help_text
     }
-    {$_ -in '-v', '--version'} {
+    { $_ -in '-v', '--version' } {
         Write-Host "Vocabulary Plus Version Manager v$VP_VM_VERSION"
     }
     'install' {
@@ -474,11 +473,11 @@ switch ($args[0]) {
     'use' {
         Set-DefaultVersion $args[1]
     }
-    {$_ -in 'list', 'ls'} {
+    { $_ -in 'list', 'ls' } {
         Write-Colour "Installed versions:" Blue
         Get-InstalledVersions
     }
-    {$_ -in 'list-remote', 'ls-remote'} {
+    { $_ -in 'list-remote', 'ls-remote' } {
         Write-Colour "Available versions:" Blue
         Get-RemoteVersions
     }
