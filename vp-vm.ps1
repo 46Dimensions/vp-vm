@@ -29,9 +29,9 @@ $VERSIONS_DIR = Join-Path "$MAIN_DIR" "versions"
 $VP_VM_VERSION = Get-Content (Join-Path $MAIN_DIR "version.txt")
 $WINDOWS_VERSION = (Get-ComputerInfo -Property WindowsDisplayVersion).WindowsDisplayVersion
 
-New-Item -ItemType Directory -Path $MAIN_DIR
-New-Item -ItemType Directory -Path $DOWNLOAD_DIR
-New-Item -ItemType Directory -Path $VERSIONS_DIR
+New-Item -ItemType Directory -Path $MAIN_DIR -Force
+New-Item -ItemType Directory -Path $DOWNLOAD_DIR -Force
+New-Item -ItemType Directory -Path $VERSIONS_DIR -Force
 
 function Write-Logo {
     $esc = [char]27
