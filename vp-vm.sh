@@ -163,11 +163,18 @@ list_installed_versions() {
 download_version() {
     version="$1"
 
-    echo "Downloading version $version..."
-    URL="https://github.com/46Dimensions/VocabularyPlus/releases/download/${version}/VocabularyPlus.zip"
-    FILE_PATH="${DOWNLOAD_DIR}/vocabularyplus_${version}.zip"
+    normalised=$(normalise_version "$version")
 
-    curl -fsSL "$URL" -o "$FILE_PATH" || { write_error "Unable to download version $version. Does it exist? "; exit 1; }
+    if [ -n "$normalised" ] || list_remote_versions | grep -Fxq "$normalised"; then
+        echo "Downloading version $normalised..."
+        URL="https://github.com/46Dimensions/VocabularyPlus/releases/download/${normalised}/VocabularyPlus.zip"
+        FILE_PATH="${DOWNLOAD_DIR}/vocabularyplus_${normalised}.zip"
+
+        curl -fsSL "$URL" -o "$FILE_PATH" || { write_error "Unable to download version $normalised. Does it exist?"; exit 1; }
+    else
+        write_error "Version $version is invalid or does not exist."
+        exit 1
+    fi
 }
 
 unpack_zip() {
@@ -199,18 +206,18 @@ install_version() {
 
     normalised=$(normalise_version "$version")
 
-    if [ "$normalised" != "" ]; then
-        if ! list_installed_versions | grep -Fq "$normalised"; then
-            download_version "$version"
+    if [ -n "$normalised" ]; then
+        if ! list_installed_versions | grep -Fxq "$normalised"; then
+            download_version "$normalised"
             
-            zip_path="${DOWNLOAD_DIR}/vocabularyplus_${version}.zip"
+            zip_path="${DOWNLOAD_DIR}/vocabularyplus_${normalised}.zip"
 
             unpack_zip "$zip_path"
         else
-            write_warning "Version $version is already downloaded."
+            write_warning "Version $normalised is already downloaded."
 
             if [ ! -d "$VERSIONS_DIR/$normalised/installation" ]; then
-                write_error "Version $version is already installed."
+                write_error "Version $normalised is already installed."
             fi
         fi
 
@@ -233,7 +240,7 @@ uninstall_version() {
 
     normalised=$(normalise_version "$version")
 
-    if [ "$normalised" != "" ]; then
+    if [ -n "$normalised" ]; then
         VP_DIR="$VERSIONS_DIR/$normalised"
 
         if [ -s "$VP_DIR/uninstall" ]; then
@@ -252,12 +259,12 @@ uninstall_version() {
     fi
 }
 
-use_version() {
+set_default_version() {
     version=$1
 
     normalised=$(normalise_version "$version")
 
-    if [ "$normalised" != "" ]; then
+    if [ -n "$normalised" ]; then
         VP_DIR="$VERSIONS_DIR/$normalised"
 
         if [ -s "$VP_DIR/vocabularyplus" ]; then
@@ -266,7 +273,7 @@ use_version() {
             write_success "Set version $version as default."
             write_info "You can now run 'vocabularyplus' to use it."
         else
-            write_error "Unable to find version $version."
+            write_error "Unable to find version $normalised."
             return 1
         fi
     else
@@ -280,14 +287,10 @@ check_installed() {
 
     normalised=$(normalise_version "$version")
 
-    if [ "$normalised" != "" ]; then
+    if [ -n "$normalised" ]; then
         if list_installed_versions | grep -q "$normalised"; then
-            install_confirmation_file="$VERSIONS_DIR/$normalised/installed"
-            if [ -f "$install_confirmation_file" ]; then
-                return 0
-            else
-                return 1
-            fi
+            [ ! -d "$VERSIONS_DIR/$normalised/installation" ]
+            return $?
         else
             return 1
         fi
@@ -328,18 +331,18 @@ show_info() {
     else
         normalised=$(normalise_version "$version")
 
-        if [ "$normalised" != "" ]; then
+        if [ -n "$normalised" ]; then
             if check_installed "$normalised"; then
                 installed="Yes"
                 directory="$VERSIONS_DIR/$normalised"
-                executable="$VERSIONS_DIR/$normalised/vocabularyplus"
+                executable="$directory/vocabularyplus"
             else
                 installed="No"
                 directory="---"
                 executable="---"
             fi
 
-            if [ "$(cat "$MAIN_DIR/current")" = "$normalised" ]; then
+            if [ "$(cat "$MAIN_DIR/current.txt")" = "$normalised" ]; then
                 active="Yes"
             else
                 active="No"
@@ -356,7 +359,6 @@ show_info() {
             write_error "Invalid version: '$version'"
             return 1
         fi
-
     fi
 }
 
@@ -385,15 +387,15 @@ update_self() {
     latest_version=$(get_versions | get_latest_version)
     current_version="$VP_VM_VERSION"
 
-    if [ "$latest_version" != "$current_version" ]; then
-        write_warning "VP VM does not need updating."
+    if [ "$latest_version" = "$current_version" ]; then
+        write_info "VP VM is already the latest version ($VP_VM_VERSION)"
         return 0
     fi
 
     write_progress "Updating VP VM... (${red}$current_version ${cyan}-> ${green}$latest_version${cyan})"
 
     INSTALL_SCRIPT_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/${latest_version}/install.sh"
-    INSTALL_SCRIPT_PATH="$DOWNLOAD_DIR/vp-vm-install.sh"
+    INSTALL_SCRIPT_PATH="$DOWNLOAD_DIR/vp-vm-install-${latest_version}.sh"
 
     # download the script
     write_progress "Downloading install script..."
@@ -402,8 +404,6 @@ update_self() {
     # run the script
     write_progress "Running install script..."
     run_script "$INSTALL_SCRIPT_PATH"
-
-    return 0
 }
 
 # Help
@@ -437,13 +437,13 @@ Maintenance:
 EOF
 )
 
-# Validate arguments
+# Handle arguments
 case "$1" in
     -h|--help)
         echo "$HELP_TEXT"
         ;;
     -v|--version)
-        echo "VP VM $VP_VM_VERSION"
+        echo "Vocabulary Plus Version Manager v$VP_VM_VERSION"
         ;;
     install)
         install_version "$2"
@@ -452,7 +452,7 @@ case "$1" in
         uninstall_version "$2"
         ;;
     use)
-        use_version "$2"
+        set_default_version "$2"
         ;;
     list|ls)
         list_installed_versions
@@ -468,7 +468,7 @@ case "$1" in
         echo "$MAIN_DIR"
         ;;
     which)
-        echo "$VERSIONS_DIR/$(cat "$MAIN_DIR/current")/vocabularyplus"
+        echo "$VERSIONS_DIR/$(cat "$MAIN_DIR/current.txt")/vocabularyplus"
         ;;
     doctor)
         doctor
@@ -483,6 +483,6 @@ case "$1" in
         ;;
     *)
         write_error "Command '$1' not recognised."
-        echo "See '$0 --help' for available commands."
+        write_info "See '$0 --help' for available commands."
         ;;
 esac
