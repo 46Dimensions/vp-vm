@@ -163,7 +163,8 @@ Copy-Item $vocabularyplus_launcher_path $vp_launcher_path
 Write-Colour "Launchers set up." Green
 
 Write-Colour "Creating required files..." Cyan
-Set-Content -Path "$VM_DIR\version.txt" -Value "$VERSION"
+Set-Content -Path "$VM_DIR\version.txt" -Value $VERSION
+Set-Content -PAth "$VM_DIR\version-display.txt" -Value $VERSION_DISPLAY
 
 Write-Colour "Successfully installed Vocabulary Plus Version Manager $VERSION_DISPLAY" Green
 Write-Host ""

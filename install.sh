@@ -222,6 +222,7 @@ write_success "Launchers set up."
 
 write_progress "Creating required files..."
 echo "$VERSION" > "$VM_DIR/version.txt"
+echo "$VERSION_DISPLAY" > "$VM_DIR/version-display.txt"
 
 write_success "Successfully installed Vocabulary Plus Version Manager $VERSION_DISPLAY."
 echo ""
