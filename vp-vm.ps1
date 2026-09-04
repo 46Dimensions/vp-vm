@@ -29,6 +29,7 @@ $DOWNLOAD_DIR = Join-Path "$MAIN_DIR" "download"
 $VERSIONS_DIR = Join-Path "$MAIN_DIR" "versions"
 
 $VP_VM_VERSION = Get-Content (Join-Path $MAIN_DIR "version.txt")
+$VP_VM_DISPLAY_VERSION = Get-Content (Join-Path $MAIN_DIR "version-display.txt")
 $WINDOWS_VERSION = (Get-ComputerInfo -Property WindowsDisplayVersion).WindowsDisplayVersion
 
 New-Item -ItemType Directory -Path $MAIN_DIR -Force | Out-Null
@@ -332,7 +333,7 @@ function Show-Info {
         $latest_version = Get-RemoteVersions | Select-LatestVersion
         $count = @(Get-InstalledVersions).Count
 
-        Write-Host "VP VM v$VP_VM_VERSION"
+        Write-Host "VP VM v$VP_VM_DISPLAY_VERSION"
         Write-Host ""
         Write-Host "Active version:     $current_version"
         Write-Host "Latest available:   $latest_version"
@@ -367,7 +368,7 @@ function Show-Info {
                 $active = "No"
             }
 
-            Write-Host "VP VM v$VP_VM_VERSION"
+            Write-Host "VP VM v$VP_VM_DISPLAY_VERSION"
             Write-Host ""
             Write-Host "Version: $normalised"
             Write-Host "Installed: $installed"
@@ -407,7 +408,7 @@ function Update-Self {
     $current_version = $VP_VM_VERSION
 
     if ($latest_version -eq $current_version) {
-        Write-Colour "VP VM is already the latest version ($VP_VM_VERSION)" Blue
+        Write-Colour "VP VM is already the latest version ($VP_VM_DISPLAY_VERSION)" Blue
         exit 0
     }
 
@@ -462,7 +463,7 @@ switch ($args[0]) {
         Write-Host $help_text
     }
     { $_ -in '-v', '--version' } {
-        Write-Host "Vocabulary Plus Version Manager v$VP_VM_VERSION"
+        Write-Host "Vocabulary Plus Version Manager v$VP_VM_DISPLAY_VERSION"
     }
     'install' {
         Install-Version $args[1]
