@@ -4,9 +4,9 @@
 
 $ErrorActionPreference = "Stop"
 
-$VERSION = "2.0.0-beta1"
+$VERSION = "v2.0.0-beta1"
 $VERSION_DISPLAY = "2.0.0 Beta 1"
-$VERSION_START = "2.0.0"
+$VERSION_START = "v2.0.0"
 
 function Test-BranchExists {
     param(
