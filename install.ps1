@@ -4,6 +4,55 @@
 
 $ErrorActionPreference = "Stop"
 
+$VERSION = "2.0.0-beta1"
+$VERSION_DISPLAY = "2.0.0 Beta 1"
+$VERSION_START = "2.0.0"
+
+function Test-BranchExists {
+    param(
+        [String]$Branch
+    )
+
+    $response = Invoke-WebRequest `
+        -Uri "https://api.github.com/repos/46Dimensions/vp-vm/branches/$branch" `
+        -SkipHttpErrorCheck
+
+    $exists = $response.StatusCode -eq 200
+    return $exists
+}
+
+function Get-Url {
+    param(
+        [String]$Url
+    )
+
+    $response = Invoke-WebRequest -Uri $Url -SkipHttpErrorCheck
+
+    switch ($response.StatusCode) {
+        200 { 
+            Write-Output $response.Content
+            return
+        }
+        404 {
+            return 1
+        }
+        default {
+            throw "HTTP request failed with status $($response.StatusCode)"
+        }
+    }
+}
+
+$main_branch_version = Get-Url "https://raw.githubusercontent.com/46Dimensions/vp-vm/main/VERSION.txt"
+if ($main_branch_version.StartsWith($VERSION_START)) {
+    $BRANCH = "main"
+}
+elseif (Test-BranchExists $VERSION_START) {
+    $BRANCH = $VERSION_START
+}
+else {
+    throw "Unable to determine download branch"
+}
+
 # --- Colours ---
 function Write-Colour {
     param(
@@ -27,7 +76,7 @@ function Write-Logo {
     Write-Host "${purple} 🭦█🭐🭅█🭛    ${orange}██"
     Write-Host "${purple}  🭖██🭡     ${orange}██${reset}"
     Write-Host "VOCABULARY PLUS"
-    Write-Host "Version Manager: Windows Installation (2.0.0)"
+    Write-Host "Version Manager: Windows Installation ($VERSION_DISPLAY)"
     Write-Host ""
 }
 
@@ -58,7 +107,7 @@ function Add-ToUserPath {
 }
 
 # Set global variables
-$BASE_URL = "https://raw.githubusercontent.com/46Dimensions/vp-vm/2.0.0"
+$BASE_URL = "https://raw.githubusercontent.com/46Dimensions/vp-vm/$BRANCH"
 $VM_DIR = Join-Path $HOME ".vp-vm"
 $INSTALL_DIR = Join-Path $VM_DIR "scripts"
 $BIN_DIR = Join-Path $env:USERPROFILE "AppData" "Local" "Programs" "VocabularyPlus"
@@ -112,11 +161,11 @@ Copy-Item $vocabularyplus_launcher_path $vp_launcher_path
 Write-Colour "Launchers set up." Green
 
 Write-Colour "Creating required files..." Cyan
-Set-Content -Path "$VM_DIR\version.txt" -Value "2.0.0"
+Set-Content -Path "$VM_DIR\version.txt" -Value "$VERSION"
 
-Write-Colour "Successfully installed Vocabulary Plus Version Manager 2.0.0" Green
+Write-Colour "Successfully installed Vocabulary Plus Version Manager $VERSION_DISPLAY" Green
 Write-Host ""
 Write-Colour "Instructions and Help:" Blue
 Write-Colour "$BIN_DIR/vp-vm --help" Blue
 Write-Colour "$INSTALL_DIR/README.md" Blue
-Write-Colour "https://github.com/46Dimensions/vp-vm/blob/2.0.0/README.md" Blue
+Write-Colour "https://github.com/46Dimensions/vp-vm/blob/$BRANCH/README.md" Blue

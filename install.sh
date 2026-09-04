@@ -1,6 +1,66 @@
 #!/usr/bin/env sh
 set -e
 
+VERSION="2.0.0-beta1"
+VERSION_DISPLAY="2.0.0 Beta 1"
+VERSION_START="2.0.0"
+
+check_branch_exists() {
+    branch=$1
+
+    status=$(curl -sSL \
+        -o /dev/null \
+        -w '%{http_code}' \
+        -H "Accept: application/vnd.github+json" \
+        "https://api.github.com/repos/46Dimensions/vp-vm/branches/$branch")
+
+    if [ "$status" = 200 ]; then
+        return 0
+    elif [ "$status" = 404 ]; then
+        return 1
+    else
+        echo "Unable to detect download branch"
+        exit 1
+    fi
+}
+
+get_url() {
+    url="$1"
+
+    body=$(mktemp)
+    status=$(curl -sSL -w '%{http_code}' -o "$body" "$url")
+
+    case "$status" in
+        200)
+            cat "$body"
+            rm -f "$body"
+            return 0
+            ;;
+        404)
+            rm -f "$body"
+            return 1
+            ;;
+        *)
+            rm -f "$body"
+            return 2
+            ;;
+    esac
+}
+
+main_branch_version=$(get_url "https://raw.githubusercontent.com/46Dimensions/vp-vm/main/VERSION.txt")
+case "$main_branch_version" in
+    "$VERSION_START"*)
+        BRANCH="main"
+        ;;
+    *)
+        if check_branch_exists "$VERSION_START"; then
+            BRANCH="$VERSION_START"
+        else
+            echo "Unable to determine download branch"
+            exit 1
+        fi
+esac
+
 # ANSI colours
 red="\033[91m"
 green="\033[92m"
@@ -17,7 +77,7 @@ case "$2" in
   -s|--silent) SILENT=1 ;;
 esac
 
-if [ "$SILENT" -eq 1 ]; then
+if [ "$SILENT" = "1" ]; then
   exec >/dev/null
 fi
 
@@ -46,6 +106,16 @@ write_error() {
     echo "${red}${message}${reset}"
 }
 
+KERNEL=$(uname)
+if [ "$KERNEL" = "Linux" ]; then
+    PLATFORM="Linux"
+elif [ "$KERNEL" = "Darwin" ]; then
+    PLATFORM="MacOS"
+else
+    echo "${red}Unable to determine your system. Found: '${KERNEL}'${reset}"
+    exit 1
+fi
+
 write_logo() {
 	echo "${purple}🭖█🭀  🭋█🭡   ${orange}██████🭏"
 	echo "${purple}🭦█🭐  🭅█🭛   ${orange}██   🭨█"
@@ -53,7 +123,7 @@ write_logo() {
 	echo "${purple} 🭦█🭐🭅█🭛    ${orange}██"
 	echo "${purple}  🭖██🭡     ${orange}██${reset}"
 	echo "VOCABULARY PLUS"
-	echo "Version Manager: macOS & Linux Installation (2.0.0)"
+	echo "Version Manager: $PLATFORM Installation ($VERSION_DISPLAY)"
 	echo ""
 }
 
@@ -115,7 +185,7 @@ mkdir -p "$BIN_DIR"
 add_to_path "$BIN_DIR"
 
 write_progress "Downloading files..."
-BASE_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/2.0.0"
+BASE_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/$BRANCH"
 download_file vp-vm.sh
 download_file LICENSE
 download_file README.md
@@ -149,11 +219,11 @@ chmod +x "$vp_launcher_path"
 write_success "Launchers set up."
 
 write_progress "Creating required files..."
-echo "2.0.0" > "$VM_DIR/version.txt"
+echo "$VERSION" > "$VM_DIR/version.txt"
 
-write_success "Successfully installed Vocabulary Plus Version Manager 2.0.0."
+write_success "Successfully installed Vocabulary Plus Version Manager $VERSION_DISPLAY."
 echo ""
 write_info "Instructions and Help:"
 write_info "$BIN_DIR/vp-vm --help"
 write_info "$INSTALL_DIR/README.md"
-write_info "https://github.com/46Dimensions/vp-vm/blob/2.0.0/README.md"
+write_info "https://github.com/46Dimensions/vp-vm/blob/$BRANCH/README.md"
