@@ -106,6 +106,8 @@ function Add-ToUserPath {
     Write-Colour "Added to PATH: $NewPath" Green
 }
 
+Write-Logo
+
 # Set global variables
 $BASE_URL = "https://raw.githubusercontent.com/46Dimensions/vp-vm/$BRANCH"
 $VM_DIR = Join-Path $HOME ".vp-vm"
@@ -120,7 +122,7 @@ New-Item -ItemType Directory -Path "$BIN_DIR" -Force | Out-Null
 # Add bin directory to user's PATH
 Add-ToUserPath -NewPath "$BIN_DIR"
 
-function Get-File {
+function Save-RemoteFile {
     param(
         [string]$RemotePath
     )
@@ -133,9 +135,9 @@ function Get-File {
 }
 
 Write-Colour "Downloading files..." Cyan
-Get-File -RemotePath "vp-vm.ps1"
-Get-File -RemotePath "LICENSE"
-Get-File -RemotePath "README.md"
+Save-RemoteFile -RemotePath "vp-vm.ps1"
+Save-RemoteFile -RemotePath "LICENSE"
+Save-RemoteFile -RemotePath "README.md"
 Write-Colour "Downloaded files successfully." Green
 
 Write-Colour "Setting up launchers..." Cyan
