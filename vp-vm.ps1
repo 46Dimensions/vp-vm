@@ -32,7 +32,7 @@ $VP_VM_VERSION = Get-Content (Join-Path $MAIN_DIR "version.txt")
 $VP_VM_DISPLAY_VERSION = Get-Content (Join-Path $MAIN_DIR "version-display.txt")
 
 $computerInfo = Get-ComputerInfo -Property WindowsProductName, WindowsVersion, OsBuildNumber
-$WINDOWS_VERSION = "$($computerInfo.WindowsProductName) $($computerInfo.WindowsVersion) (build $($computerInfo.OsBuildNumber))"
+$WINDOWS_VERSION = "$($computerInfo.WindowsProductName) $($computerInfo.WindowsVersion)"
 
 New-Item -ItemType Directory -Path $MAIN_DIR -Force | Out-Null
 New-Item -ItemType Directory -Path $DOWNLOAD_DIR -Force | Out-Null
