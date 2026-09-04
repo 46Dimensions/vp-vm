@@ -437,6 +437,8 @@ Maintenance:
 EOF
 )
 
+write_logo
+
 # Handle arguments
 case "$1" in
     -h|--help)

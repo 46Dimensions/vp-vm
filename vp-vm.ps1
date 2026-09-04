@@ -456,6 +456,8 @@ Maintenance:
     update                  Update VP VM
 "@
 
+Write-Logo
+
 # Handle arguments
 switch ($args[0]) {
     { $_ -in '-h', '--help' } {
