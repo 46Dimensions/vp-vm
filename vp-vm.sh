@@ -37,7 +37,7 @@ write_logo() {
     echo "${purple} 🭦█🭐🭅█🭛    ${orange}██"
     echo "${purple}  🭖██🭡     ${orange}██${reset}"
     echo "VOCABULARY PLUS"
-    echo "Version Manager: macOS & Linux Setup (2.0.0)"
+    echo "Version Manager for $PLATFORM (2.0.0 Beta 1)"
     echo ""
 }
 
