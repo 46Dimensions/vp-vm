@@ -169,6 +169,6 @@ Set-Content -PAth "$VM_DIR\version-display.txt" -Value $VERSION_DISPLAY
 Write-Colour "Successfully installed Vocabulary Plus Version Manager $VERSION_DISPLAY" Green
 Write-Host ""
 Write-Colour "Instructions and Help:" Blue
-Write-Colour "$BIN_DIR/vp-vm --help" Blue
-Write-Colour "$INSTALL_DIR/README.md" Blue
+Write-Colour "vp-vm --help" Blue
+Write-Colour Join-Path $INSTALL_DIR "README.md" Blue
 Write-Colour "https://github.com/46Dimensions/vp-vm/blob/$BRANCH/README.md" Blue
