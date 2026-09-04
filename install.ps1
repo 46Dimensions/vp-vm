@@ -170,5 +170,5 @@ Write-Colour "Successfully installed Vocabulary Plus Version Manager $VERSION_DI
 Write-Host ""
 Write-Colour "Instructions and Help:" Blue
 Write-Colour "vp-vm --help" Blue
-Write-Colour Join-Path $INSTALL_DIR "README.md" Blue
+Write-Colour (Join-Path $INSTALL_DIR "README.md") Blue
 Write-Colour "https://github.com/46Dimensions/vp-vm/blob/$BRANCH/README.md" Blue
