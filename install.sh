@@ -176,6 +176,8 @@ download_file() {
 	curl -fsSL "$url" -o "$INSTALL_DIR/$filename" || { write_error "Unable to download $filename"; exit 1; }
 }
 
+write_logo
+
 VM_DIR="$HOME/.vp-vm"
 INSTALL_DIR="$VM_DIR/scripts"
 BIN_DIR="$HOME/.local/bin"
