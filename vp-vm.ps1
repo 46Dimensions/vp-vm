@@ -345,7 +345,7 @@ function Show-Info {
         Write-Host "Versions directory: $VERSIONS_DIR"
         Write-Host "Active executable:  $active_executable"
         Write-Host ""
-        Write-Host "Platform:           $WINDOWS_VERSION"
+        Write-Host "Platform:           $WINDOWS_VERSION ($env:PROCESSOR_ARCHITECTURE)"
         Write-Host "Shell:              PowerShell $($PSVersionTable.PSVersion)"
     }
     else {
