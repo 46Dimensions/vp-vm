@@ -2,6 +2,8 @@ $esc = [char]27
 $red = "$esc[31m"
 $cyan = "$esc[36m"
 $green = "$esc[32m"
+$purple = "$esc[38;5;93m"
+$orange = "$esc[38;5;208m"
 $reset = "$esc[0m"
 
 function Write-Colour {
@@ -34,17 +36,13 @@ New-Item -ItemType Directory -Path $DOWNLOAD_DIR -Force | Out-Null
 New-Item -ItemType Directory -Path $VERSIONS_DIR -Force | Out-Null
 
 function Write-Logo {
-    $esc = [char]27
-    $purple = "$esc[38;5;93m"
-    $orange = "$esc[38;5;208m"
-
     Write-Host "${purple}🭖█🭀  🭋█🭡   ${orange}██████🭏"
     Write-Host "${purple}🭦█🭐  🭅█🭛   ${orange}██   🭨█"
     Write-Host "${purple} 🭖█🭀🭋█🭡    ${orange}██████🭠"
     Write-Host "${purple} 🭦█🭐🭅█🭛    ${orange}██"
     Write-Host "${purple}  🭖██🭡     ${orange}██${reset}"
     Write-Host "VOCABULARY PLUS"
-    Write-Host "Version Manager: Windows Installation (2.0.0)"
+    Write-Host "Version Manager for Windows (2.0.0 Beta 1)"
     Write-Host ""
 }
 
