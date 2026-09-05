@@ -3,7 +3,7 @@ set -e
 
 VERSION="v2.0.0-beta1"
 VERSION_DISPLAY="2.0.0 Beta 1"
-VERSION_START="v2.0.0"
+DEVELOPMENT_BRANCH="2.0.0"
 
 check_branch_exists() {
     branch=$1
@@ -49,12 +49,12 @@ get_url() {
 
 main_branch_version=$(get_url "https://raw.githubusercontent.com/46Dimensions/vp-vm/main/VERSION.txt")
 case "$main_branch_version" in
-    "$VERSION_START"*)
+    *"$DEVELOPMENT_BRANCH"*)
         BRANCH="main"
         ;;
     *)
-        if check_branch_exists "$VERSION_START"; then
-            BRANCH="$VERSION_START"
+        if check_branch_exists "$DEVELOPMENT_BRANCH"; then
+            BRANCH="$DEVELOPMENT_BRANCH"
         else
             echo "Unable to determine download branch"
             exit 1

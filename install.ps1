@@ -6,7 +6,7 @@ $ErrorActionPreference = "Stop"
 
 $VERSION = "v2.0.0-beta1"
 $VERSION_DISPLAY = "2.0.0 Beta 1"
-$VERSION_START = "v2.0.0"
+$DEVELOPMENT_BRANCH = "2.0.0"
 
 function Test-BranchExists {
     param(
@@ -43,11 +43,11 @@ function Get-Url {
 }
 
 $main_branch_version = Get-Url "https://raw.githubusercontent.com/46Dimensions/vp-vm/main/VERSION.txt"
-if ($main_branch_version.StartsWith($VERSION_START)) {
+if ($main_branch_version -like $DEVELOPMENT_BRANCH) {
     $BRANCH = "main"
 }
-elseif (Test-BranchExists $VERSION_START) {
-    $BRANCH = $VERSION_START
+elseif (Test-BranchExists $DEVELOPMENT_BRANCH) {
+    $BRANCH = $DEVELOPMENT_BRANCH
 }
 else {
     throw "Unable to determine download branch"
