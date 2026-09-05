@@ -38,17 +38,6 @@ New-Item -ItemType Directory -Path $MAIN_DIR -Force | Out-Null
 New-Item -ItemType Directory -Path $DOWNLOAD_DIR -Force | Out-Null
 New-Item -ItemType Directory -Path $VERSIONS_DIR -Force | Out-Null
 
-function Write-Logo {
-    Write-Host "${purple}🭖█🭀  🭋█🭡   ${orange}██████🭏"
-    Write-Host "${purple}🭦█🭐  🭅█🭛   ${orange}██   🭨█"
-    Write-Host "${purple} 🭖█🭀🭋█🭡    ${orange}██████🭠"
-    Write-Host "${purple} 🭦█🭐🭅█🭛    ${orange}██"
-    Write-Host "${purple}  🭖██🭡     ${orange}██${reset}"
-    Write-Host "VOCABULARY PLUS"
-    Write-Host "Version Manager for Windows (2.0.0 Beta 1)"
-    Write-Host ""
-}
-
 function Convert-ToNormalizedVersion {
     param([string]$version)
 
@@ -456,8 +445,6 @@ Maintenance:
     cleanup                 Remove temporary files
     update                  Update VP VM
 "@
-
-Write-Logo
 
 # Handle arguments
 switch ($args[0]) {

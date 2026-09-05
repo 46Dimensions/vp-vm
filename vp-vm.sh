@@ -31,17 +31,6 @@ VP_VM_DISPLAY_VERSION=$(cat "$MAIN_DIR/version.txt")
 
 mkdir -p "$SCRIPTS_DIR" "$MAIN_DIR" "$DOWNLOAD_DIR" "$VERSIONS_DIR"
 
-write_logo() {
-    echo "${purple}🭖█🭀  🭋█🭡   ${orange}██████🭏"
-    echo "${purple}🭦█🭐  🭅█🭛   ${orange}██   🭨█"
-    echo "${purple} 🭖█🭀🭋█🭡    ${orange}██████🭠"
-    echo "${purple} 🭦█🭐🭅█🭛    ${orange}██"
-    echo "${purple}  🭖██🭡     ${orange}██${reset}"
-    echo "VOCABULARY PLUS"
-    echo "Version Manager for $PLATFORM (2.0.0 Beta 1)"
-    echo ""
-}
-
 write_progress() {
     message=$1
     echo "${cyan}${message}${reset}"
@@ -437,8 +426,6 @@ Maintenance:
     update                  Update VP VM
 EOF
 )
-
-write_logo
 
 # Handle arguments
 case "$1" in
