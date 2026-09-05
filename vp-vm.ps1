@@ -335,7 +335,7 @@ function Show-Info {
         $latest_version = Get-RemoteVersions | Select-LatestVersion
         $count = @(Get-InstalledVersions).Count
 
-        Write-Host "VP VM v$VP_VM_DISPLAY_VERSION"
+        Write-Host "VP VM $VP_VM_DISPLAY_VERSION"
         Write-Host ""
         Write-Host "Active version:     $current_version"
         Write-Host "Latest available:   $latest_version"
@@ -370,7 +370,7 @@ function Show-Info {
                 $active = "No"
             }
 
-            Write-Host "VP VM v$VP_VM_DISPLAY_VERSION"
+            Write-Host "VP VM $VP_VM_DISPLAY_VERSION"
             Write-Host ""
             Write-Host "Version: $normalised"
             Write-Host "Installed: $installed"
@@ -465,7 +465,7 @@ switch ($args[0]) {
         Write-Host $help_text
     }
     { $_ -in '-v', '--version' } {
-        Write-Host "Vocabulary Plus Version Manager v$VP_VM_DISPLAY_VERSION"
+        Write-Host "Vocabulary Plus Version Manager $VP_VM_DISPLAY_VERSION"
     }
     'install' {
         Install-Version $args[1]

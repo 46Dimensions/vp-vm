@@ -317,7 +317,7 @@ show_info() {
 
         count=$(list_installed_versions | grep -c '.')
 
-        echo "VP VM v$VP_VM_DISPLAY_VERSION"
+        echo "VP VM $VP_VM_DISPLAY_VERSION"
         echo ""
         echo "Active version:     $current_version"
         echo "Latest available:   $latest_version"
@@ -349,7 +349,7 @@ show_info() {
                 active="No"
             fi
 
-            echo "VP VM v$VP_VM_DISPLAY_VERSION"
+            echo "VP VM $VP_VM_DISPLAY_VERSION"
             echo ""
             echo "Version: $normalised"
             echo "Installed: $installed"
@@ -446,7 +446,7 @@ case "$1" in
         echo "$HELP_TEXT"
         ;;
     -v|--version)
-        echo "Vocabulary Plus Version Manager v$VP_VM_DISPLAY_VERSION"
+        echo "Vocabulary Plus Version Manager $VP_VM_DISPLAY_VERSION"
         ;;
     install)
         install_version "$2"
