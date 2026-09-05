@@ -2,8 +2,6 @@ $esc = [char]27
 $red = "$esc[31m"
 $cyan = "$esc[36m"
 $green = "$esc[32m"
-$purple = "$esc[38;5;93m"
-$orange = "$esc[38;5;208m"
 $reset = "$esc[0m"
 
 function Write-Colour {

@@ -6,8 +6,6 @@ green="\033[92m"
 yellow="\033[93m"
 cyan="\033[96m"
 blue="\033[38;5;33m"
-purple="\033[38;5;93m"
-orange="\033[38;5;208m"
 reset="\033[0m"
 
 # Global variables
