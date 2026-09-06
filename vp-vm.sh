@@ -176,7 +176,7 @@ unpack_zip() {
         write_progress "Unpacking ZIP file ${basename} (version $version)..."
 
         OUTPUT_DIR="$VERSIONS_DIR/$version"
-        unzip "$zip_file" -d "$OUTPUT_DIR" || { write_error "Failed to unzip file."; exit 1; }
+        unzip -q "$zip_file" -d "$OUTPUT_DIR" || { write_error "Failed to unzip file."; exit 1; }
     else
         write_error "ZIP file not found: $zip_file"
         return 1
