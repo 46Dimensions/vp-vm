@@ -50,7 +50,7 @@ elseif (Test-BranchExists $DEVELOPMENT_BRANCH) {
     $BRANCH = $DEVELOPMENT_BRANCH
 }
 else {
-    throw "Unable to determine download branch"
+    throw "Unable to determine download branch (404)"
 }
 
 # --- Colours ---

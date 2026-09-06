@@ -38,11 +38,11 @@ get_url() {
             ;;
         404)
             rm -f "$body"
-            return 1
+            return 4
             ;;
         *)
             rm -f "$body"
-            return 2
+            return 1
             ;;
     esac
 }
@@ -53,10 +53,14 @@ case "$main_branch_version" in
         BRANCH="main"
         ;;
     *)
-        if check_branch_exists "$DEVELOPMENT_BRANCH"; then
+        check_branch_exists "$DEVELOPMENT_BRANCH"
+        status=$?
+        if [ $status = 0 ]; then
             BRANCH="$DEVELOPMENT_BRANCH"
+        elif [ $status = 4 ]; then
+            echo "Unable to find branch $DEVELOPMENT_BRANCH (404)"
         else
-            echo "Unable to determine download branch"
+            echo "Unable to find branch $DEVELOPMENT_BRANCH (not 200 or 404)"
             exit 1
         fi
 esac
