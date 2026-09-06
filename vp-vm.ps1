@@ -379,10 +379,10 @@ function Test-Versions {
         $version = $_
 
         if (Test-VersionInstalled $version) {
-            "$version ✅"
+            Write-Colour "✓ $version" Green
         }
         else {
-            "$version ❌"
+            Write-Colour "✗ $version" Red
         }
     }
 }

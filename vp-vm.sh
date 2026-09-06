@@ -356,9 +356,9 @@ doctor() {
     printf '%s\n' "$(list_installed_versions)" |
     while IFS= read -r version; do
         if check_installed "$version"; then
-            echo "$version ✅"
+            write_success "✓ $version"
         else
-            echo "$version ❌"
+            write_error "✗ $version"
         fi
     done
 }
