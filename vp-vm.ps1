@@ -457,7 +457,8 @@ function Uninstall-Self {
 
     if (Confirm-Action "Continue?" -Yes:$Yes) {
         Remove-Item -Recurse -Force "$HOME\.vp-vm"
-    } else {
+    }
+    else {
         Write-Colour "Uninstallation cancelled." Blue
     }
 }
@@ -540,7 +541,10 @@ switch ($args[0]) {
         Write-Colour "Done." Green
     }
     'self-update' {
-        Update-Self $args[1]
+        Update-Self
+    }
+    'self-uninstall' {
+        Uninstall-Self $args[1]
     }
     default {
         Write-Error "Command '$($args[0])' not recognised."
