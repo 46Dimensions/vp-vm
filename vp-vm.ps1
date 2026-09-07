@@ -399,6 +399,23 @@ function Test-Versions {
     }
 }
 
+function Confirm-Action {
+    param (
+        [Parameter(Mandatory)]
+        [string]$Prompt,
+
+        [switch]$Yes
+    )
+
+    if ($Yes) {
+        return $true
+    }
+
+    $answer = Read-Host "$Prompt [y/N]"
+
+    return $answer -match '^(y|yes)$'
+}
+
 function Update-Self {
     function Get-Versions {
         (Invoke-RestMethod "https://api.github.com/repos/46Dimensions/vp-vm/tags?per_page=100").name |
@@ -427,6 +444,24 @@ function Update-Self {
     Invoke-Script $install_script_path
 }
 
+function Uninstall-Self {
+    param(
+        [Switch]$Yes
+    )
+    Write-Colour "VP VM will be completely uninstalled." Yellow
+    Write-Colour "This will remove:" Blue
+    Write-Colour "- Vocabulary Plus Version Manager" Blue
+    Write-Colour "- All installed Vocabulary Plus versions" Blue
+    Write-Colour "- Configuration and data" Blue
+    Write-Colour "- The $HOME/.vp-vm directory" Blue
+
+    if (Confirm-Action "Continue?" -Yes:$Yes) {
+        Remove-Item -Recurse -Force "$HOME\.vp-vm"
+    } else {
+        Write-Colour "Uninstallation cancelled." Blue
+    }
+}
+
 # Help
 $help_text = @"
 Vocabulary Plus Version Manager
@@ -435,25 +470,27 @@ Usage:
     vp-vm <command> [options]
 
 Options:
-    -h, --help              Show this help and exit
-    -v, --version           Show the current VP VM version and exit
+    -h, --help              Show this help message and exit
+    -v, --version           Show VP VM version and exit
 
 Core Commands:
-    install <version>       Install a VocabularyPlus version
-    uninstall <version>     Remove a version
+    install <version>       Install a Vocabulary Plus version
+    uninstall <version>     Uninstall a version
     use <version>           Make a version active
     list                    List installed versions
     list-remote             List available versions
 
 Information:
-    info [version]          Print information, optionally about [version]
-    where                   Print VP VM directory
-    which                   Print location of active executable
+    info [version]          Show information about a version
+    where                   Show the VP VM directory
+    which                   Show the location of the active executable
 
 Maintenance:
-    doctor                  Check that all versions have installed correctly
+    doctor                  Check that all versions are installed correctly
     cleanup                 Remove temporary files
-    update                  Update VP VM
+    self-update             Update VP VM
+    self-uninstall [--yes]  Uninstall VP VM and all Vocabulary Plus versions
+                            --yes  Skip confirmation
 "@
 
 # Handle arguments
@@ -502,8 +539,8 @@ switch ($args[0]) {
         Remove-Item "$DOWNLOAD_DIR\*" -Recurse -Force
         Write-Colour "Done." Green
     }
-    'update' {
-        Update-Self
+    'self-update' {
+        Update-Self $args[1]
     }
     default {
         Write-Error "Command '$($args[0])' not recognised."

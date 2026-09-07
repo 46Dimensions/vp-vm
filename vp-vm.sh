@@ -422,6 +422,24 @@ doctor() {
     done
 }
 
+confirm() {
+    printf '%s [y/N] ' "$1"
+
+    case "$2" in
+        -y|--yes)
+            answer="y"
+            ;;
+        *)
+            read -r answer
+            ;;
+    esac
+
+    case "$answer" in
+        y|Y|yes|YES|Yes) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
 update_self() {
     get_versions() {
         curl -fsSL "https://api.github.com/repos/46Dimensions/vp-vm/tags?per_page=100" |
@@ -453,6 +471,21 @@ update_self() {
     run_script "$INSTALL_SCRIPT_PATH"
 }
 
+uninstall_self() {
+    write_warning "VP VM will be completely uninstalled."
+    write_info "This will remove:"
+    write_info "- Vocabulary Plus Version Manager"
+    write_info "- All installed Vocabulary Plus versions"
+    write_info "- Configuration and data"
+    write_info "- The $HOME/.vp-vm directory"
+
+    if confirm "Continue?" "$1"; then
+        rm -rf "$HOME/.vp-vm"
+    else
+        write_info "Uninstallation cancelled."
+    fi
+}
+
 # Help
 HELP_TEXT=$(
 cat <<'EOF'
@@ -462,25 +495,27 @@ Usage:
     vp-vm <command> [options]
 
 Options:
-    -h, --help              Show this help and exit
-    -v, --version           Show the current VP VM version
+    -h, --help              Show this help message and exit
+    -v, --version           Show VP VM version and exit
 
 Core Commands:
-    install <version>       Install a VocabularyPlus version
-    uninstall <version>     Remove a version
+    install <version>       Install a Vocabulary Plus version
+    uninstall <version>     Uninstall a version
     use <version>           Make a version active
     list                    List installed versions
     list-remote             List available versions
 
 Information:
-    info [version]          Print information
-    where                   Print VP VM directory
-    which                   Print location of active executable
+    info [version]          Show information about a version
+    where                   Show the VP VM directory
+    which                   Show the location of the active executable
 
 Maintenance:
-    doctor                  Check that all versions have installed correctly
+    doctor                  Check that all versions are installed correctly
     cleanup                 Remove temporary files
-    update                  Update VP VM
+    self-update             Update VP VM
+    self-uninstall [--yes]  Uninstall VP VM and all Vocabulary Plus versions
+                            --yes  Skip confirmation
 EOF
 )
 
@@ -525,8 +560,11 @@ case "$1" in
         rm -rfv "${DOWNLOAD_DIR:?}"/*
         write_success "Done."
         ;;
-    update)
+    self-update)
         update_self
+        ;;
+    self-uninstall)
+        uninstall_self "$1"
         ;;
     *)
         write_error "Command '$1' not recognised."
