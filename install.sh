@@ -19,8 +19,7 @@ check_branch_exists() {
     elif [ "$status" = 404 ]; then
         return 1
     else
-        echo "Unable to detect download branch"
-        exit 1
+        return 2
     fi
 }
 
@@ -38,12 +37,15 @@ get_url() {
             ;;
         404)
             rm -f "$body"
-            return 4
+            return 44
             ;;
-        *)
+        401)
             rm -f "$body"
-            return 1
+            return 41
             ;;
+        500)
+            rm -f "$body"
+            return 5
     esac
 }
 
@@ -55,14 +57,24 @@ case "$main_branch_version" in
     *)
         check_branch_exists "$DEVELOPMENT_BRANCH"
         status=$?
-        if [ $status = 0 ]; then
-            BRANCH="$DEVELOPMENT_BRANCH"
-        elif [ $status = 4 ]; then
-            echo "Unable to find branch $DEVELOPMENT_BRANCH (404)"
-        else
-            echo "Unable to find branch $DEVELOPMENT_BRANCH (not 200 or 404)"
-            exit 1
-        fi
+        case "$status" in
+            0)
+                BRANCH="$DEVELOPMENT_BRANCH"
+                ;;
+            44)
+                echo "Unable to find development branch (404)"
+                ;;
+            41)
+                echo "Unable to find development branch (401)"
+                ;;
+            5)
+                echo "Unable to find development branch (500)"
+                ;;
+            *)
+                echo "Unable to find development branch (unknown error)"
+                ;;
+        esac
+        ;;
 esac
 
 # ANSI colours
