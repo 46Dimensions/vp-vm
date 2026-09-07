@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 set -e
 
-VERSION="v2.0.0-beta1"
-VERSION_DISPLAY="2.0.0 Beta 1"
+VERSION="v2.0.0-beta2"
+VERSION_DISPLAY="2.0.0 Beta 2"
 DEVELOPMENT_BRANCH="2.0.0"
 
 check_branch_exists() {
