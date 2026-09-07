@@ -13,6 +13,7 @@ SCRIPTS_DIR="$HOME/.vp-vm/scripts" # ~/.vp-vm/scripts
 MAIN_DIR="$(dirname -- "$SCRIPTS_DIR")" # ~/.vp-vm
 DOWNLOAD_DIR="$MAIN_DIR/download" # ~/.vp-vm/download
 VERSIONS_DIR="$MAIN_DIR/versions" # ~/.vp-vm/versions
+BIN_DIR="$HOME/.local/bin"
 
 KERNEL=$(uname)
 if [ "$KERNEL" = "Linux" ]; then
@@ -481,6 +482,8 @@ uninstall_self() {
 
     if confirm "Continue?" "$1"; then
         rm -rf "$HOME/.vp-vm"
+        rm -f "$BIN_DIR/vocabularyplus"
+        rm -f "$BIN_DIR/vp"
     else
         write_info "Uninstallation cancelled."
     fi

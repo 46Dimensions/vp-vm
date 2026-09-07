@@ -25,6 +25,7 @@ function Test-FileNotEmpty {
 $MAIN_DIR = Join-Path $HOME ".vp-vm"
 $DOWNLOAD_DIR = Join-Path "$MAIN_DIR" "download"
 $VERSIONS_DIR = Join-Path "$MAIN_DIR" "versions"
+$BIN_DIR = Join-Path $env:USERPROFILE "AppData" "Local" "Programs" "VocabularyPlus"
 
 $VP_VM_VERSION = Get-Content (Join-Path $MAIN_DIR "version.txt")
 $VP_VM_DISPLAY_VERSION = Get-Content (Join-Path $MAIN_DIR "version-display.txt")
@@ -457,6 +458,9 @@ function Uninstall-Self {
 
     if (Confirm-Action "Continue?" -Yes:$Yes) {
         Remove-Item -Recurse -Force "$HOME\.vp-vm"
+        Remove-Item -Force (Join-Path $BIN_DIR "vocabularyplus")
+        Remove-Item -Force (Join-Path $BIN_DIR "vp")
+        Write-Colour "Uninstallation complete" Cyan
     }
     else {
         Write-Colour "Uninstallation cancelled." Blue
