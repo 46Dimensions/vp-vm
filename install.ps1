@@ -163,21 +163,6 @@ Copy-Item $vocabularyplus_launcher_path $vp_launcher_path
 Write-Colour "Launchers set up." Green
 
 
-# --- Start Menu shortcut ---
-Write-Colour "Creating Start Menu shortcut..." Cyan
-
-$WshShell = New-Object -ComObject WScript.Shell
-$shortcutPath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Vocabulary Plus.lnk"
-$shortcut = $WshShell.CreateShortcut($shortcutPath)
-$shortcut.TargetPath = Join-Path $env:WINDIR 'System32\WindowsPowerShell\v1.0\powershell.exe'
-$shortcut.Arguments = "-NoProfile -ExecutionPolicy Bypass -File $(Join-Path $BIN_DIR "vocabularyplus")"
-$shortcut.IconLocation = Join-Path $VERSIONS_DIR $(Get-Content (Join-Path $VM_DIR "current.txt")) "icons" "icon_small.ico"
-$shortcut.WorkingDirectory = Join-Path $VERSIONS_DIR $(Get-Content (Join-Path $VM_DIR "current.txt"))
-$shortcut.Save()
-
-Write-Colour "Shortcut created." Green
-
-
 Write-Colour "Creating required files..." Cyan
 Set-Content -Path "$VM_DIR\version.txt" -Value $VERSION
 Set-Content -PAth "$VM_DIR\version-display.txt" -Value $VERSION_DISPLAY

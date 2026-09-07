@@ -258,6 +258,65 @@ set_default_version() {
         if [ -s "$VP_DIR/vocabularyplus" ]; then
             write_progress "Setting version $normalised as default..."
             echo "$normalised" > "$MAIN_DIR/current.txt"
+
+            if [ "$PLATFORM" = "Linux" ]; then
+                write_progress "Creating Linux desktop entry..."
+
+                DESKTOP_FILE="$HOME/.local/share/applications/vocabularyplus.desktop"
+                mkdir -p "$(dirname "$DESKTOP_FILE")"
+
+                cat > "$DESKTOP_FILE" <<EOF
+[Desktop Entry]
+Type=Application
+Name=Vocabulary Plus
+Exec=$VERSIONS_DIR/$(cat "$MAIN_DIR/current.txt")/vocabularyplus
+Icon=$VERSIONS_DIR/$(cat "$MAIN_DIR/current.txt")/icons/icon_small.png
+Terminal=true
+Categories=Education;
+EOF
+
+                chmod +x "$DESKTOP_FILE"
+                update-desktop-database ~/.local/share/applications 2>/dev/null || true
+                write_success "Linux desktop entry created successfully."
+            elif [ "$PLATFORM" = "MacOS" ]; then
+                write_progress "Creating macOS .app bundle..."
+
+                APP_DIR="$HOME/Applications/Vocabulary Plus.app"
+                mkdir -p "$APP_DIR/Contents/MacOS"
+                mkdir -p "$APP_DIR/Contents/Resources"
+
+                # Copy icon & convert to .icns if sips exists
+                cp "$VERSIONS_DIR/$(cat "$MAIN_DIR/current.txt")/icons/icon_small.png" "$APP_DIR/Contents/Resources/app_icon.png"
+                if command -v sips >/dev/null 2>&1; then
+                    sips -s format icns "$APP_DIR/Contents/Resources/app_icon.png" --out "$APP_DIR/Contents/Resources/app_icon.icns" >/dev/null 2>&1 || true
+                fi
+
+                # Launcher wrapper
+                cat > "$APP_DIR/Contents/MacOS/vocabularyplus" <<EOF
+#!/usr/bin/env sh
+open -a Terminal
+osascript  -e 'tell application "Terminal" to do script "$VERSIONS_DIR/$(cat "$MAIN_DIR/current.txt")"'
+EOF
+                chmod +x "$APP_DIR/Contents/MacOS/vocabularyplus"
+
+                # Info.plist
+                cat > "$APP_DIR/Contents/Info.plist" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+"http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleName</key><string>Vocabulary Plus</string>
+    <key>CFBundleExecutable</key><string>vocabularyplus</string>
+    <key>CFBundleIdentifier</key><string>com.vocabularyplus.app</string>
+    <key>CFBundleIconFile</key><string>app_icon.icns</string>
+</dict>
+</plist>
+EOF
+
+                write_success "macOS .app created: $APP_DIR"
+            fi
+
             write_success "Set version $version as default."
             write_info "You can now run 'vocabularyplus' to use it."
         else

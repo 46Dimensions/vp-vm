@@ -268,7 +268,19 @@ function Set-DefaultVersion {
 
         if (Test-FileNotEmpty (Join-Path $VP_DIR "vocabularyplus")) {
             Write-Colour "Setting version $normalised as default..." Cyan
+
             Set-Content -Path (Join-Path $MAIN_DIR "current.txt") -Value $normalised
+            
+            # --- Start Menu shortcut ---
+            $WshShell = New-Object -ComObject WScript.Shell
+            $shortcutPath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Vocabulary Plus.lnk"
+            $shortcut = $WshShell.CreateShortcut($shortcutPath)
+            $shortcut.TargetPath = Join-Path $env:WINDIR 'System32\WindowsPowerShell\v1.0\powershell.exe'
+            $shortcut.Arguments = "-NoProfile -ExecutionPolicy Bypass -File $(Join-Path $BIN_DIR "vocabularyplus")"
+            $shortcut.IconLocation = Join-Path $VERSIONS_DIR $(Get-Content (Join-Path $VM_DIR "current.txt")) "icons" "icon_small.ico"
+            $shortcut.WorkingDirectory = $VM_DIR
+            $shortcut.Save()
+
             Write-Colour "Set version $version as default." Green
             Write-Colour "You can now run 'vocabularyplus' to use it." Blue
         }
