@@ -57,7 +57,7 @@ write_error() {
 
 normalise_version() {
     version=$1
-    [ "$version" = latest ] && version=$(list_remote_versions | get_latest_version)
+    [ "$version" = "latest" ] && version=$(list_remote_versions | get_latest_version)
     case $version in v*) version=${version#v};; esac
 
     IFS=. read -r major minor rest <<EOF
