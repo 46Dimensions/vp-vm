@@ -484,7 +484,7 @@ uninstall_self() {
         rm -rf "$HOME/.vp-vm"
         rm -f "$BIN_DIR/vocabularyplus"
         rm -f "$BIN_DIR/vp"
-        rm -f "$BIN_DR/vp-vm"
+        rm -f "$BIN_DIR/vp-vm"
     else
         write_info "Uninstallation cancelled."
     fi
