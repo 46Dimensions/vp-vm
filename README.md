@@ -5,27 +5,65 @@
 This repository is where [46Dimensions](https://github.com/46Dimensions)
 develops [Vocabulary Plus](https://github.com/46Dimensions/VocabularyPlus)'s version manager (`vp-vm`).
 
-Vocabulary Plus Version Manager is a program which can be used to upgrade Vocabulary Plus
-to the latest version without losing your vocabulary files. It will also upgrade itself if necessary.
+Vocabulary Plus Version Manager is a program which can be used to install and manage multiple Vocabulary Plus versions side-by-side.
 
 ## Installation
 
-Vocabulary Plus Version Manager is available on macOS, Linux and Windows
-in version [`1.3.0`](https://github.com/46Dimensions/VocabularyPlus/tree/v1.3.0)
-or later of [Vocabulary Plus](https://github.com/46Dimensions/VocabularyPlus).
+To install VP VM, download and run the installation script.
 
-See [VocabularyPlus's README](https://github.com/46Dimensions/VocabularyPlus/blob/main/README.md)
-for installation instructions.
+### Windows
 
-## Running
+Run in **Windows Terminal** > **PowerShell**
 
-Once installed, you can run:
+``` powershell
+# Download the installation script
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/46Dimensions/vp-vm/2.0.0/install.ps1" -OutFile ".\install.ps1"
 
-- `vp-vm --help` to show all available commands
-- `vp-vm update` to update the package lists
-- `vp-vm upgrade` to upgrade Vocabulary Plus and Vocabulary Plus Version Manager if necessary
-- `vp-vm list-upgradable` to see upgradable packages
-- `vp-vm --version` to see the currently installed version of `vp-vm`
+# Run the script then remove it
+& .\install.ps1
+Remove-Item -Force -Path .\install.ps1
+```
+
+### MacOS/Linux
+
+Run in **Terminal** (name may vary)
+
+``` sh
+curl -fsSL "https://raw.githubusercontent.com/46Dimensions/vp-vm/2.0.0/install.sh" | sh
+```
+
+## Commands
+
+Usage: `vp-vm <command> [options]`
+
+### Options
+
+* `-h, --help` — Show this help message and exit
+* `-v, --version` — Show VP VM version and exit
+
+### Core Commands
+
+* `install <version>` — Install a Vocabulary Plus version
+* `uninstall <version>` — Uninstall a version
+* `use <version>` — Make a version active
+* `list` — List installed versions
+* `list-remote` — List available versions
+
+### Information
+
+* `info [version]` — Show information about a version
+* `where` — Show the VP VM directory
+* `which` — Show the location of the active executable
+
+### Maintenance
+
+* `doctor` — Check that all versions are installed correctly
+* `cleanup` — Remove temporary files
+* `self-update` — Update VP VM
+* `self-uninstall [--yes]` — Uninstall VP VM and all Vocabulary Plus versions
+
+  * `--yes` — Skip confirmation
+
 
 ## Issues
 
