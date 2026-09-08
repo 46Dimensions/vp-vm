@@ -152,7 +152,18 @@ exit `$LASTEXITCODE
 Write-Colour "- Vocabulary Plus launcher" Cyan
 $vocabularyplus_launcher_path = "$BIN_DIR\vocabularyplus.ps1"
 @"
-& "$VM_DIR\versions\`$(Get-Content "$VM_DIR\current.txt")\vocabularyplus"
+function Test-FileNotEmpty {
+    param([string]$Path)
+
+    (Test-Path $Path -PathType Leaf) -and (Get-Item $Path).Length -gt 0
+}
+
+if (!(Test-Path $Path -PathType Leaf) -and (Get-Item $Path).Length -gt 0) {
+    Write-Error "No default version set."
+    Write-Host "Use 'vp-vm use <version>' to set one" -ForegroundColor Blue
+}
+
+& `$(Join-Path $VM_DIR "versions" `$(Get-Content `$(Join-Path $VM_DIR "current.txt")) "vocabularyplus")
 exit `$LASTEXITCODE
 "@ | Set-Content $vocabularyplus_launcher_path
 

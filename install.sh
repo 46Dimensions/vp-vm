@@ -224,7 +224,13 @@ write_progress "- Vocabulary Plus launcher"
 vocabularyplus_launcher_path="$BIN_DIR/vocabularyplus"
 cat > "$vocabularyplus_launcher_path" <<EOF
 #!/usr/bin/env sh
-sh $VM_DIR/versions/\$(cat "$VM_DIR/current.txt")/vp-vm.sh \$@
+if [ ! -s "$VM_DIR/current.txt" ]; then
+    echo "$red No active version set.$reset"
+    echo "$blue Run 'vp-vm use <version>' to set one$reset"
+    exit 1
+fi
+
+sh $VM_DIR/versions/\$(cat "$VM_DIR/current.txt")/vocabularyplus \$@
 exit \$?
 EOF
 chmod +x "$vocabularyplus_launcher_path"
