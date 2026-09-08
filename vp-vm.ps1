@@ -224,6 +224,19 @@ function Install-Version {
                 exit 1
             }
         }
+
+        $VP_DIR = "$VERSIONS_DIR/$normalised"
+        $SETUP_SCRIPT_PATH = "$VP_DIR/installation/$PLATFORM/setup.sh"
+        Invoke-Script $SETUP_SCRIPT_PATH
+
+        if ($LASTEXITCODE -eq 0) {
+            Write-Host ""
+            Write-Colour "Successfully installed Vocabulary Plus $version." Green
+            Write-Colour "Run '$0 use $normalised' to make it the default." Blue
+        }
+        else {
+            Write-Error "Failed to install Vocabulary Plus $version"
+        }
     }
     else {
         Write-Error "Invalid version: '$version'"

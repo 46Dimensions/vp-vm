@@ -213,7 +213,7 @@ install_version() {
         VP_DIR="$VERSIONS_DIR/$normalised"
         SETUP_SCRIPT_PATH="$VP_DIR/installation/$PLATFORM/setup.sh"
 
-        run_script "$SETUP_SCRIPT_PATH"
+        run_script "$SETUP_SCRIPT_PATH" || { write_error "Failed to install Vocabulary Plus $version (exit code $?)"; exit 1; }
         
         echo ""
         write_success "Successfully installed Vocabulary Plus $version."
