@@ -2,7 +2,7 @@
 
 ![The Vocabulary Plus logo with the words 'Vocabulary Plus Version Manager' to the right of it](https://raw.githubusercontent.com/46Dimensions/vp-vm/v1.2.4/readme_logo.png)
 
-[!WARNING]
+> [!WARNING]
 > **VP VM 2.0.0 is currently in Beta.**
 >
 > This version is still under development and may contain bugs, incomplete features, or breaking changes.
