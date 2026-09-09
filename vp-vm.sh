@@ -233,15 +233,14 @@ uninstall_version() {
     if [ -n "$normalised" ]; then
         VP_DIR="$VERSIONS_DIR/$normalised"
 
-        if [ -s "$VP_DIR/uninstall" ]; then
+        if [ -d "$VP_DIR" ]; then
             write_progress "Uninstalling $normalised..."
-            run_script "$VP_DIR/uninstall"
 
-            if [ -d "$VP_DIR" ]; then
-                write_progress "Removing directory..."
-                rm -rv "$VP_DIR"
-            fi
+            rm -r "$VP_DIR"
             write_success "Successfully uninstalled Vocabulary Plus $normalised."
+        else
+            write_error "Version $version is not installed."
+            exit 1
         fi
     else
         write_error "Invalid version: '$version'"

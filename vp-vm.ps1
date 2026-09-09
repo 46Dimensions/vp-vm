@@ -254,19 +254,19 @@ function Uninstall-Version {
     if ($normalised) {
         $VP_DIR = Join-Path $VERSIONS_DIR $normalised
         
-        if (Test-FileNotEmpty (Join-Path $VP_DIR "uninstall.ps1")) {
+        if (Test-Path $VP_DIR) {
             Write-Colour "Uninstalling $normalised..." Cyan
-            Invoke-Script (Join-Path $VP_DIR "uninstall.ps1")
 
-            if (Test-Path $VP_DIR) {
-                Write-Colour "Removing directory..." Cyan
-                Remove-Item -Recurse $VP_DIR
-            }
+            Remove-Item -Recurse $VP_DIR
             Write-Colour "Successfully uninstalled Vocabulary Plus $normalised." Green
         }
         else {
-            Write-Error "Invalid version: '$version'"
+            Write-Error "Version $version is not installed."
+            exit 1
         }
+    }
+    else {
+        Write-Error "Invalid version: '$version'"
     }
 }
 
