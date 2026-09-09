@@ -207,6 +207,7 @@ install_version() {
 
             if [ ! -d "$VERSIONS_DIR/$normalised/installation" ]; then
                 write_error "Version $normalised is already installed."
+                exit 1
             fi
         fi
 
