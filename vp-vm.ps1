@@ -529,11 +529,9 @@ switch ($args[0]) {
         Set-DefaultVersion $args[1]
     }
     { $_ -in 'list', 'ls' } {
-        Write-Colour "Installed versions:" Blue
         Get-InstalledVersions
     }
     { $_ -in 'list-remote', 'ls-remote' } {
-        Write-Colour "Available versions:" Blue
         Get-RemoteVersions
     }
     'info' {
