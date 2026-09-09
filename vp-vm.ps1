@@ -295,7 +295,7 @@ function Set-DefaultVersion {
             $shortcut.WorkingDirectory = $VM_DIR
             $shortcut.Save()
 
-            Write-Colour "Set version $version as default." Green
+            Write-Colour "Set version $normalised as default." Green
             Write-Colour "You can now run 'vocabularyplus' to use it." Blue
         }
         else {

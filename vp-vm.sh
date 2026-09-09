@@ -318,7 +318,7 @@ EOF
                 write_success "macOS .app created: $APP_DIR"
             fi
 
-            write_success "Set version $version as default."
+            write_success "Set version $normalised as default."
             write_info "You can now run 'vocabularyplus' to use it."
         else
             write_error "Unable to find version $normalised."
@@ -544,7 +544,6 @@ case "$1" in
         list_installed_versions
         ;;
     list-remote|ls-remote)
-        write_info "Available versions:"
         list_remote_versions
         ;;
     info)
