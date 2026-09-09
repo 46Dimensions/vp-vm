@@ -4,8 +4,8 @@
 
 $ErrorActionPreference = "Stop"
 
-$VERSION = "v2.0.0-beta3"
-$VERSION_DISPLAY = "2.0.0 Beta 3"
+$VERSION = "v2.0.0-beta4"
+$VERSION_DISPLAY = "2.0.0 Beta 4"
 $DEVELOPMENT_BRANCH = "2.0.0"
 
 function Test-BranchExists {
