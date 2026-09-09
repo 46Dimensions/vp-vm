@@ -257,7 +257,19 @@ function Uninstall-Version {
         if (Test-Path $VP_DIR) {
             Write-Colour "Uninstalling $normalised..." Cyan
 
+            # If current.txt contains $normalised
+            if (Get-Content (Join-Path $MAIN_DIR "current.txt") -eq $normalised) {
+                Write-Colour "Deactivating $normalised..." Cyan
+
+                # Set current.txt to ""
+                Set-Content -Path (Join-Path $MAIN_DIR "current.txt") -Value ""
+
+                # Remove desktop app
+                Remove-Item -Force -Path (Join-Path $env:APPDATA "Microsoft" "Windows" "Start Menu" "Programs" "Vocabulary Plus.lnk")
+            }
+
             Remove-Item -Recurse $VP_DIR
+
             Write-Colour "Successfully uninstalled Vocabulary Plus $normalised." Green
         }
         else {
@@ -287,9 +299,9 @@ function Set-DefaultVersion {
             
             # --- Start Menu shortcut ---
             $WshShell = New-Object -ComObject WScript.Shell
-            $shortcutPath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Vocabulary Plus.lnk"
+            $shortcutPath = Join-Path $env:APPDATA "Microsoft" "Windows" "Start Menu" "Programs" "Vocabulary Plus.lnk"
             $shortcut = $WshShell.CreateShortcut($shortcutPath)
-            $shortcut.TargetPath = Join-Path $env:WINDIR 'System32\WindowsPowerShell\v1.0\powershell.exe'
+            $shortcut.TargetPath = Join-Path $env:WINDIR "System32" "WindowsPowerShell" "v1.0" "powershell.exe"
             $shortcut.Arguments = "-NoProfile -ExecutionPolicy Bypass -File $(Join-Path $BIN_DIR "vocabularyplus")"
             $shortcut.IconLocation = Join-Path $VERSIONS_DIR $(Get-Content (Join-Path $VM_DIR "current.txt")) "icons" "icon_small.ico"
             $shortcut.WorkingDirectory = $VM_DIR

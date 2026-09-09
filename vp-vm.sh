@@ -237,6 +237,21 @@ uninstall_version() {
             write_progress "Uninstalling $normalised..."
 
             rm -r "$VP_DIR"
+
+            if [ "$(cat "$MAIN_DIR/current.txt")" = "$normalised" ]; then
+                write_info "Deactivating $normalised..."
+
+                # Set current.txt to ""
+                echo "" > "$MAIN_DIR/current.txt"
+
+                # Remove desktop app
+                if [ "$PLATFORM" = "Linux" ]; then
+                    rm -f "$HOME/.local/share/applications/vocabularyplus.desktop"
+                elif [ "$PLATFORM" = "MacOS" ]; then
+                    rm -rf "$HOME/Applications/Vocabulary Plus.app"
+                fi
+            fi
+
             write_success "Successfully uninstalled Vocabulary Plus $normalised."
         else
             write_error "Version $version is not installed."
