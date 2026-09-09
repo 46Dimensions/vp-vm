@@ -140,6 +140,8 @@ list_remote_versions() {
         while IFS= read -r tag; do
             normalise_version "$tag"
         done
+
+    return 0
 }
 
 list_installed_versions() {
