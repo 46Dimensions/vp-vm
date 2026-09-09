@@ -567,7 +567,7 @@ case "$1" in
         update_self
         ;;
     self-uninstall)
-        uninstall_self "$1"
+        uninstall_self "$2"
         ;;
     *)
         write_error "Command '$1' not recognised."
